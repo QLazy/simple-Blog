@@ -7,16 +7,18 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.example.myBlog.entity.User;
+import com.example.myBlog.Mapper.IUser;
 
 @Controller
 public class myLand {
+	
 	@Autowired
-	User user;
+	IUser user;
+	
 	@RequestMapping("checkUser")
 	public String cheakUser(Model model,HttpServletRequest request) {
-		request.getSession().setAttribute("user", user);
-		System.out.println(user);
+		request.getSession().setAttribute("user", user.findUserByID(1));
+		System.out.println(user.findUserByID(1));
 		
 		return "redirect:/";
 	}

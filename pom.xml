@@ -34,7 +34,25 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-thymeleaf</artifactId>
         </dependency>
-
+		<!-- 引入mybatis框架 -->
+		<dependency>
+			 <groupId>org.mybatis</groupId>
+			 <artifactId>mybatis</artifactId>
+			 <version>3.5.1</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.mybatis.spring.boot</groupId>
+			<artifactId>mybatis-spring-boot-starter</artifactId>
+			<version>2.0.1</version>
+		</dependency>
+		<!-- 引入jQuery框架 -->
+		<dependency>
+		    <groupId>org.webjars</groupId>
+		    <artifactId>jquery</artifactId>
+		    <version>3.4.1</version>
+		</dependency>
+		
 	</dependencies>
 
 	<build>

@@ -1,7 +1,11 @@
-user: 
-  ID: 26
-  aa: QLzay
-  address: 杭州
-  age: 22
+spring:
+  datasource:
+    driver-class-name: oracle.jdbc.OracleDriver
+    url: jdbc:oracle:thin:@localhost:1521:ORCL
+    username: scott
+    password: tiger
+mybatis: 
+  mapper-locations: Mapper.xml
+  type-aliases-package: com.example.demo.Mapper
   
 
