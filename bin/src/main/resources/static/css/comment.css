@@ -1,0 +1,16 @@
+@charset "UTF-8";
+
+.stutable {
+	width:50%;
+	
+	margin: auto;
+}
+.check{
+	margin-left: 10px;
+}
+.check-color-green{
+	color: green;
+}
+.check-color-red{
+	color: red;
+}
