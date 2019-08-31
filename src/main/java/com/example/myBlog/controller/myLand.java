@@ -20,7 +20,8 @@ public class myLand {
 	IUser user;
 	
 	@RequestMapping("checkUser")
-	public String cheakUser(Model model,
+	public String cheakUser(
+			Model model,
 			HttpServletRequest request,
 			HttpServletResponse response
 			) {
