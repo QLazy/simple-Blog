@@ -25,10 +25,10 @@ public class myLand {
 			HttpServletRequest request,
 			HttpServletResponse response
 			) {
-		request.getSession().setAttribute("user", user.findUserByID(1));
+		//request.getSession().setAttribute("user", user.findUserByID(1));
 		String token = UUID.randomUUID().toString();
-		response.addCookie(new Cookie("token", token));
-		System.out.println(user.findUserByToken(""));
+		//response.addCookie(new Cookie("token", token));
+		System.out.println( user.findUserByToken(token));
 		
 		return "redirect:/";
 	}
