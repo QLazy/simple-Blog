@@ -28,7 +28,7 @@ public interface IUser {
 	
 	@Insert("insert into myuser(id,name,address,age,token) "+
 			"values("
-			+ "#{user.id},"
+			+ "Myuser_Id_Seq.Nextval,"
 			+ "#{myuser.name},"
 			+ "#{myuser.address},"
 			+ "#{myuser.age},"
