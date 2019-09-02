@@ -11,7 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.example.myBlog.Mapper.IUser;
+import com.example.myBlog.mapper.IUser;
 
 @Controller
 public class myLand {

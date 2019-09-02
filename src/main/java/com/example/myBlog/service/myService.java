@@ -8,8 +8,8 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.example.myBlog.Mapper.IUser;
 import com.example.myBlog.entity.myUser;
+import com.example.myBlog.mapper.IUser;
 
 @Service
 public class myService {
