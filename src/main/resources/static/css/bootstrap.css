@@ -1652,7 +1652,7 @@ pre code {
   width: 25%;
 }
 .col-xs-2 {
-  /* width: 16.66666667%; */
+  width: 16.66666667%;
 }
 .col-xs-1 {
   width: 8.33333333%;
@@ -2547,8 +2547,8 @@ output {
   color: #555;
 }
 .form-control {
-  display: online;
-  /* width: 50%; */
+  display: block;
+  width: 100%;
   height: 34px;
   padding: 6px 12px;
   font-size: 14px;
