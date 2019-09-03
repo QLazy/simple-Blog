@@ -12,7 +12,7 @@ import org.apache.ibatis.annotations.Update;
 import com.example.myBlog.entity.myUser;
 
 @Mapper
-public interface IUser {
+public interface userMapper {
 	
 	@Select("select * from myuser ")
 	public List<myUser> findAllUser();

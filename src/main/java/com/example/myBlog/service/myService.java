@@ -9,13 +9,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.myBlog.entity.myUser;
-import com.example.myBlog.mapper.IUser;
+import com.example.myBlog.mapper.userMapper;
 
 @Service
 public class myService {
 	
 	@Autowired
-	private IUser user;
+	private userMapper user;
 	//查询全部的用户
 	public List<myUser> queryAllUser() {
 		return user.findAllUser();

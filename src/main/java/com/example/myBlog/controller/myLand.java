@@ -11,13 +11,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.example.myBlog.mapper.IUser;
+import com.example.myBlog.mapper.userMapper;
 
 @Controller
 public class myLand {
 	
 	@Autowired
-	IUser user;
+	userMapper user;
 	
 	@RequestMapping("checkUser")
 	public String cheakUser(
