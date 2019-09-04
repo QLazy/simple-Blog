@@ -6,13 +6,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.example.myBlog.service.myService;
+import com.example.myBlog.service.myUserService;
 
 @Controller
 public class indexController {
 	
 	@Autowired
-	private myService myservice;
+	private myUserService myservice;
 	
 	@RequestMapping("/")
 	public String index(HttpServletRequest request) {

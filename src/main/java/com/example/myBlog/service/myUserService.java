@@ -12,17 +12,17 @@ import com.example.myBlog.entity.myUser;
 import com.example.myBlog.mapper.userMapper;
 
 @Service
-public class myService {
+public class myUserService {
 	
 	@Autowired
-	private userMapper user;
+	private userMapper usermapper;
 	//查询全部的用户
 	public List<myUser> queryAllUser() {
-		return user.findAllUser();
+		return usermapper.findAllUser();
 	}
 	//通过ID查询单个用户
 	public myUser queryUserById(int id) {
-		return user.findUserByID(id);
+		return usermapper.findUserByID(id);
 	}
 	//通过Token查询用户（用作校验）
 	public myUser queryUserByToken(HttpServletRequest request) {
@@ -33,18 +33,18 @@ public class myService {
 				token = cookie.getValue();
 			}
 		}
-		return user.findUserByToken(token);
+		return usermapper.findUserByToken(token);
 	}
 	//查询全部表（测试用）
 	public List<String> queryAlltab(){
-		return user.findAllTable();
+		return usermapper.findAllTable();
 	}
 	//增加用户
 	public boolean add(myUser myuser) {
 		if(queryUserById(myuser.getId())!=null) {
 			return false;
 		}
-		user.insert(myuser);
+		usermapper.insert(myuser);
 		return true;
 	}
 	//更新用户
@@ -52,7 +52,7 @@ public class myService {
 		if(queryUserById(myuser.getId())==null) {
 			return false;
 		}
-		user.updateUser(myuser);
+		usermapper.updateUser(myuser);
 		return true;
 	}
 	//删除用户
@@ -60,7 +60,7 @@ public class myService {
 		if(queryUserById(id)==null) {
 			return false;
 		}
-		user.delUserById(id);
+		usermapper.delUserById(id);
 		return true;
 	}
 }

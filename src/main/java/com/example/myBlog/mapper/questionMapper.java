@@ -10,9 +10,11 @@ import com.example.myBlog.entity.myQuestion;
 public interface questionMapper {
 
 	@Insert("insert into "
-			+ "user_question(title,description,gmt_create,gmt_modified,creator,tag)"
+			+ "user_question("
+			+ "id,title,description,gmt_create,gmt_modified,creator,tag)"
 			+ "values ("
-			+ "#{mq.title},#{mq.description},#{mq.gmtCreate},#{mq.gmtModified},#{mq.creator},#{mq.tag}"
+			+ "myQuestion_Id_Seq.Nextval, #{mq.title},#{mq.description},"
+			+ "#{mq.gmtCreate},#{mq.gmtModified},#{mq.creator},#{mq.tag}"
 			+ ")")
 	public void addQuestion(@Param("mq")myQuestion mq); 
 	
