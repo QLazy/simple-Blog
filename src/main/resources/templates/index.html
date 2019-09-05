@@ -9,6 +9,9 @@
 <!-- 可选的 Bootstrap 主题文件（一般不用引入） -->
 <link rel="stylesheet" href="css/bootstrap-theme.min.css">
 
+<!-- 自己写的css文件 -->
+<link rel="stylesheet" href="css/mycss.css">
+
 <!-- 引入jQuery.min.js文件，没这个文件下拉按钮失效-->
 <script src="js/jquery-1.11.1.min.js"></script>
 
@@ -55,31 +58,30 @@
 	</nav>
 	<div class="col-lg-9 col-md-12 col-sm-12 col-xs-12">
 		<h2>
-			<span class="glyphicon glyphicon-cloud" aria-hidden="true"></span> 发起
+			<span class="glyphicon glyphicon-list" aria-hidden="true"></span> 发现
 		</h2>
 		<hr>
-		<div class="media">
+		<div class="media" th:each="question:${questions}">
 			<div class="media-left">
 				<a href="#"> <img class="media-object"
-					src="https://avatars0.githubusercontent.com/u/49021259?s=400&v=4"
-					alt="..." style="height: 47px">
+					th:sre="@{question.user.headUrl}"
+					style="height: 47px">
 				</a>
 			</div>
 			<div class="media-body">
-				<h4 class="media-heading">name</h4>
-				description<br>
-				<span style="color: gray;">
-					1个关注·1个回复·1次浏览·1小时前
+				<h4 class="media-heading" th:text="${question.title}">name</h4>
+				<span th:text="${question.description}"></span>
+				<span class="text-desc">
+					<span th:text="${question.commentCount}"></span>个回复
+					<span th:text="${question.viewCount}"></span>·次浏览
+					<span th:text="${#dates.format(question.gmtCreate,'dd MMMM yyy')}"></span>
 				</span>
 			</div>
 		</div>
 
 	</div>
 	<div class="col-lg-3 col-md-12 col-sm-12 col-xs-12">
-		<h3>问题发布指南</h3>
-		* 问题标题：请用精简的语言描述您发布的问题，不超过25字； <br> *
-		问题补充：详细补充您的问题内容，并确保问题描述清晰直观，并提供一些相关的资料； <br> *
-		选择标签：选择一个或对个合适的标签，用逗号隔开，每个标签不超过10个字；<br>
+		<h3>热门话题</h3>
 	</div>
 
 </body>

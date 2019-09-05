@@ -1,8 +1,11 @@
 package com.example.myBlog.mapper;
 
+import java.util.List;
+
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Select;
 
 import com.example.myBlog.entity.myQuestion;
 
@@ -17,5 +20,9 @@ public interface questionMapper {
 			+ "#{question.gmtCreate},#{question.gmtModified},#{question.creator},#{question.tag}"
 			+ ")")
 	public void addQuestion(@Param("question")myQuestion question); 
+	
+	@Select("select * from user_question")
+	public List<myQuestion> findAllQuestion();
+	
 	
 }

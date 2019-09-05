@@ -10,4 +10,5 @@ public class myUser {
 	private String address;
 	private int age;
 	private String token;
+	private String headUrl;
 }

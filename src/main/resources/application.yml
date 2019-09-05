@@ -5,6 +5,8 @@ spring:
     username: scott
     password: tiger
 mybatis: 
+  configuration:
+    map-underscore-to-camel-case: true
   mapper-locations: Mapper.xml
   type-aliases-package: com.example.demo.Mapper
   

@@ -26,13 +26,14 @@ public interface userMapper {
 	@Select("select * from tab ")
 	public List<String> findAllTable();
 	
-	@Insert("insert into myuser(id,name,address,age,token) "+
+	@Insert("insert into myuser(id,name,address,age,token,headUrl) "+
 			"values("
 			+ "Myuser_Id_Seq.Nextval,"
 			+ "#{myuser.name},"
 			+ "#{myuser.address},"
 			+ "#{myuser.age},"
-			+ "#{myuser.token}"
+			+ "#{myuser.token},"
+			+ "#{myuser.headUrl}"
 			+ ")")
 	public void insert(@Param("myuser")myUser myuser);
 	
