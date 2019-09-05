@@ -1,0 +1,21 @@
+@charset "UTF-8";
+
+
+body{
+	background-color: #efefef;
+}
+
+.main{
+	margin: 30px;
+	background-color: white;
+}
+
+.btn-publish{
+	float: right;
+	margin-bottom: 10px;
+}
+
+.question-text{
+	color: red;
+	margin-left: 10px;	
+}

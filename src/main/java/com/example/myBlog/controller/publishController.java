@@ -40,30 +40,33 @@ public class publishController {
 		
 		
 		myUser user = myservice.queryUserByToken(request);
+		myQuestion question = new myQuestion();
 		
-		myQuestion mq = new myQuestion();
-		
+		model.addAttribute("title", title);
+		model.addAttribute("description", description);
+		model.addAttribute("tag", tag);
+		System.out.println(description);
 		if(title==null || title.equals("")) {
-			model.addAttribute("error", "标题不能为空");
-			return "publish";
-		}
-		if(tag==null || tag.equals("")) {
-			model.addAttribute("error", "标签不能为空");
+			model.addAttribute("error", "* 标题不能为空");
 			return "publish";
 		}
 		if(description==null || description.equals("")) {
-			model.addAttribute("error", "问题补充不能为空");
+			model.addAttribute("error", "* 问题补充不能为空");
+			return "publish";
+		}
+		if(tag==null || tag.equals("")) {
+			model.addAttribute("error", "* 标签不能为空");
 			return "publish";
 		}
 		
-		mq.setTitle(title);
-		mq.setTag(tag);
-		mq.setCreator(user.getId());
-		mq.setDescription(description);
-		mq.setGmtCreate(System.currentTimeMillis());
-		mq.setGmtModified(mq.getGmtCreate());
+		question.setTitle(title);
+		question.setTag(tag);
+		question.setCreator(user.getId());
+		question.setDescription(description);
+		question.setGmtCreate(System.currentTimeMillis());
+		question.setGmtModified(question.getGmtCreate());
 		
-		mqs.add(mq);
+		mqs.add(question);
 		
 		
 		return "publish";

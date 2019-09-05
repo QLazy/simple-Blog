@@ -13,9 +13,9 @@ public interface questionMapper {
 			+ "user_question("
 			+ "id,title,description,gmt_create,gmt_modified,creator,tag)"
 			+ "values ("
-			+ "myQuestion_Id_Seq.Nextval, #{mq.title},#{mq.description},"
-			+ "#{mq.gmtCreate},#{mq.gmtModified},#{mq.creator},#{mq.tag}"
+			+ "myQuestion_Id_Seq.Nextval,#{question.title},#{question.description},"
+			+ "#{question.gmtCreate},#{question.gmtModified},#{question.creator},#{question.tag}"
 			+ ")")
-	public void addQuestion(@Param("mq")myQuestion mq); 
+	public void addQuestion(@Param("question")myQuestion question); 
 	
 }
