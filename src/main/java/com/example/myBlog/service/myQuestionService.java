@@ -7,7 +7,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.example.myBlog.dto.pageInitDTO;
+import com.example.myBlog.dto.paginationDTO;
 import com.example.myBlog.dto.questionDTO;
 import com.example.myBlog.entity.myQuestion;
 import com.example.myBlog.entity.myUser;
@@ -28,34 +28,27 @@ public class myQuestionService {
 		questionmapper.addQuestion(mq);
 	}
 
-	public pageInitDTO queryAllQuestion(int page, int size) {
+	public paginationDTO queryAllQuestion(int page, int size) {
 
-		int pageStartData = size * (page - 1)+1;
-		
-		//orcal需要传入的是分页开始的数据点到结束的数据位置，不是MySQL的第几页与每页数据量
-		List<myQuestion> questions = questionmapper.findAllQuestion(pageStartData, size*page);
+		int pageStartData = size * (page - 1) + 1;
+
+		// orcal需要传入的是分页开始的数据点到结束的数据位置，不是MySQL的第几页与每页数据量
+		List<myQuestion> questions = questionmapper.findAllQuestion(pageStartData, size * page);
 		List<questionDTO> questionDTOList = new ArrayList<>();
-		pageInitDTO pageinitDTO = new pageInitDTO();
+		paginationDTO pageinitDTO = new paginationDTO();
+		int totalCount = questionmapper.countQuestionNum();
 
 		for (myQuestion question : questions) {
-			
+
 			questionDTO questionDTO = new questionDTO();
 			myUser user = usermapper.findUserByID(question.getCreator());
 			BeanUtils.copyProperties(question, questionDTO);
 			questionDTO.setUser(user);
 			questionDTOList.add(questionDTO);
 		}
-		int count = questionmapper.countQuestionNum();
-		int pages = (int)Math.ceil(count/size);
-		
-		pageinitDTO.setQuestions(questionDTOList);
-		pageinitDTO.setPage(page);
-		pageinitDTO.setPages(pages);
-		pageinitDTO.setShowEndPage(page<pages-1);
-		pageinitDTO.setShowFirstPage(page>2);
-		pageinitDTO.setShowNext(page<pages);
-		pageinitDTO.setShowPrvious(page>1);
-		
+
+		pageinitDTO.pagination(totalCount, page, size);
+
 		return pageinitDTO;
 	}
 

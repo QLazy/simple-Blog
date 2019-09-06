@@ -2,7 +2,6 @@ package com.example.myBlog.controller;
 
 import java.util.UUID;
 
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
