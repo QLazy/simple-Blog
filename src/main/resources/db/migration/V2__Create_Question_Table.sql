@@ -11,3 +11,8 @@ COMMENT_COUNT NUMBER(*, 0),
 LIKE_COUNT NUMBER(*, 0),
 TAG VARCHAR2(100 BYTE)
 );
+
+//创建序列，使用方法myQuestion_Id_Seq.Nextval
+CREATE SEQUENCE myQuestion_Id_Seq
+start with 1 
+increment by 1;

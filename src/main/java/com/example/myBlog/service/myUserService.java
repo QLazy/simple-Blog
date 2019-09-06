@@ -31,6 +31,7 @@ public class myUserService {
 		for(Cookie cookie:cookies) {
 			if("token".equals(cookie.getName())) {
 				token = cookie.getValue();
+				
 			}
 		}
 		return usermapper.findUserByToken(token);

@@ -26,14 +26,14 @@ public interface userMapper {
 	@Select("select * from tab ")
 	public List<String> findAllTable();
 	
-	@Insert("insert into myuser(id,name,address,age,token,headUrl) "+
+	@Insert("insert into myuser(id,name,address,age,token,avatarUrl) "+
 			"values("
 			+ "Myuser_Id_Seq.Nextval,"
 			+ "#{myuser.name},"
 			+ "#{myuser.address},"
 			+ "#{myuser.age},"
 			+ "#{myuser.token},"
-			+ "#{myuser.headUrl}"
+			+ "#{myuser.avatarUrl}"
 			+ ")")
 	public void insert(@Param("myuser")myUser myuser);
 	
@@ -43,7 +43,8 @@ public interface userMapper {
 	@Update("update myuser set "
 			+ "name=#{myuser.name},"
 			+ "address=#{myuser.address},"
-			+ "age=#{myuser.age} "
+			+ "age=#{myuser.age},"
+			+ "avatarUrl=#{myuser.avatarUrl} "
 			+ "where id = #{myuser.id}")
 	public void updateUser(@Param("myuser")myUser myuser);
 }

@@ -15,6 +15,12 @@
 ## 功能
 
 - 等全部写完再来添加
+
+## 辅助工具
+
+- 前端轮子库[Bootstrap](https://www.bootcss.com/)
+- GitHub项目树状显示插件[Octotree](http://www.cnplugins.com/devtool/octotree/download.html)
+
 ---
 **2019-8-27更新**
 
@@ -51,6 +57,10 @@
 ---
 **2019-9-5更新**
 
-- 增加首页问题显示功能
+- 增加首页问题列表显示功能
 
+---
+**2019-9-6更新**
+
+- 完善问题列表显示
 

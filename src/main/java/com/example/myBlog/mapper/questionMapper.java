@@ -21,8 +21,22 @@ public interface questionMapper {
 			+ ")")
 	public void addQuestion(@Param("question")myQuestion question); 
 	
-	@Select("select * from user_question")
-	public List<myQuestion> findAllQuestion();
+//	@Select("select * from user_question")
+	@Select("select * from"
+			+"("
+			+"select rownum r, t.* from"
+			+"(select s.* from user_question s order by id asc) t "
+			
+			+"where rownum<=#{size}"
+			+")"
+			+"where r>=#{pageStartData}") 
+	public List<myQuestion> findAllQuestion(@Param("pageStartData")int pageStartData, @Param("size")int size);
+	
+	
+	
+	
+	@Select("select count(1) from user_question")
+	public int countQuestionNum();
 	
 	
 }
