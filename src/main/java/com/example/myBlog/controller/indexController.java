@@ -26,7 +26,7 @@ public class indexController {
 			@RequestParam(name = "page", defaultValue = "1") int page,
 			@RequestParam(name = "size", defaultValue = "5") int size) {
 
-		paginationDTO pagination = questionService.queryAllQuestion(page, size);
+		paginationDTO pagination = questionService.queryAllQuestion(null,page, size);
 		request.getSession().setAttribute("user", userService.queryUserByToken(request));
 		model.addAttribute("pagination", pagination);
 

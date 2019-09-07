@@ -28,9 +28,14 @@ public class myQuestionService {
 		questionmapper.addQuestion(mq);
 	}
 
-	public paginationDTO queryAllQuestion(int page, int size) {
-
-		int totalCount = questionmapper.countQuestion();
+	public paginationDTO queryAllQuestion(myUser myuser,int page, int size) {
+		int totalCount = 0;
+		
+		if(myuser==null) {
+			totalCount = questionmapper.countQuestion();
+		}else {
+			totalCount = questionmapper.countQuestionById(myuser.getId());
+		}
 		int totalPages = (int) Math.ceil(totalCount * 1.0 / size);
 		
 		if (page > totalPages) {
