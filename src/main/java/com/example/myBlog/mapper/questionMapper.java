@@ -12,6 +12,8 @@ import com.example.myBlog.entity.myQuestion;
 @Mapper
 public interface questionMapper {
 
+	
+	//发布一个问题
 	@Insert("insert into "
 			+ "user_question("
 			+ "id,title,description,gmt_create,gmt_modified,creator,tag)"
@@ -21,22 +23,33 @@ public interface questionMapper {
 			+ ")")
 	public void addQuestion(@Param("question")myQuestion question); 
 	
-//	@Select("select * from user_question")
+	//分页查询全部数据
 	@Select("select * from"
 			+"("
 			+"select rownum r, t.* from"
-			+"(select s.* from user_question s order by id asc) t "
-			
+			+"(select * from user_question  order by id asc) t "
 			+"where rownum<=#{size}"
 			+")"
 			+"where r>=#{pageStartData}") 
-	public List<myQuestion> findAllQuestion(@Param("pageStartData")int pageStartData, @Param("size")int size);
+	public List<myQuestion> findAllQuestion(@Param("pageStartData") int pageStartData,@Param("size") int size);
+
+	//根据ID分页查询相应的数据
+	@Select("select * from"
+			+"("
+			+"select rownum r, t.* from"
+			+"(select * from user_question where id=#{id}) t "
+			+"where rownum<=#{size}"
+			+")"
+			+"where r>=#{pageStartData}") 
+	public List<myQuestion> findQuestionById(@Param("id")int id, @Param("pageStartData") int pageStartData,
+			@Param("size") int size);
 	
-	
-	
-	
+	//统计全部问题数量
 	@Select("select count(1) from user_question")
-	public int countQuestionNum();
+	public int countQuestion();
 	
-	
+	//根据ID统计相应的问题数量
+	@Select("select count(1) from user_question where id=#{id}")
+	public int countQuestionById(@Param("id")int id);
+
 }

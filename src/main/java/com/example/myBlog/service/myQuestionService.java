@@ -30,13 +30,21 @@ public class myQuestionService {
 
 	public paginationDTO queryAllQuestion(int page, int size) {
 
+		int totalCount = questionmapper.countQuestion();
+		int totalPages = (int) Math.ceil(totalCount * 1.0 / size);
+		
+		if (page > totalPages) {
+			page = totalPages;
+		} else if (page < 1) {
+			page = 1;
+		}
+
 		int pageStartData = size * (page - 1) + 1;
 
 		// orcal需要传入的是分页开始的数据点到结束的数据位置，不是MySQL的第几页与每页数据量
 		List<myQuestion> questions = questionmapper.findAllQuestion(pageStartData, size * page);
 		List<questionDTO> questionDTOList = new ArrayList<>();
-		paginationDTO pageinitDTO = new paginationDTO();
-		int totalCount = questionmapper.countQuestionNum();
+		paginationDTO paginationDTO = new paginationDTO();
 
 		for (myQuestion question : questions) {
 
@@ -46,10 +54,10 @@ public class myQuestionService {
 			questionDTO.setUser(user);
 			questionDTOList.add(questionDTO);
 		}
+		paginationDTO.setQuestions(questionDTOList);
+		paginationDTO.pagination(totalPages, page);
 
-		pageinitDTO.pagination(totalCount, page, size);
-
-		return pageinitDTO;
+		return paginationDTO;
 	}
 
 }

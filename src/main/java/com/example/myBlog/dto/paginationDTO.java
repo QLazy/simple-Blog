@@ -17,10 +17,10 @@ public class paginationDTO {
 	private int page;
 	private List<Integer> pages = new ArrayList<>();
 
-	public void pagination(int totalCount, int page, int size) {
+	public void pagination(int totalPages, int page) {
 		this.page = page;
-		this.totalPages = (int) Math.ceil(totalCount / size);
-
+		this.totalPages = totalPages;
+		
 		pages.add(page);
 		for (int i = 1; i < 4; i++) {
 			if (page - i > 0) {
