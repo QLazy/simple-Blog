@@ -17,9 +17,6 @@ import com.example.myBlog.service.myUserService;
 @Controller
 public class personController {
 
-	@Autowired
-	private myUserService userService;
-
 	private myQuestionService questionService;
 
 	@GetMapping("/person/{action}")
@@ -30,7 +27,11 @@ public class personController {
 		if ("myQuestions".equals(action)) {
 			model.addAttribute("section", "myQuestions");
 			model.addAttribute("sectionName", "我的提问");
-			myUser myuser = userService.queryUserByToken(request);
+			myUser myuser = (myUser) request.getSession().getAttribute("user");
+			if(myuser==null) {
+				return "redirect:/";
+				
+			}
 			paginationDTO pagination = questionService.queryAllQuestion(myuser, page, size);
 			model.addAttribute("pagination", pagination);
 		} else if ("myReplies".equals(action)) {

@@ -10,13 +10,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.myBlog.dto.paginationDTO;
 import com.example.myBlog.service.myQuestionService;
-import com.example.myBlog.service.myUserService;
 
 @Controller
 public class indexController {
-
-	@Autowired
-	private myUserService userService;
 
 	@Autowired
 	private myQuestionService questionService;
@@ -26,8 +22,7 @@ public class indexController {
 			@RequestParam(name = "page", defaultValue = "1") int page,
 			@RequestParam(name = "size", defaultValue = "5") int size) {
 
-		paginationDTO pagination = questionService.queryAllQuestion(null,page, size);
-		request.getSession().setAttribute("user", userService.queryUserByToken(request));
+		paginationDTO pagination = questionService.queryAllQuestion(null, page, size);
 		model.addAttribute("pagination", pagination);
 
 		return "index";
