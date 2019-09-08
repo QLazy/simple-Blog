@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>问题详情</title>
+<!-- 最新版本的 Bootstrap 核心 CSS 文件 -->
+<link rel="stylesheet" href="/css/bootstrap.min.css" />
+
+<!-- 可选的 Bootstrap 主题文件（一般不用引入） -->
+<link rel="stylesheet" href="/css/bootstrap-theme.min.css">
+
+<!-- 自己写的css文件 -->
+<link rel="stylesheet" href="/css/mycss.css">
+
+<!-- 引入jQuery.min.js文件，没这个文件下拉按钮失效-->
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+<!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+<script src="/js/bootstrap.min.js" type="text/javascript"></script>
+<body>
+	<div th:insert="~{navigation :: nav-top}"></div>
+
+	<div class="row main">
+		<div class="col-lg-9 col-md-12 col-sm-12 col-xs-12">
+			<h4>
+				<span class="glyphicon" aria-hidden="true"
+					th:text="${question.titel}"> </span>
+			</h4>
+			<span> 
+				标签：<span th:text="${question.tag}"></span> 
+				作者：<span th:text="${question.uesr.name}"></span> 
+				发布时间：<span th:text="${#dates.format(question.gmtCreate,'yyy MMM')}"></span>
+				阅读数：<span th:text="${question.viewCount}"></span>
+			</span>
+			<hr>
+			<span th:text="question.description"></span>
+			<hr>
+			<span class="glyphicon glyphicon-pencil">
+				<a th:href="@{'/publish/'+${question.id}}" style="color: #999;font-size: 12px">编辑</a>
+			</span>
+		</div>
+		<div class="col-lg-3 col-md-12 col-sm-12 col-xs-12">
+			<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+				<h3>发起人</h3>
+				<div class="media">
+					<div class="media-left">
+						<a href="#"> <img class="media-circle"
+							src="${question.user.avatarUrl}">
+						</a>
+					</div>
+					<div class="media-body">
+						<h4 class="media-heading" th:text="${question.user.name}"></h4>
+					</div>
+				</div>
+			</div>
+			<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+				<h3>相关问题</h3>
+			</div>
+		</div>
+	</div>
+
+
+
+</body>
+</html>

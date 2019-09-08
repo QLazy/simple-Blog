@@ -49,7 +49,10 @@ public interface questionMapper {
 	public int countQuestion();
 	
 	//根据ID统计相应的问题数量
-	@Select("select count(1) from user_question where id=#{id}")
+	@Select("select count(1) from user_question where crestor=#{id}")
 	public int countQuestionById(@Param("id")int id);
 
+	//根据ID统计相应的问题数量
+	@Select("select * from user_question where id=#{id}")
+	public myQuestion findQuestionById(@Param("id")int id);
 }

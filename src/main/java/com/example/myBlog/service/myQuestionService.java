@@ -28,16 +28,16 @@ public class myQuestionService {
 		questionmapper.addQuestion(mq);
 	}
 
-	public paginationDTO queryAllQuestion(myUser myuser,int page, int size) {
+	public paginationDTO queryAllQuestion(myUser myuser, int page, int size) {
 		int totalCount = 0;
-		
-		if(myuser==null) {
+
+		if (myuser == null) {
 			totalCount = questionmapper.countQuestion();
-		}else {
+		} else {
 			totalCount = questionmapper.countQuestionById(myuser.getId());
 		}
 		int totalPages = (int) Math.ceil(totalCount * 1.0 / size);
-		
+
 		if (page > totalPages) {
 			page = totalPages;
 		} else if (page < 1) {
@@ -63,6 +63,16 @@ public class myQuestionService {
 		paginationDTO.pagination(totalPages, page);
 
 		return paginationDTO;
+	}
+
+	public questionDTO queryQuestionById(int id) {
+
+		questionDTO questionDTO = new questionDTO();
+
+		myQuestion myquestion = questionmapper.findQuestionById(id);
+
+		BeanUtils.copyProperties(myquestion, questionDTO);
+		return questionDTO;
 	}
 
 }
