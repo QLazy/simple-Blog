@@ -52,9 +52,9 @@ public class publishController {
 		myUser user = (myUser) request.getSession().getAttribute("user");
 		myQuestion question = new myQuestion();
 
-		if(user==null) {
-			return "redirect:/";
-		}
+//		if(user==null) {
+//			return "redirect:/";
+//		}
 		
 		model.addAttribute("title", title);
 		model.addAttribute("description", description);
@@ -72,7 +72,7 @@ public class publishController {
 			model.addAttribute("error", "* 标签不能为空");
 			return "publish";
 		}
-		System.out.println(id);
+		
 		question.setTitle(title);
 		question.setTag(tag);
 		question.setCreator(user.getId());
