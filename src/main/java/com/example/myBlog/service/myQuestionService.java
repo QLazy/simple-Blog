@@ -24,8 +24,15 @@ public class myQuestionService {
 	private userMapper usermapper;
 
 	// 因为问题不存在重复
-	public void add(myQuestion mq) {
-		questionmapper.addQuestion(mq);
+	public void addOrUpdate(myQuestion question) {
+		if(question.getId()==0) {
+			question.setGmtModified(System.currentTimeMillis());
+			question.setGmtCreate(System.currentTimeMillis());
+			questionmapper.addQuestion(question);
+		}else {
+			question.setGmtModified(System.currentTimeMillis());
+			questionmapper.updateQuestion(question);
+		}
 	}
 
 	public paginationDTO queryAllQuestion(myUser myuser, int page, int size) {

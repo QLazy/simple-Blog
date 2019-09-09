@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
 import com.example.myBlog.entity.myQuestion;
 
@@ -23,6 +24,11 @@ public interface questionMapper {
 			+ ")")
 	public void addQuestion(@Param("question")myQuestion question); 
 	
+	// 更新一个问题
+	@Update("update user_question set title=#{question.title},description=#{question.description},"
+			+ "gmt_modified=#{question.gmtModified},tag=#{question.tag} where id=#{question.id}")
+	public void updateQuestion(@Param("question") myQuestion question);
+	
 	//分页查询全部数据
 	@Select("select * from"
 			+"("
@@ -37,11 +43,11 @@ public interface questionMapper {
 	@Select("select * from"
 			+"("
 			+"select rownum r, t.* from"
-			+"(select * from user_question where id=#{id}) t "
+			+"(select * from user_question where creator=#{id}) t "
 			+"where rownum<=#{size}"
 			+")"
 			+"where r>=#{pageStartData}") 
-	public List<myQuestion> findQuestionById(@Param("id")int id, @Param("pageStartData") int pageStartData,
+	public List<myQuestion> paginationById(@Param("id")int id, @Param("pageStartData") int pageStartData,
 			@Param("size") int size);
 	
 	//统计全部问题数量
@@ -49,10 +55,10 @@ public interface questionMapper {
 	public int countQuestion();
 	
 	//根据ID统计相应的问题数量
-	@Select("select count(1) from user_question where crestor=#{id}")
+	@Select("select count(1) from user_question where creator=#{id}")
 	public int countQuestionById(@Param("id")int id);
 
-	//根据ID统计相应的问题数量
+	//根据ID查找相应的问题
 	@Select("select * from user_question where id=#{id}")
 	public myQuestion findQuestionById(@Param("id")int id);
 }

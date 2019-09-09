@@ -6,9 +6,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.example.myBlog.dto.questionDTO;
 import com.example.myBlog.entity.myQuestion;
 import com.example.myBlog.entity.myUser;
 import com.example.myBlog.service.myQuestionService;
@@ -20,15 +22,32 @@ public class publishController {
 	myQuestionService questionService;
 
 	// get提交就渲染页面
-	@GetMapping("/publish")
-	public String getPublish() {
+	@GetMapping("/publish/{id}")
+	public String editPublish(Model model, @PathVariable(name = "id") int id) {
+
+		questionDTO questionDTO = questionService.queryQuestionById(id);
+		model.addAttribute("title", questionDTO.getTitle());
+		model.addAttribute("tag", questionDTO.getTag());
+		model.addAttribute("description", questionDTO.getDescription());
+		model.addAttribute("id", questionDTO.getId());
+		
 		return "publish";
 	}
-
+	
+	@GetMapping("/publish")
+	public String publish() {
+		return "publish";
+	}
+	
 	// 验证表单
 	@PostMapping("/publish")
-	public String postPublish(@RequestParam("title") String title, @RequestParam("description") String description,
-			@RequestParam("tag") String tag, HttpServletRequest request, Model model) {
+	public String postPublish(
+			@RequestParam("title") String title,
+			@RequestParam("description") String description,
+			@RequestParam("tag") String tag, 
+			@RequestParam("id")int id,
+			HttpServletRequest request, 
+			Model model) {
 
 		myUser user = (myUser) request.getSession().getAttribute("user");
 		myQuestion question = new myQuestion();
@@ -53,16 +72,15 @@ public class publishController {
 			model.addAttribute("error", "* 标签不能为空");
 			return "publish";
 		}
-
+		System.out.println(id);
 		question.setTitle(title);
 		question.setTag(tag);
 		question.setCreator(user.getId());
 		question.setDescription(description);
-		question.setGmtCreate(System.currentTimeMillis());
-		question.setGmtModified(question.getGmtCreate());
+		question.setId(id);
 
-		questionService.add(question);
+		questionService.addOrUpdate(question);
 
-		return "publish";
+		return "redirect:/";
 	}
 }

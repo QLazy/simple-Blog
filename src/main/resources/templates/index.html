@@ -29,8 +29,8 @@
 			<hr>
 			<div class="media" th:each="question:${pagination.questions}">
 				<div class="media-left">
-					<a href="#"> <img class="media-object"
-						th:src="${question.user.avatarUrl}" style="height: 47px">
+					<a href="#"> <img class="media-object img-rounded avatorUrl"
+						th:src="${question.user.avatarUrl}">
 					</a>
 				</div>
 				<div class="media-body">

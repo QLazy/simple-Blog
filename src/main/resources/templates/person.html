@@ -28,8 +28,8 @@
 			<hr>
 			<div class="media" th:each="question:${pagination.questions}">
 				<div class="media-left">
-					<a href="#"> <img class="media-object"
-						th:src="${question.user.avatarUrl}" style="height: 47px">
+					<a th:href="@{'/question/'+${question.id}}"> <img class="media-object avatorUrl"
+						th:src="${question.user.avatarUrl}" >
 					</a>
 				</div>
 				<div class="media-body">
@@ -47,23 +47,22 @@
 						aria-label="frist"> <span aria-hidden="true">&lt;&lt;</span>
 					</a></li>
 					<li th:if="${pagination.showPrvious}"><a
-						th:href="@{'/?page='+${pagination.page-1}}" aria-label="Previous">
+						th:href="@{'/person/myQuestions?page='+${pagination.page-1}}" aria-label="previous">
 							<span aria-hidden="true">&lt;</span>
 					</a></li>
 					<li th:each="page:${pagination.pages}"
 						th:class="${pagination.page==page}?'active':''"><a
-						th:href="@{'/?page='+${page}}" th:text="${page}"></a></li>
+						th:href="@{'/person/myQuestions?page='+${page}}" th:text="${page}"></a></li>
 					<li th:if="${pagination.showNext}"><a
-						th:href="@{'/?page='+${pagination.page+1}}" aria-label="Next">
+						th:href="@{'/person/myQuestions?page='+${pagination.page+1}}" aria-label="next">
 							<span aria-hidden="true">&gt;</span>
 					</a></li>
 					<li th:if="${pagination.showEndPage}"><a
-						th:href="@{'/?page='+${pagination.totalPages}}" aria-label="end">
+						th:href="@{'/person/myQuestions?page='+${pagination.totalPages}}" aria-label="end">
 							<span aria-hidden="true">&gt;&gt;</span>
 					</a></li>
 				</ul>
 			</nav>
-		</div>
 		</div>
 		<div class="col-lg-3 col-md-12 col-sm-12 col-xs-12">
 			<div class="list-group">
