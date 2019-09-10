@@ -1,10 +1,11 @@
 package com.example.myBlog.mapper;
 
+import java.util.List;
+
+import org.apache.ibatis.annotations.Param;
+
 import com.example.myBlog.entity.myUser;
 import com.example.myBlog.entity.myUserExample;
-import java.long.Integer;
-import java.util.List;
-import org.apache.ibatis.annotations.Param;
 
 public interface myUserMapper {
     /**

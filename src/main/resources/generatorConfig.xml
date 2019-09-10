@@ -26,13 +26,21 @@
     </sqlMapGenerator>
 
     <javaClientGenerator type="XMLMAPPER" targetPackage="com.example.myBlog.mapper"  targetProject="src\main\java">
-      <property name="enableSubPackages" value="true" />
+      <property name="enableSubPackages" value="true"/>
     </javaClientGenerator>
 
-    <table tableName="myuser" domainObjectName="myUser" >
+    <table tableName="myuser" domainObjectName="myUser">
     	<columnOverride column="id" javaType="java.long.Integer"></columnOverride>
     	<columnOverride column="age" javaType="java.long.Integer"></columnOverride>
     </table>
+    
+<!--     <table tableName="user_question" domainObjectName="myQuestion" > -->
+<!--     	<columnOverride column="id" javaType="java.long.Integer"></columnOverride> -->
+<!--     	<columnOverride column="creator" javaType="java.long.Integer"></columnOverride> -->
+<!--     	<columnOverride column="viewCount" javaType="java.long.Integer"></columnOverride> -->
+<!--     	<columnOverride column="commentCount" javaType="java.long.Integer"></columnOverride> -->
+<!--     	<columnOverride column="likeCount" javaType="java.long.Integer"></columnOverride> -->
+<!--     </table> -->
 
   </context>
 </generatorConfiguration>
