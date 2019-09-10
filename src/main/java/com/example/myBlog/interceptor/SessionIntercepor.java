@@ -1,5 +1,7 @@
 package com.example.myBlog.interceptor;
 
+import java.util.List;
+
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -10,14 +12,15 @@ import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.example.myBlog.entity.myUser;
-import com.example.myBlog.mapper.userMapper;
+import com.example.myBlog.entity.myUserExample;
+import com.example.myBlog.mapper.myUserMapper;
 
 @Component
 public class SessionIntercepor implements HandlerInterceptor {
 
 	
 	@Autowired
-	private userMapper usermapper;
+	private myUserMapper userMapper;
 	
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
@@ -30,11 +33,13 @@ public class SessionIntercepor implements HandlerInterceptor {
 				token = cookie.getValue();
 			}
 		}
-		myUser user = usermapper.findUserByToken(token);
-		request.getSession().setAttribute("user", user);
-		if(user==null) {
+		myUserExample myUserExample = new myUserExample();
+		myUserExample.createCriteria().andTokenEqualTo(token);
+		List<myUser> users = userMapper.selectByExample(myUserExample);
+		if(users.size()==0) {
 			return false;
 		}
+		request.getSession().setAttribute("user", users.get(0));
 		return true;
 	}
 

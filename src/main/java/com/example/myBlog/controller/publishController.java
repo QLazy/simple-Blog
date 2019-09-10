@@ -45,7 +45,7 @@ public class publishController {
 			@RequestParam("title") String title,
 			@RequestParam("description") String description,
 			@RequestParam("tag") String tag, 
-			@RequestParam(value="id",defaultValue = "0")int id,
+			@RequestParam(value = "id", defaultValue = "0") int id,
 			HttpServletRequest request, 
 			Model model) {
 

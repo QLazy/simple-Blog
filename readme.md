@@ -20,6 +20,20 @@
 
 - 前端轮子库[Bootstrap](https://www.bootcss.com/)
 - GitHub项目树状显示插件[Octotree](http://www.cnplugins.com/devtool/octotree/download.html)
+- [MyBatis Generator](http://www.mybatis.org/generator/index.html)
+
+## 脚本语言
+```
+//配置完MyBatis Generator后的运行语句,右击pom.xml->Run As->Maven Build
+mybatis-generator:generate
+
+//将本地的Oracle驱动导入本地仓库
+mvn install:install-file -Dfile=D:\ojdbc6.jar
+-DgroupId=com.oracle
+-DartifactId=ojdbc6
+-Dversion=11.2.0.4.0
+-Dpackaging=jar
+```
 
 ---
 **2019-8-27更新**
@@ -80,3 +94,7 @@
 
 - 增加个人问题更新功能
 
+---
+**2019-9-10更新**
+
+- 使用MyBatis Generator接管SQL语句

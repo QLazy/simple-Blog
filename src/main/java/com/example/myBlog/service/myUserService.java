@@ -1,5 +1,6 @@
 package com.example.myBlog.service;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import javax.servlet.http.Cookie;
@@ -9,20 +10,27 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.myBlog.entity.myUser;
-import com.example.myBlog.mapper.userMapper;
+import com.example.myBlog.entity.myUserExample;
+import com.example.myBlog.mapper.myUserMapper;
 
 @Service
 public class myUserService {
 	
 	@Autowired
-	private userMapper usermapper;
+	private myUserMapper userMapper;
+	
+	private myUserExample myUserExample = new myUserExample();
 	//查询全部的用户
 	public List<myUser> queryAllUser() {
-		return usermapper.findAllUser();
+		myUserExample.createCriteria().andIdIsNotNull();
+		List<myUser> users = userMapper.selectByExample(myUserExample);
+		return users;
 	}
 	//通过ID查询单个用户
 	public myUser queryUserById(int id) {
-		return usermapper.findUserByID(id);
+		myUserExample.createCriteria().andIdEqualTo(id);
+		List<myUser> myUser = userMapper.selectByExample(myUserExample);
+		return myUser.get(0);
 	}
 	//通过Token查询用户（用作校验）
 	public myUser queryUserByToken(HttpServletRequest request) {
@@ -34,18 +42,16 @@ public class myUserService {
 				
 			}
 		}
-		return usermapper.findUserByToken(token);
-	}
-	//查询全部表（测试用）
-	public List<String> queryAlltab(){
-		return usermapper.findAllTable();
+		myUserExample.createCriteria().andTokenEqualTo(token);
+		List<myUser> users = userMapper.selectByExample(myUserExample);
+		return users.get(0);
 	}
 	//增加用户
 	public boolean add(myUser myuser) {
 		if(queryUserById(myuser.getId())!=null) {
 			return false;
 		}
-		usermapper.insert(myuser);
+		userMapper.insert(myuser);
 		return true;
 	}
 	//更新用户
@@ -53,7 +59,7 @@ public class myUserService {
 		if(queryUserById(myuser.getId())==null) {
 			return false;
 		}
-		usermapper.updateUser(myuser);
+		userMapper.updateUser(myuser);
 		return true;
 	}
 	//删除用户
@@ -61,7 +67,7 @@ public class myUserService {
 		if(queryUserById(id)==null) {
 			return false;
 		}
-		usermapper.delUserById(id);
+		userMapper.delUserById(id);
 		return true;
 	}
 }
