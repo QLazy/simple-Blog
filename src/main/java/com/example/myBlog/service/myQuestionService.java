@@ -94,14 +94,13 @@ public class myQuestionService {
 		myUserExample myUserExample = new myUserExample();
 		QuestionDTO questionDTO = new QuestionDTO();
 
-		myQuestionExample.createCriteria().andIdEqualTo(id);
-		List<myQuestion> questions = questionMapper.selectByExample(myQuestionExample);
+		myQuestion question = questionMapper.selectByPrimaryKey(id);
 
-		if(questions==null) {
+		if(question==null) {
 			throw new CustomizeExcuption(CustomizeErrorCode.QUESTION_NOT_FOUND);
 		}
 		
-		BeanUtils.copyProperties(questions.get(0), questionDTO);
+		BeanUtils.copyProperties(question, questionDTO);
 
 		myUserExample.createCriteria().andIdEqualTo(questionDTO.getCreator());
 		List<myUser> users = userMapper.selectByExample(myUserExample);

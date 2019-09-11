@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.example.myBlog.service.myUserService;
 
 @Controller
-public class myLand {
+public class MyLand {
 	
 	@Autowired
 	private myUserService userService;

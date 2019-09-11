@@ -16,7 +16,7 @@ import com.example.myBlog.entity.myUser;
 import com.example.myBlog.service.myQuestionService;
 
 @Controller
-public class publishController {
+public class PublishController {
 
 	@Autowired
 	private myQuestionService questionService;

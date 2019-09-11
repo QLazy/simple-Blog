@@ -12,7 +12,7 @@ import com.example.myBlog.dto.PaginationDTO;
 import com.example.myBlog.service.myQuestionService;
 
 @Controller
-public class indexController {
+public class IndexController {
 
 	@Autowired
 	private myQuestionService questionService;

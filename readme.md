@@ -98,3 +98,8 @@ mvn install:install-file -Dfile=D:\ojdbc6.jar
 **2019-9-10更新**
 
 - 使用MyBatis Generator接管SQL语句
+
+---
+**2019-9-11更新**
+
+- 修改WhitePage error显示

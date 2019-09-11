@@ -12,7 +12,7 @@ import com.example.myBlog.dto.QuestionDTO;
 import com.example.myBlog.service.myQuestionService;
 
 @Controller
-public class questionController {
+public class QuestionController {
 
 	@Autowired
 	private myQuestionService questionService;
