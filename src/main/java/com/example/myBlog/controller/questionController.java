@@ -8,7 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
-import com.example.myBlog.dto.questionDTO;
+import com.example.myBlog.dto.QuestionDTO;
 import com.example.myBlog.service.myQuestionService;
 
 @Controller
@@ -20,7 +20,7 @@ public class questionController {
 	@GetMapping("/question/{id}")
 	public String question(@PathVariable(name = "id") int id, Model model, HttpServletRequest request) {
 
-		questionDTO questionDTO = questionService.queryQuestionById(id);
+		QuestionDTO questionDTO = questionService.queryQuestionById(id);
 
 		model.addAttribute("question", questionDTO);
 

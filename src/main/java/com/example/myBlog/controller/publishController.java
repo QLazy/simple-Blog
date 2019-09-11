@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.example.myBlog.dto.questionDTO;
+import com.example.myBlog.dto.QuestionDTO;
 import com.example.myBlog.entity.myQuestion;
 import com.example.myBlog.entity.myUser;
 import com.example.myBlog.service.myQuestionService;
@@ -25,7 +25,7 @@ public class publishController {
 	@GetMapping("/publish/{id}")
 	public String editPublish(Model model, @PathVariable(name = "id") int id) {
 
-		questionDTO questionDTO = questionService.queryQuestionById(id);
+		QuestionDTO questionDTO = questionService.queryQuestionById(id);
 		model.addAttribute("title", questionDTO.getTitle());
 		model.addAttribute("tag", questionDTO.getTag());
 		model.addAttribute("description", questionDTO.getDescription());

@@ -6,9 +6,9 @@ import java.util.List;
 import lombok.Data;
 
 @Data
-public class paginationDTO {
+public class PaginationDTO {
 
-	private List<questionDTO> questions;
+	private List<QuestionDTO> questions;
 	private boolean showPrvious;
 	private boolean showFirstPage;
 	private boolean showNext;

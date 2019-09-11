@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.example.myBlog.dto.paginationDTO;
+import com.example.myBlog.dto.PaginationDTO;
 import com.example.myBlog.entity.myUser;
 import com.example.myBlog.service.myQuestionService;
 
@@ -32,7 +32,7 @@ public class personController {
 				return "redirect:/";
 				
 			}
-			paginationDTO pagination = questionService.queryAllQuestion(myuser, page, size);
+			PaginationDTO pagination = questionService.queryAllQuestion(myuser, page, size);
 			model.addAttribute("pagination", pagination);
 		} else if ("myReplies".equals(action)) {
 			model.addAttribute("section", "myReplies");

@@ -8,12 +8,14 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.example.myBlog.dto.paginationDTO;
-import com.example.myBlog.dto.questionDTO;
+import com.example.myBlog.dto.PaginationDTO;
+import com.example.myBlog.dto.QuestionDTO;
 import com.example.myBlog.entity.myQuestion;
 import com.example.myBlog.entity.myQuestionExample;
 import com.example.myBlog.entity.myUser;
 import com.example.myBlog.entity.myUserExample;
+import com.example.myBlog.excuption.CustomizeErrorCode;
+import com.example.myBlog.excuption.CustomizeExcuption;
 import com.example.myBlog.mapper.myQuestionMapper;
 import com.example.myBlog.mapper.myUserMapper;
 
@@ -36,11 +38,14 @@ public class myQuestionService {
 		} else {
 			question.setGmtModified(System.currentTimeMillis());
 			myQuestionExample.createCriteria().andIdEqualTo(question.getId());
-			questionMapper.updateByExampleSelective(question, myQuestionExample);
+			int update = questionMapper.updateByExampleSelective(question, myQuestionExample);
+			if(update!=1) {
+				throw new CustomizeExcuption(CustomizeErrorCode.QUESTION_NOT_FOUND);
+			}
 		}
 	}
 
-	public paginationDTO queryAllQuestion(myUser myuser, int page, int size) {
+	public PaginationDTO queryAllQuestion(myUser myuser, int page, int size) {
 		myQuestionExample myQuestionExample = new myQuestionExample();
 		int totalCount = 0;
 
@@ -63,12 +68,12 @@ public class myQuestionService {
 		// orcal需要传入的是分页开始的数据点到结束的数据位置，不是MySQL的第几页与每页数据量
 		List<myQuestion> questions = questionMapper.selectByExampleWithRowbounds(myQuestionExample,
 				new RowBounds(pageStartData, size));
-		List<questionDTO> questionDTOList = new ArrayList<>();
-		paginationDTO paginationDTO = new paginationDTO();
+		List<QuestionDTO> questionDTOList = new ArrayList<>();
+		PaginationDTO paginationDTO = new PaginationDTO();
 
 		for (myQuestion question : questions) {
 
-			questionDTO questionDTO = new questionDTO();
+			QuestionDTO questionDTO = new QuestionDTO();
 
 			myUserExample userExample = new myUserExample();
 			userExample.createCriteria().andIdEqualTo(question.getCreator());
@@ -84,14 +89,18 @@ public class myQuestionService {
 		return paginationDTO;
 	}
 
-	public questionDTO queryQuestionById(int id) {
+	public QuestionDTO queryQuestionById(int id) {
 		myQuestionExample myQuestionExample = new myQuestionExample();
 		myUserExample myUserExample = new myUserExample();
-		questionDTO questionDTO = new questionDTO();
+		QuestionDTO questionDTO = new QuestionDTO();
 
 		myQuestionExample.createCriteria().andIdEqualTo(id);
 		List<myQuestion> questions = questionMapper.selectByExample(myQuestionExample);
 
+		if(questions==null) {
+			throw new CustomizeExcuption(CustomizeErrorCode.QUESTION_NOT_FOUND);
+		}
+		
 		BeanUtils.copyProperties(questions.get(0), questionDTO);
 
 		myUserExample.createCriteria().andIdEqualTo(questionDTO.getCreator());

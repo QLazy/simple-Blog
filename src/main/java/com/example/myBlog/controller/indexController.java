@@ -8,7 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.example.myBlog.dto.paginationDTO;
+import com.example.myBlog.dto.PaginationDTO;
 import com.example.myBlog.service.myQuestionService;
 
 @Controller
@@ -22,7 +22,7 @@ public class indexController {
 			@RequestParam(name = "page", defaultValue = "1") int page,
 			@RequestParam(name = "size", defaultValue = "5") int size) {
 
-		paginationDTO pagination = questionService.queryAllQuestion(null, page, size);
+		PaginationDTO pagination = questionService.queryAllQuestion(null, page, size);
 		model.addAttribute("pagination", pagination);
 
 		return "index";

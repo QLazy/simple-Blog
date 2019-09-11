@@ -5,7 +5,7 @@ import com.example.myBlog.entity.myUser;
 import lombok.Data;
 
 @Data
-public class questionDTO {
+public class QuestionDTO {
 	
 	private Integer id;
 	private String title;
