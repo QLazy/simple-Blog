@@ -6,6 +6,9 @@
 <generatorConfiguration>
 
   <context id="DB2Tables" targetRuntime="MyBatis3">
+  
+  	<plugin type="org.mybatis.generator.plugins.RowBoundsPlugin"></plugin>
+  	
     <jdbcConnection driverClass="oracle.jdbc.OracleDriver"
         connectionURL="jdbc:oracle:thin:@localhost:1521:ORCL"
         userId="scott"
@@ -30,17 +33,19 @@
     </javaClientGenerator>
 
     <table tableName="myuser" domainObjectName="myUser">
-    	<columnOverride column="id" javaType="java.long.Integer"></columnOverride>
-    	<columnOverride column="age" javaType="java.long.Integer"></columnOverride>
+    	<columnOverride column="id" javaType="java.lang.Integer"></columnOverride>
+    	<columnOverride column="age" javaType="java.lang.Integer"></columnOverride>
     </table>
     
-<!--     <table tableName="user_question" domainObjectName="myQuestion" > -->
-<!--     	<columnOverride column="id" javaType="java.long.Integer"></columnOverride> -->
-<!--     	<columnOverride column="creator" javaType="java.long.Integer"></columnOverride> -->
-<!--     	<columnOverride column="viewCount" javaType="java.long.Integer"></columnOverride> -->
-<!--     	<columnOverride column="commentCount" javaType="java.long.Integer"></columnOverride> -->
-<!--     	<columnOverride column="likeCount" javaType="java.long.Integer"></columnOverride> -->
-<!--     </table> -->
+    <table tableName="user_question" domainObjectName="myQuestion" >
+    	<columnOverride column="id" javaType="java.lang.Integer"></columnOverride>
+    	<columnOverride column="creator" javaType="java.lang.Integer"></columnOverride>
+    	<columnOverride column="gmt_Create" javaType="java.lang.Long"></columnOverride>
+    	<columnOverride column="gmt_Modified" javaType="java.lang.Long"></columnOverride>
+    	<columnOverride column="view_Count" javaType="java.lang.Integer"></columnOverride>
+    	<columnOverride column="comment_Count" javaType="java.lang.Integer"></columnOverride>
+    	<columnOverride column="like_Count" javaType="java.lang.Integer"></columnOverride>
+    </table>
 
   </context>
 </generatorConfiguration>

@@ -19,7 +19,7 @@ import com.example.myBlog.service.myQuestionService;
 public class publishController {
 
 	@Autowired
-	myQuestionService questionService;
+	private myQuestionService questionService;
 
 	// get提交就渲染页面
 	@GetMapping("/publish/{id}")

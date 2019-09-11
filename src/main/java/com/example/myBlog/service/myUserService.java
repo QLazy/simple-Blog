@@ -41,7 +41,6 @@ public class myUserService {
 		for (Cookie cookie : cookies) {
 			if ("token".equals(cookie.getName())) {
 				token = cookie.getValue();
-
 			}
 		}
 		myUserExample.createCriteria().andTokenEqualTo(token);

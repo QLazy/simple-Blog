@@ -10,13 +10,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.example.myBlog.mapper.userMapper;
+import com.example.myBlog.service.myUserService;
 
 @Controller
 public class myLand {
 	
 	@Autowired
-	userMapper user;
+	private myUserService userService;
 	
 	@RequestMapping("checkUser")
 	public String cheakUser(
@@ -27,7 +27,7 @@ public class myLand {
 		//request.getSession().setAttribute("user", user.findUserByID(1));
 		String token = UUID.randomUUID().toString();
 		//response.addCookie(new Cookie("token", token));
-		System.out.println( user.findUserByToken(token));
+		System.out.println( userService.queryUserByToken(request));
 		
 		return "redirect:/";
 	}

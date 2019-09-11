@@ -3,6 +3,7 @@ package com.example.myBlog.service;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.ibatis.session.RowBounds;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -10,38 +11,44 @@ import org.springframework.stereotype.Service;
 import com.example.myBlog.dto.paginationDTO;
 import com.example.myBlog.dto.questionDTO;
 import com.example.myBlog.entity.myQuestion;
+import com.example.myBlog.entity.myQuestionExample;
 import com.example.myBlog.entity.myUser;
-import com.example.myBlog.mapper.questionMapper;
-import com.example.myBlog.mapper.userMapper;
+import com.example.myBlog.entity.myUserExample;
+import com.example.myBlog.mapper.myQuestionMapper;
+import com.example.myBlog.mapper.myUserMapper;
 
 @Service
 public class myQuestionService {
 
 	@Autowired
-	private questionMapper questionmapper;
+	private myQuestionMapper questionMapper;
 
 	@Autowired
-	private userMapper usermapper;
+	private myUserMapper userMapper;
 
 	// 因为问题不存在重复
 	public void addOrUpdate(myQuestion question) {
-		if(question.getId()==0) {
+		myQuestionExample myQuestionExample = new myQuestionExample();
+		if (question.getId() == 0) {
 			question.setGmtModified(System.currentTimeMillis());
 			question.setGmtCreate(System.currentTimeMillis());
-			questionmapper.addQuestion(question);
-		}else {
+			questionMapper.insertSelective(question);
+		} else {
 			question.setGmtModified(System.currentTimeMillis());
-			questionmapper.updateQuestion(question);
+			myQuestionExample.createCriteria().andIdEqualTo(question.getId());
+			questionMapper.updateByExampleSelective(question, myQuestionExample);
 		}
 	}
 
 	public paginationDTO queryAllQuestion(myUser myuser, int page, int size) {
+		myQuestionExample myQuestionExample = new myQuestionExample();
 		int totalCount = 0;
 
 		if (myuser == null) {
-			totalCount = questionmapper.countQuestion();
+			totalCount = (int) questionMapper.countByExample(new myQuestionExample());
 		} else {
-			totalCount = questionmapper.countQuestionById(myuser.getId());
+			myQuestionExample.createCriteria().andCreatorEqualTo(myuser.getId());
+			totalCount = (int) questionMapper.countByExample(myQuestionExample);
 		}
 		int totalPages = (int) Math.ceil(totalCount * 1.0 / size);
 
@@ -51,19 +58,24 @@ public class myQuestionService {
 			page = 1;
 		}
 
-		int pageStartData = size * (page - 1) + 1;
+		int pageStartData = size * (page - 1);
 
 		// orcal需要传入的是分页开始的数据点到结束的数据位置，不是MySQL的第几页与每页数据量
-		List<myQuestion> questions = questionmapper.findAllQuestion(pageStartData, size * page);
+		List<myQuestion> questions = questionMapper.selectByExampleWithRowbounds(myQuestionExample,
+				new RowBounds(pageStartData, size));
 		List<questionDTO> questionDTOList = new ArrayList<>();
 		paginationDTO paginationDTO = new paginationDTO();
 
 		for (myQuestion question : questions) {
 
 			questionDTO questionDTO = new questionDTO();
-			myUser user = usermapper.findUserByID(question.getCreator());
+
+			myUserExample userExample = new myUserExample();
+			userExample.createCriteria().andIdEqualTo(question.getCreator());
+			List<myUser> users = userMapper.selectByExample(userExample);
+
 			BeanUtils.copyProperties(question, questionDTO);
-			questionDTO.setUser(user);
+			questionDTO.setUser(users.get(0));
 			questionDTOList.add(questionDTO);
 		}
 		paginationDTO.setQuestions(questionDTOList);
@@ -73,12 +85,20 @@ public class myQuestionService {
 	}
 
 	public questionDTO queryQuestionById(int id) {
-
+		myQuestionExample myQuestionExample = new myQuestionExample();
+		myUserExample myUserExample = new myUserExample();
 		questionDTO questionDTO = new questionDTO();
 
-		myQuestion myquestion = questionmapper.findQuestionById(id);
+		myQuestionExample.createCriteria().andIdEqualTo(id);
+		List<myQuestion> questions = questionMapper.selectByExample(myQuestionExample);
 
-		BeanUtils.copyProperties(myquestion, questionDTO);
+		BeanUtils.copyProperties(questions.get(0), questionDTO);
+
+		myUserExample.createCriteria().andIdEqualTo(questionDTO.getCreator());
+		List<myUser> users = userMapper.selectByExample(myUserExample);
+
+		questionDTO.setUser(users.get(0));
+
 		return questionDTO;
 	}
 
