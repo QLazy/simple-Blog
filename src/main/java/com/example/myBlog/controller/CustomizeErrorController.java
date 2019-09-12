@@ -10,11 +10,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.example.myBlog.excuption.CustomizeErrorCode;
-
 @Controller
 @RequestMapping("${server.error.path:${error.path:/error}}")
-public class CustomizeErrorContruller implements ErrorController {
+public class CustomizeErrorController implements ErrorController {
 
 	@Override
 	public String getErrorPath() {
@@ -25,12 +23,12 @@ public class CustomizeErrorContruller implements ErrorController {
 	@RequestMapping(produces = MediaType.TEXT_HTML_VALUE)
 	public ModelAndView errorHtml(HttpServletRequest request, Model model) {
 		HttpStatus status = getStatus(request);
-
+		
 		if (status.is4xxClientError()) {
-			model.addAttribute("message", CustomizeErrorCode.CLIENT_ERROR);
+			model.addAttribute("message", "可能这次问题是出在你那边了(￣３￣)a");
 		}
 		if (status.is5xxServerError()) {
-			model.addAttribute("message", CustomizeErrorCode.SERVICE_ERROR);
+			model.addAttribute("message", "服务器在烤壁虎了，等我吃吃完φ(>ω<*)");
 		}
 
 		return new ModelAndView("error");

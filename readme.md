@@ -103,3 +103,9 @@ mvn install:install-file -Dfile=D:\ojdbc6.jar
 **2019-9-11更新**
 
 - 修改WhitePage error显示
+
+---
+**2019-9-12更新**
+
+- 增加回复功能
+- 增加浏览数显示

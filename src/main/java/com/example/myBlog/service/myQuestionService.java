@@ -16,6 +16,7 @@ import com.example.myBlog.entity.myUser;
 import com.example.myBlog.entity.myUserExample;
 import com.example.myBlog.excuption.CustomizeErrorCode;
 import com.example.myBlog.excuption.CustomizeExcuption;
+import com.example.myBlog.mapper.myQuestionExtMapper;
 import com.example.myBlog.mapper.myQuestionMapper;
 import com.example.myBlog.mapper.myUserMapper;
 
@@ -28,6 +29,9 @@ public class myQuestionService {
 	@Autowired
 	private myUserMapper userMapper;
 
+	@Autowired
+	private myQuestionExtMapper questionExtMapper;
+
 	// 因为问题不存在重复
 	public void addOrUpdate(myQuestion question) {
 		myQuestionExample myQuestionExample = new myQuestionExample();
@@ -39,7 +43,7 @@ public class myQuestionService {
 			question.setGmtModified(System.currentTimeMillis());
 			myQuestionExample.createCriteria().andIdEqualTo(question.getId());
 			int update = questionMapper.updateByExampleSelective(question, myQuestionExample);
-			if(update!=1) {
+			if (update != 1) {
 				throw new CustomizeExcuption(CustomizeErrorCode.QUESTION_NOT_FOUND);
 			}
 		}
@@ -90,16 +94,15 @@ public class myQuestionService {
 	}
 
 	public QuestionDTO queryQuestionById(int id) {
-		myQuestionExample myQuestionExample = new myQuestionExample();
 		myUserExample myUserExample = new myUserExample();
 		QuestionDTO questionDTO = new QuestionDTO();
 
 		myQuestion question = questionMapper.selectByPrimaryKey(id);
 
-		if(question==null) {
+		if (question == null) {
 			throw new CustomizeExcuption(CustomizeErrorCode.QUESTION_NOT_FOUND);
 		}
-		
+
 		BeanUtils.copyProperties(question, questionDTO);
 
 		myUserExample.createCriteria().andIdEqualTo(questionDTO.getCreator());
@@ -108,6 +111,17 @@ public class myQuestionService {
 		questionDTO.setUser(users.get(0));
 
 		return questionDTO;
+	}
+
+	public void addViewCount(int id) {
+
+		myQuestion question = new myQuestion();
+		
+		question.setId(id);
+		question.setViewCount(1);
+
+		questionExtMapper.updateViewById(question);
+
 	}
 
 }

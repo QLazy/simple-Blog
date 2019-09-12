@@ -46,6 +46,15 @@
     	<columnOverride column="comment_Count" javaType="java.lang.Integer"></columnOverride>
     	<columnOverride column="like_Count" javaType="java.lang.Integer"></columnOverride>
     </table>
+    <table tableName="MyComment" domainObjectName="MyComment" >
+    	<columnOverride column="id" javaType="java.lang.Integer"></columnOverride>
+    	<columnOverride column="parent_Id" javaType="java.lang.Integer"></columnOverride>
+    	<columnOverride column="gmt_Create" javaType="java.lang.Long"></columnOverride>
+    	<columnOverride column="gmt_Modified" javaType="java.lang.Long"></columnOverride>
+    	<columnOverride column="commentator" javaType="java.lang.Integer"></columnOverride>
+    	<columnOverride column="parent_type" javaType="java.lang.Integer"></columnOverride>
+    	<columnOverride column="like_Count" javaType="java.lang.Integer"></columnOverride>
+    </table>
 
   </context>
 </generatorConfiguration>
