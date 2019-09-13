@@ -53,7 +53,7 @@ public class myUserService {
 		if (queryUserById(myuser.getId()) != null) {
 			return false;
 		}
-		userMapper.insert(myuser);
+		userMapper.insertSelective(myuser);
 		return true;
 	}
 
