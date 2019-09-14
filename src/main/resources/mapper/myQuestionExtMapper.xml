@@ -18,9 +18,14 @@
     <result column="LIKE_COUNT" jdbcType="DECIMAL" property="likeCount" />
     <result column="TAG" jdbcType="VARCHAR" property="tag" />
   </resultMap>
-  <update id="updateViewById" parameterType="com.example.myBlog.entity.myQuestion">
+  <update id="updateViewCount" parameterType="com.example.myBlog.entity.myQuestion">
     update USER_QUESTION
     set VIEW_COUNT = VIEW_COUNT+#{viewCount,jdbcType=DECIMAL}
+    where  ID = #{id,jdbcType=DECIMAL}
+  </update>
+  <update id="updateCommentCount" parameterType="com.example.myBlog.entity.myQuestion">
+    update USER_QUESTION
+    set COMMENT_COUNT = COMMENT_COUNT+#{commentCount,jdbcType=DECIMAL}
     where  ID = #{id,jdbcType=DECIMAL}
   </update>
 </mapper>

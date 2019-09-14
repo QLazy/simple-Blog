@@ -4,5 +4,6 @@ import com.example.myBlog.entity.myQuestion;
 
 public interface myQuestionExtMapper {
 	
-	int updateViewById(myQuestion record);
+	int updateViewCount(myQuestion record);
+	int updateCommentCount(myQuestion record);
 }

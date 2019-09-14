@@ -11,13 +11,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.myBlog.dto.PaginationDTO;
 import com.example.myBlog.entity.myUser;
-import com.example.myBlog.service.myQuestionService;
+import com.example.myBlog.service.QuestionService;
 
 @Controller
 public class PersonController {
 
 	@Autowired
-	private myQuestionService questionService;
+	private QuestionService questionService;
 
 	@GetMapping("/person/{action}")
 	public String person(@PathVariable("action") String action, Model model, HttpServletRequest request,

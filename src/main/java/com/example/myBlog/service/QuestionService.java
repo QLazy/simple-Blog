@@ -21,7 +21,7 @@ import com.example.myBlog.mapper.myQuestionMapper;
 import com.example.myBlog.mapper.myUserMapper;
 
 @Service
-public class myQuestionService {
+public class QuestionService {
 
 	@Autowired
 	private myQuestionMapper questionMapper;
@@ -120,7 +120,7 @@ public class myQuestionService {
 		question.setId(id);
 		question.setViewCount(1);
 
-		questionExtMapper.updateViewById(question);
+		questionExtMapper.updateViewCount(question);
 
 	}
 

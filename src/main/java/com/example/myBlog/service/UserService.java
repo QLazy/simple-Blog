@@ -13,7 +13,7 @@ import com.example.myBlog.entity.myUserExample;
 import com.example.myBlog.mapper.myUserMapper;
 
 @Service
-public class myUserService {
+public class UserService {
 
 	@Autowired
 	private myUserMapper userMapper;

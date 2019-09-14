@@ -13,13 +13,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.example.myBlog.dto.QuestionDTO;
 import com.example.myBlog.entity.myQuestion;
 import com.example.myBlog.entity.myUser;
-import com.example.myBlog.service.myQuestionService;
+import com.example.myBlog.service.QuestionService;
 
 @Controller
 public class PublishController {
 
 	@Autowired
-	private myQuestionService questionService;
+	private QuestionService questionService;
 
 	// get提交就渲染页面
 	@GetMapping("/publish/{id}")

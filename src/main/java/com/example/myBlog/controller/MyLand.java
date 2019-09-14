@@ -10,13 +10,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.example.myBlog.service.myUserService;
+import com.example.myBlog.service.UserService;
 
 @Controller
 public class MyLand {
 	
 	@Autowired
-	private myUserService userService;
+	private UserService userService;
 	
 	@RequestMapping("checkUser")
 	public String cheakUser(
