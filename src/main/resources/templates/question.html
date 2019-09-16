@@ -46,7 +46,7 @@
 				</a>
 			</div>
 			<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-				<div class="media">
+				<div class="media" id="commentUser">
 					<div class="media-left">
 						<a href="#"> <img class="media-object img-rounded avatorUrl"
 							th:src="${question.user.avatarUrl}">
@@ -57,7 +57,7 @@
 					</div>
 				</div>
 				<input type="hidden" th:value="${question.id}" id="question_id">
-				<textarea class="form-control comment" rows="6" id="comment_content"></textarea>
+				<textarea class="form-control comment" rows="6" id="commentContent"></textarea>
 				<button type="button" class="btn btn-success btn-publish"
 					id="commentSubmit" onclick="post()">回复</button>
 					

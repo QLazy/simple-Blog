@@ -18,6 +18,15 @@
 <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
 <script src="/js/bootstrap.min.js" type="text/javascript"></script>
 </head>
+
+<script type="text/javascript">
+	var closeFlag = window.localStorage.getItem("closeFlag");
+	if(closeFlag == "true"){
+		window.close();
+		window.localStorage.removeItem("closeFlag");
+	}
+</script>
+
 <body>
 	<div th:insert="~{navigation :: nav-top}"></div>
 	
