@@ -10,7 +10,7 @@
   	<plugin type="org.mybatis.generator.plugins.RowBoundsPlugin"></plugin>
   	
     <jdbcConnection driverClass="oracle.jdbc.OracleDriver"
-        connectionURL="jdbc:oracle:thin:@localhost:1521:ORCLe"
+        connectionURL="jdbc:oracle:thin:@localhost:1521:ORCL"
         userId="scott"
         password="tiger">
     </jdbcConnection>

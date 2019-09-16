@@ -20,7 +20,8 @@
 
 - 前端轮子库[Bootstrap](https://www.bootcss.com/)
 - GitHub项目树状显示插件[Octotree](http://www.cnplugins.com/devtool/octotree/download.html)
-- [MyBatis Generator](http://www.mybatis.org/generator/index.html)
+- SQL语句生成[MyBatis Generator](http://www.mybatis.org/generator/index.html)
+- 接口测试软件[Pastman](https://www.getpostman.com/downloads/)
 
 ## 脚本语言
 ```
@@ -53,7 +54,6 @@ mvn install:install-file -Dfile=D:\ojdbc6.jar
 - 使用数据库来储存用户信息
 - 使用Lombok来管理实体类
 - 使用了mybatis来管理数据库
-
 
 ---
 **2019-8-31更新**
@@ -111,7 +111,7 @@ mvn install:install-file -Dfile=D:\ojdbc6.jar
 - 增加浏览数显示
 
 ---
-***2019-9-14更新*
+**2019-9-14更新**
 
 - 完善评论后端逻辑
 - 增加评论数显示

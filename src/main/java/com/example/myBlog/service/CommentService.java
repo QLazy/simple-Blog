@@ -2,6 +2,7 @@ package com.example.myBlog.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.example.myBlog.entity.MyComment;
 import com.example.myBlog.entity.myQuestion;
@@ -24,6 +25,7 @@ public class CommentService {
 	@Autowired
 	private myQuestionExtMapper questionExtMapper;
 
+	@Transactional
 	public void insert(MyComment comment) {
 
 		if (comment.getParentId() == null || comment.getParentId() == 0) {
