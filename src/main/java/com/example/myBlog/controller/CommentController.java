@@ -24,6 +24,7 @@ public class CommentController {
 	@RequestMapping(path = "/comment", method = RequestMethod.POST)
 	public Object post(@RequestBody CommentDTO commentDTO, HttpServletRequest request) {
 
+		
 		MyComment myComment = new MyComment();
 //		myUser user = (myUser) request.getSession().getAttribute("user");
 
@@ -37,7 +38,7 @@ public class CommentController {
 		myComment.setGmtCreate(System.currentTimeMillis());
 		myComment.setGmtModified(System.currentTimeMillis());
 		myComment.setCommentator(1);
-
+		
 		commentService.insert(myComment);
 
 		return ResultDTO.succesOf();

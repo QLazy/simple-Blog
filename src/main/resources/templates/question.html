@@ -12,9 +12,6 @@
 <!-- 自己写的css文件 -->
 <link rel="stylesheet" href="/css/mycss.css">
 
-<!-- 自己写的js文件-->
-<script src="/js/myjs.js" type="text/javascript"></script>
-
 <!-- 引入jQuery.min.js文件，没这个文件下拉按钮失效-->
 <script src="/js/jquery-3.4.1.min.js" type="text/javascript"></script>
 
@@ -48,19 +45,16 @@
 			<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 				<div class="media" id="commentUser">
 					<div class="media-left">
-						<a href="#"> <img class="media-object img-rounded avatorUrl"
+						<a href="#"> <img class="media-object img-rounded avatorUrl-comment"
 							th:src="${question.user.avatarUrl}">
 						</a>
 					</div>
-					<div class="media-body">
-						<h4 class="media-heading" th:text="${question.user.name}"></h4>
+					<div class="media-body" id="commentBody">
+						<textarea class="form-control comment" rows="1" id="commentContent" style="height: 34PX;" placeholder=""></textarea>
+						<button type="button" class="btn btn-success btn-publish" id="commentSubmit" style="display: none;">回复</button>
 					</div>
 				</div>
 				<input type="hidden" th:value="${question.id}" id="question_id">
-				<textarea class="form-control comment" rows="6" id="commentContent"></textarea>
-				<button type="button" class="btn btn-success btn-publish"
-					id="commentSubmit" onclick="post()">回复</button>
-					
 			</div>
 		</div>
 		<div class="col-lg-3 col-md-12 col-sm-12 col-xs-12">
@@ -84,5 +78,7 @@
 			</div>
 		</div>
 	</div>
+	<!-- 自己写的js文件-->
+	<script src="/js/myjs.js" type="text/javascript"></script>
 </body>
 </html>

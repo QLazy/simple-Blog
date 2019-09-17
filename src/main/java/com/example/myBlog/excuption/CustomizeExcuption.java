@@ -11,7 +11,7 @@ public class CustomizeExcuption extends RuntimeException{
 	private int code;
 
 	public CustomizeExcuption(CustomizeErrorCode errorCode) {
-		this.message = errorCode.getMassage();
+		this.message = errorCode.getMessage();
 		this.code = errorCode.getCode();
 	}
 	

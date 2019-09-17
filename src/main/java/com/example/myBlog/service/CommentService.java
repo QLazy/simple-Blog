@@ -28,12 +28,17 @@ public class CommentService {
 	@Transactional
 	public void insert(MyComment comment) {
 
+		// 判断id是否为空
 		if (comment.getParentId() == null || comment.getParentId() == 0) {
 			throw new CustomizeExcuption(CustomizeErrorCode.TARGET_PARAM_NOT_FOUND);
 		}
-
+		// 判断评论类型是否错误
 		if (comment.getParentType() == null || !CommentTypeEnum.isExist(comment.getParentType())) {
 			throw new CustomizeExcuption(CustomizeErrorCode.TYPE_PARAM_ERROR);
+		}
+		// 判断评论内容是否为空或全为空格
+		if (comment.getContent().length()==0) {
+			throw new CustomizeExcuption(CustomizeErrorCode.COMMENT_NOT_NULL);
 		}
 
 		if (comment.getParentType() == CommentTypeEnum.COMMENT.getType()) {

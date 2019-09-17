@@ -50,7 +50,7 @@ public class CustomizeExcuptionHandle {
 			if (e instanceof CustomizeExcuption) {
 				model.addAttribute("message", e.getMessage());
 			} else {
-				model.addAttribute("message", CustomizeErrorCode.SERVICE_ERROR.getMassage());
+				model.addAttribute("message", CustomizeErrorCode.SERVICE_ERROR.getMessage());
 			}
 			
 			return new ModelAndView("error");

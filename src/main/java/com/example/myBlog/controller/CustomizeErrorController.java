@@ -27,10 +27,10 @@ public class CustomizeErrorController implements ErrorController {
 		HttpStatus status = getStatus(request);
 		
 		if (status.is4xxClientError()) {
-			model.addAttribute("message", CustomizeErrorCode.CLIENT_ERROR.getMassage());
+			model.addAttribute("message", CustomizeErrorCode.CLIENT_ERROR.getMessage());
 		}
 		if (status.is5xxServerError()) {
-			model.addAttribute("message", CustomizeErrorCode.SERVICE_ERROR.getMassage());
+			model.addAttribute("message", CustomizeErrorCode.SERVICE_ERROR.getMessage());
 		}
 
 		return new ModelAndView("error");

@@ -29,15 +29,19 @@ body {
 	height: 47px;
 }
 
+.avatorUrl-comment {
+	height: 34px;
+	margin-top: 10px;
+}
+
 .error-desc {
 	margin: 10%;
 }
 
-.media-body {
-	padding: 11px;
-	margin-left: -11px;
-}
-
 .comment {
 	margin: 10px 0px;
+}
+
+.comment-textarea {
+	height: 38px;
 }
