@@ -24,6 +24,7 @@
 
 	<div class="row main">
 		<div class="col-lg-9 col-md-12 col-sm-12 col-xs-12">
+			<!-- 提问详情 -->
 			<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 				<h4>
 					<span th:text="${question.title}"> </span>
@@ -42,6 +43,30 @@
 					<span class="glyphicon glyphicon-pencil"></span> 编辑
 				</a>
 			</div>
+			<!-- 评论内容 -->
+			<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+				<div class="media">
+					<div class="media-left" style="padding-right: 25px;">
+						<a href="#"> <img class="media-object img-rounded avatorUrl"
+							th:src="${question.user.avatarUrl}">
+						</a>
+					</div>
+					<div class="media-body">
+						<div class="comment-userName">
+							<span class="media-heading" th:text="${question.user.name}"></span>
+						</div>
+						<div class="comment-content">sadfasdfaf</div>
+						<div class="comment-menu">
+							<span th:text="${#dates.format(question.gmtCreate,'yyy-MM-dd HH:mm')}"></span>
+							<span class="glyphicon glyphicon-thumbs-up icon"></span>
+							<span class="glyphicon glyphicon-thumbs-down icon"></span>
+							<span class="comment-reply icon">回复</span>
+						</div>
+						<hr style="margin-top: 10px;">
+					</div>
+				</div>
+			</div>
+			<!-- 评论输入框 -->
 			<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 				<div class="media" id="commentUser">
 					<div class="media-left">
@@ -50,13 +75,14 @@
 						</a>
 					</div>
 					<div class="media-body" id="commentBody">
-						<textarea class="form-control comment" rows="1" id="commentContent" style="height: 34PX;" placeholder=""></textarea>
+						<textarea class="form-control comment" rows="1" id="commentContent" style="height: 34PX;" placeholder="想对作者说点什么吗"></textarea>
 						<button type="button" class="btn btn-success btn-publish" id="commentSubmit" style="display: none;">回复</button>
 					</div>
 				</div>
 				<input type="hidden" th:value="${question.id}" id="question_id">
 			</div>
 		</div>
+		<!-- 右侧显示栏 -->
 		<div class="col-lg-3 col-md-12 col-sm-12 col-xs-12">
 			<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 				<h3>发起人</h3>

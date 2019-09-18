@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.example.myBlog.dto.CommentDTO;
+import com.example.myBlog.dto.CommentCreatorDTO;
 import com.example.myBlog.dto.ResultDTO;
 import com.example.myBlog.entity.MyComment;
 import com.example.myBlog.service.CommentService;
@@ -22,7 +22,7 @@ public class CommentController {
 
 	@ResponseBody
 	@RequestMapping(path = "/comment", method = RequestMethod.POST)
-	public Object post(@RequestBody CommentDTO commentDTO, HttpServletRequest request) {
+	public Object post(@RequestBody CommentCreatorDTO commentDTO, HttpServletRequest request) {
 
 		
 		MyComment myComment = new MyComment();

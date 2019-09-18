@@ -115,3 +115,8 @@ mvn install:install-file -Dfile=D:\ojdbc6.jar
 
 - 完善评论后端逻辑
 - 增加评论数显示
+
+---
+**2019-9-18更新**
+
+- 增加前端一级评论显示
