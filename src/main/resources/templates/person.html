@@ -26,6 +26,7 @@
 				<span class="glyphicon glyphicon-list" aria-hidden="true" th:text="${sectionName}"></span>
 			</h2>
 			<hr>
+			<!-- 个人问题显示 -->
 			<div class="media" th:each="question:${pagination.questions}">
 				<div class="media-left">
 					<a th:href="@{'/question/'+${question.id}}"> <img class="media-object avatorUrl"
@@ -43,6 +44,7 @@
 					</span>
 				</div>
 			</div>
+			<!-- 分页 -->
 			<nav aria-label="Page navigation" style="float: right;">
 				<ul class="pagination">
 					<li th:if="${pagination.showFirstPage}"><a href="/?page=1"

@@ -77,14 +77,18 @@ public class CommentService {
 	public List<CommentDTO> queryCommentByQuestionId(int id) {
 		List<Integer> userIds = new ArrayList<>();
 
-		MyCommentExample example = new MyCommentExample();
-		example.createCriteria().andParentIdEqualTo(id).andParentTypeEqualTo(1);
-		List<MyComment> comments = commentMapper.selectByExample(example);
+		//根据问题id查询全部评论
+		MyCommentExample commentExample = new MyCommentExample();
+		commentExample.createCriteria().andParentIdEqualTo(id).andParentTypeEqualTo(1);
+		commentExample.setOrderByClause("gmt_create desc");
+		List<MyComment> comments = commentMapper.selectByExample(commentExample);
 
+		//获取全部评论用户ID，去重
 		Set<Integer> commentator = comments.stream().map(comment -> comment.getCommentator())
 				.collect(Collectors.toSet());
 		userIds.addAll(commentator);
 
+		//查询全部评论用户
 		myUserExample userExample = new myUserExample();
 		userExample.createCriteria().andIdIn(userIds);
 		List<myUser> users = userMapper.selectByExample(userExample);
