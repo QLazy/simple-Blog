@@ -24,9 +24,13 @@ body {
 	font-size: 12px;
 	font-weight: normal;
 }
-
+/* 头像  */
 .avatorUrl {
 	height: 47px;
+}
+
+.avatorUrl-second-comment {
+	height: 30px;
 }
 
 .avatorUrl-comment {
@@ -46,10 +50,9 @@ body {
 	height: 38px;
 }
 /* 回复评论  */
-
 .icon {
 	margin-left: 5px;
-	font-size: 14px;
+	font-size: 12px;
 	cursor: pointer;
 	display: inline-block;
 	padding: 0 5px;
@@ -58,20 +61,25 @@ body {
 
 .icon:hover {
 	color: #00a1d6;
+}
+
+.comment-handle:hover {
+	color: #00a1d6;
 	background: #e5e9ef;
 }
 
 .comment-menu {
 	color: #99a2aa;
+	font-size: 12px;
 }
 
 .comment-userName {
-	font-size: 13px;
-	font-weight: 700;
+	font-size: 12px;
 	line-height: 18px;
 	padding-bottom: 4px;
-	display: block;
+	/* 	display: block; */
 	word-wrap: break-word;
+	color: #00a1d6;
 }
 
 .comment-content {
@@ -86,4 +94,10 @@ body {
 
 .comment-hr {
 	margin-top: 10px;
+	margin-bottom: 10px;
+/* 	border-top: #00a1d6; */
+}
+/* 二级回复  */
+.media-body .media {
+	margin-top: 0;
 }

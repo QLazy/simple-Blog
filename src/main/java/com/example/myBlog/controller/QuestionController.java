@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 import com.example.myBlog.dto.CommentDTO;
 import com.example.myBlog.dto.QuestionDTO;
+import com.example.myBlog.enums.CommentTypeEnum;
 import com.example.myBlog.service.CommentService;
 import com.example.myBlog.service.QuestionService;
 
@@ -29,7 +30,7 @@ public class QuestionController {
 
 		QuestionDTO questionDTO = questionService.queryQuestionById(id);
 
-		List<CommentDTO> comments = commentService.queryCommentByQuestionId(id);
+		List<CommentDTO> comments = commentService.queryCommentByType(id,CommentTypeEnum.QUESTION);
 		
 		//增加浏览数显示
 		questionService.addViewCount(id);

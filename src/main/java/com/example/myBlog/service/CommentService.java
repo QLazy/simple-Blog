@@ -74,13 +74,17 @@ public class CommentService {
 		commentMapper.insertSelective(comment);
 	}
 
-	public List<CommentDTO> queryCommentByQuestionId(int id) {
+	public List<CommentDTO> queryCommentByType(int id ,CommentTypeEnum type) {
 		List<Integer> userIds = new ArrayList<>();
 
 		//根据问题id查询全部评论
 		MyCommentExample commentExample = new MyCommentExample();
-		commentExample.createCriteria().andParentIdEqualTo(id).andParentTypeEqualTo(1);
-		commentExample.setOrderByClause("gmt_create desc");
+		commentExample.createCriteria().andParentIdEqualTo(id).andParentTypeEqualTo(type.getType());
+		if(type == CommentTypeEnum.QUESTION) {
+			commentExample.setOrderByClause("gmt_create desc");
+		}else if(type == CommentTypeEnum.COMMENT) {
+			commentExample.setOrderByClause("gmt_create asc");
+		}
 		List<MyComment> comments = commentMapper.selectByExample(commentExample);
 
 		//获取全部评论用户ID，去重
@@ -88,6 +92,11 @@ public class CommentService {
 				.collect(Collectors.toSet());
 		userIds.addAll(commentator);
 
+		//判断是否有评论
+		if(userIds.size()==0) {
+			return new ArrayList<>();
+		}
+		
 		//查询全部评论用户
 		myUserExample userExample = new myUserExample();
 		userExample.createCriteria().andIdIn(userIds);

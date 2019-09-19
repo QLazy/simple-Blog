@@ -2,7 +2,8 @@ package com.example.myBlog.enums;
 
 public enum CommentTypeEnum {
 	QUESTION(1),
-	COMMENT(2);
+	COMMENT(2),
+	REPLY(3);
 	
 	private int type;
 
