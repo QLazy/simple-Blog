@@ -13,6 +13,9 @@
 <link rel="stylesheet" href="/css/mycss.css">
 
 <!-- 引入jQuery.min.js文件，没这个文件下拉按钮失效-->
+<script src="/js/moment.js" type="text/javascript"></script>
+
+<!-- 引入jQuery.min.js文件，没这个文件下拉按钮失效-->
 <script src="/js/jquery-3.4.1.min.js" type="text/javascript"></script>
 
 <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
@@ -65,7 +68,7 @@
 								th:text="${#dates.format(comment.gmtCreate,'yyy-MM-dd HH:mm')}"></span>
 							<span class="glyphicon glyphicon-thumbs-up icon"></span> <span
 								class="glyphicon glyphicon-thumbs-down icon"></span> <span
-								class="icon comment-handle" th:data-id="${comment.id}" onclick="collapseComment(this)">回复</span> <span
+								class="icon comment-handle" th:data-id="${comment.id}" id="comment-reply">回复</span> <span
 								class="icon comment-handle">删除</span>
 						</div>
 						<hr class="comment-hr">
@@ -81,7 +84,7 @@
 								</a>
 							</div>
 							<div class="media-body">
-								<div>
+								<div class="second-commend-body">
 									<span class="media-heading comment-userName"
 										th:text="${comment.user.name +'&nbsp; ：'}"></span> <span
 										class="comment-content" th:text="${comment.content}"></span>

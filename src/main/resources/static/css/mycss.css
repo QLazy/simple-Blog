@@ -71,6 +71,7 @@ body {
 .comment-menu {
 	color: #99a2aa;
 	font-size: 12px;
+	margin-top: 10px;
 }
 
 .comment-userName {
@@ -95,9 +96,13 @@ body {
 .comment-hr {
 	margin-top: 10px;
 	margin-bottom: 10px;
-/* 	border-top: #00a1d6; */
+	/* 	border-top: #00a1d6; */
 }
 /* 二级回复  */
 .media-body .media {
 	margin-top: 0;
+}
+
+.second-commend-body {
+	margin-top: 5px;
 }

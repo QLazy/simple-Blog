@@ -16,8 +16,8 @@ function commentSecond(data) {
 	commentBody(id, 2, content);
 }
 // 增加二级评论显示
-function collapseComment(a) {
-	var id = a.getAttribute("data-id");
+(function collapseComment() {
+	var id = $("#comment-reply").attr("data-id");
 	$.getJSON("/comment/" + id, function(data) {
 		var comments = $("#comment-" + id);
 		$.each(data.data.reverse(), function(index, comment) {
@@ -53,7 +53,7 @@ function collapseComment(a) {
 			})
 			// 显示评论时间
 			var commentTimeElement = $("<span/>", {
-
+				"html":moment(comment.gmtCreate).format('YYYY-MM-DD HH:mm')
 			})
 			// 显示评论菜单
 			var commentMenuElement = $("<div/>", {
@@ -88,7 +88,8 @@ function collapseComment(a) {
 		});
 	});
 
-}
+})();
+
 // 向后端传递回复参数
 function commentBody(id, type, content) {
 	var jsonData = {
