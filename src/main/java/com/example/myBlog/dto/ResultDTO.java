@@ -11,9 +11,8 @@ public class ResultDTO<T> {
 	private int code;
 	private String message;
 	private T data;
-	
-	
-	public static ResultDTO errorOf(Integer code,String massage) {
+
+	public static ResultDTO errorOf(Integer code, String massage) {
 		ResultDTO resultDTO = new ResultDTO();
 		resultDTO.setCode(code);
 		resultDTO.setMessage(massage);
@@ -21,9 +20,9 @@ public class ResultDTO<T> {
 	}
 
 	public static ResultDTO errorOf(CustomizeErrorCode noLogin) {
-		return errorOf(noLogin.getCode(),noLogin.getMessage());
+		return errorOf(noLogin.getCode(), noLogin.getMessage());
 	}
-	
+
 	public static ResultDTO succesOf() {
 		ResultDTO resultDTO = new ResultDTO();
 		resultDTO.setCode(200);
@@ -32,7 +31,7 @@ public class ResultDTO<T> {
 	}
 
 	public static ResultDTO errorOf(CustomizeExcuption e) {
-		return errorOf(e.getCode(),e.getMessage());
+		return errorOf(e.getCode(), e.getMessage());
 	}
 
 	@SuppressWarnings("unchecked")
@@ -43,5 +42,5 @@ public class ResultDTO<T> {
 		resultDTO.setData(comments);
 		return resultDTO;
 	}
-	
+
 }

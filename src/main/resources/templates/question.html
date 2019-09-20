@@ -65,12 +65,15 @@
 								th:text="${#dates.format(comment.gmtCreate,'yyy-MM-dd HH:mm')}"></span>
 							<span class="glyphicon glyphicon-thumbs-up icon"></span> <span
 								class="glyphicon glyphicon-thumbs-down icon"></span> <span
-								class="icon comment-handle">回复</span> <span
+								class="icon comment-handle" th:data-id="${comment.id}" onclick="collapseComment(this)">回复</span> <span
 								class="icon comment-handle">删除</span>
 						</div>
 						<hr class="comment-hr">
 						<!-- 二级回复 -->
-						<div class="media" th:each="comment:${comments}">
+						<div th:id="${'comment-'+comment.id}">
+						
+						</div>
+						<!-- <div class="media" th:each="comment:${comments}">
 							<div class="media-left">
 								<a href="#"> <img
 									class="media-object img-rounded avatorUrl-second-comment"
@@ -93,7 +96,7 @@
 
 								<hr class="comment-hr">
 							</div>
-						</div>
+						</div> -->
 						<div>
 							<input type="text" class="form-control" placeholder="评论一下。。。" th:id="${'input-'+comment.id}">
 							<button type="button" class="btn btn-success btn-publish" onclick="commentSecond(this)" th:data-id="${comment.id}">评论</button>

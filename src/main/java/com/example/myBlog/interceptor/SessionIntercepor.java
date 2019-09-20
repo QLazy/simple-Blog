@@ -26,20 +26,20 @@ public class SessionIntercepor implements HandlerInterceptor {
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
 		
-//		Cookie[] cookies = request.getCookies();
-//		String token = "";
-//		for(Cookie cookie:cookies) {
-//			if("token".equals(cookie.getName())) {
-//				token = cookie.getValue();
-//			}
-//		}
-//		myUserExample myUserExample = new myUserExample();
-//		myUserExample.createCriteria().andTokenEqualTo(token);
-//		List<myUser> users = userMapper.selectByExample(myUserExample);
-//		if(users.size()==0) {
-//			return false;
-//		}
-//		request.getSession().setAttribute("user", users.get(0));
+		Cookie[] cookies = request.getCookies();
+		String token = "";
+		for(Cookie cookie:cookies) {
+			if("token".equals(cookie.getName())) {
+				token = cookie.getValue();
+			}
+		}
+		myUserExample myUserExample = new myUserExample();
+		myUserExample.createCriteria().andTokenEqualTo(token);
+		List<myUser> users = userMapper.selectByExample(myUserExample);
+		if(users.size()==0) {
+			return false;
+		}
+		request.getSession().setAttribute("user", users.get(0));
 		return true;
 	}
 

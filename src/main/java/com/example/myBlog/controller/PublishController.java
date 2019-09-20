@@ -52,9 +52,9 @@ public class PublishController {
 		myUser user = (myUser) request.getSession().getAttribute("user");
 		myQuestion question = new myQuestion();
 
-//		if(user==null) {
-//			return "redirect:/";
-//		}
+		if(user==null) {
+			return "redirect:/";
+		}
 		
 		model.addAttribute("title", title);
 		model.addAttribute("description", description);

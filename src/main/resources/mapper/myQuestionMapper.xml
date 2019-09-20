@@ -201,7 +201,7 @@
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != 0">
-        #{id,jdbcType=DECIMAL},
+        myQuestion_Id_Seq.Nextval,
       </if>
       <if test="title != null">
         #{title,jdbcType=VARCHAR},

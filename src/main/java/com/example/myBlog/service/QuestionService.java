@@ -38,7 +38,10 @@ public class QuestionService {
 		if (question.getId() == 0) {
 			question.setGmtModified(System.currentTimeMillis());
 			question.setGmtCreate(System.currentTimeMillis());
-			questionMapper.insertSelective(question);
+			question.setLikeCount(0);
+			question.setViewCount(0);
+			question.setCommentCount(0);
+			questionMapper.insert(question);
 		} else {
 			question.setGmtModified(System.currentTimeMillis());
 			myQuestionExample.createCriteria().andIdEqualTo(question.getId());
