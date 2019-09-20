@@ -68,7 +68,7 @@
 								th:text="${#dates.format(comment.gmtCreate,'yyy-MM-dd HH:mm')}"></span>
 							<span class="glyphicon glyphicon-thumbs-up icon"></span> <span
 								class="glyphicon glyphicon-thumbs-down icon"></span> <span
-								class="icon comment-handle" th:data-id="${comment.id}" id="comment-reply">回复</span> <span
+								class="icon comment-handle" th:data-id="${comment.id}" id="comment-reply" th:text="${'回复  '+comment.commentCount}">回复</span> <span
 								class="icon comment-handle">删除</span>
 						</div>
 						<hr class="comment-hr">

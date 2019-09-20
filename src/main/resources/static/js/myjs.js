@@ -53,7 +53,7 @@ function commentSecond(data) {
 			})
 			// 显示评论时间
 			var commentTimeElement = $("<span/>", {
-				"html":moment(comment.gmtCreate).format('YYYY-MM-DD HH:mm')
+				"html" : moment(comment.gmtCreate).format('YYYY-MM-DD HH:mm')
 			})
 			// 显示评论菜单
 			var commentMenuElement = $("<div/>", {
@@ -79,7 +79,7 @@ function commentSecond(data) {
 				"class" : "media-body"
 			}).append(nameAndContentElement).append(commentMenuElement).append(
 					hrElement);
-			//主体
+			// 主体
 			var mediaElement = $("<div/>", {
 				"class" : "media"
 			}).append(mediaLeftElement).append(mediaBodyElement);

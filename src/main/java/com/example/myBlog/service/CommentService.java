@@ -20,6 +20,7 @@ import com.example.myBlog.entity.myUserExample;
 import com.example.myBlog.enums.CommentTypeEnum;
 import com.example.myBlog.excuption.CustomizeErrorCode;
 import com.example.myBlog.excuption.CustomizeExcuption;
+import com.example.myBlog.mapper.MyCommentExtMapper;
 import com.example.myBlog.mapper.MyCommentMapper;
 import com.example.myBlog.mapper.myQuestionExtMapper;
 import com.example.myBlog.mapper.myQuestionMapper;
@@ -31,6 +32,9 @@ public class CommentService {
 	@Autowired
 	private MyCommentMapper commentMapper;
 
+	@Autowired
+	private MyCommentExtMapper commentExtMapper;
+	
 	@Autowired
 	private myQuestionMapper questionMapper;
 
@@ -59,9 +63,14 @@ public class CommentService {
 		if (comment.getParentType() == CommentTypeEnum.COMMENT.getType()) {
 			// 回复评论
 			MyComment dbComment = commentMapper.selectByPrimaryKey(comment.getParentId());
+			//增加回复评论数量显示
 			if (dbComment == null) {
 				throw new CustomizeExcuption(CustomizeErrorCode.COMMENT_NOT_FOUND);
 			}
+//			MyComment myComment = new MyComment();
+//			myComment.setId(dbComment.getParentId());
+			dbComment.setCommentCount(1);
+			commentExtMapper.updateCommentCount(dbComment);
 		} else {
 			// 回复问题
 			myQuestion dbQuestion = questionMapper.selectByPrimaryKey(comment.getParentId());
