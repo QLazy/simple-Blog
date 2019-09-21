@@ -44,7 +44,29 @@
 					<div class="form-group">
 						<label for="tag">添加标签：</label> <input th:value="${tag}"
 							type="text" class="form-control" id="tag" name="tag"
-							placeholder="输入标签，以逗号分隔">
+							autocomplete="off" placeholder="输入标签，以逗号分隔" onclick="showSelectTag()">
+					</div>
+					<div id="select-tag" style="display: none;" class="publish-tag-showTab">
+						<ul class="nav nav-tabs" role="tablist">
+							<li role="presentation" class="active"><a href="#home"
+								aria-controls="home" role="tab" data-toggle="tab">语言</a></li>
+							<li role="presentation"><a href="#profile"
+								aria-controls="profile" role="tab" data-toggle="tab">框架</a></li>
+						</ul>
+						<div class="tab-content">
+							<div role="tabpanel" class="tab-pane active" id="home">
+								<span class="label label-info question-tag"> 
+									<span class="glyphicon glyphicon-tags"></span>
+									<span onclick="selectTag(this)" th:data-tag="Spring">Spring</span>
+								</span>
+							</div>
+							<div role="tabpanel" class="tab-pane" id="profile">
+								<span class="label label-info question-tag"> 
+									<span class="glyphicon glyphicon-tags"></span>
+									<span onclick="selectTag(this)" th:data-tag="Java">Java</span>
+								</span>
+							</div>
+						</div>
 					</div>
 					<div style="float: left;">
 						<span th:text="${error}" class="question-text"></span>
@@ -61,5 +83,7 @@
 			</div>
 		</div>
 	</div>
+	<!-- 自己写的js文件-->
+	<script src="/js/myjs.js" type="text/javascript"></script>
 </body>
 </html>

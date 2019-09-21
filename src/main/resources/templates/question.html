@@ -12,7 +12,6 @@
 <!-- 自己写的css文件 -->
 <link rel="stylesheet" href="/css/mycss.css">
 
-<!-- 引入jQuery.min.js文件，没这个文件下拉按钮失效-->
 <script src="/js/moment.js" type="text/javascript"></script>
 
 <!-- 引入jQuery.min.js文件，没这个文件下拉按钮失效-->
@@ -41,9 +40,8 @@
 				<span th:text="${question.description}"></span>
 				<hr>
 				<div>
-					<span class="label label-info question-tag"
-						th:each="tag : ${question.tag.split('，')}"> <span
-						class="glyphicon glyphicon-tags"></span> <span th:text="${tag}"></span>
+					<span class="label label-info question-tag" th:each="tag : ${question.tag.split('，')}"> 
+						<span class="glyphicon glyphicon-tags"></span> <span th:text="${tag}"></span>
 					</span>
 				</div>
 				<hr>

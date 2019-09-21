@@ -147,3 +147,35 @@ $(function() {
 		}, 200)
 	});
 });
+
+//添加标签
+function selectTag(e){
+	var value = e.getAttribute("data-tag");
+	var tag = $("#tag");
+	if(tag.val().indexOf(value) != -1){
+		
+	}else{
+		if(tag.val()){
+			tag.val(tag.val()+'，'+value);
+		}else{
+			tag.val(value);
+		}
+	}
+}
+
+function showSelectTag(data){
+	$("#select-tag").show();
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
