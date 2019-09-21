@@ -28,4 +28,7 @@
     set COMMENT_COUNT = COMMENT_COUNT+#{commentCount,jdbcType=DECIMAL}
     where  ID = #{id,jdbcType=DECIMAL}
   </update>
+  <select id="selectQuestionByTag" parameterType="com.example.myBlog.entity.myQuestion" resultMap="BaseResultMap">
+    select * from USER_QUESTION WHERE REGEXP_LIKE(tag,#{tag}) AND ID != #{id}
+  </select>
 </mapper>

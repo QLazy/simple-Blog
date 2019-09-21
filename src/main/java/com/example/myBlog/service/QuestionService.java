@@ -2,6 +2,7 @@ package com.example.myBlog.service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.apache.ibatis.session.RowBounds;
 import org.springframework.beans.BeanUtils;
@@ -52,6 +53,7 @@ public class QuestionService {
 		}
 	}
 
+	// 分页查询全部问题
 	public PaginationDTO queryAllQuestion(myUser myuser, int page, int size) {
 		myQuestionExample myQuestionExample = new myQuestionExample();
 		int totalCount = 0;
@@ -96,6 +98,7 @@ public class QuestionService {
 		return paginationDTO;
 	}
 
+	// 通过id查询相应的问题
 	public QuestionDTO queryQuestionById(int id) {
 		myUserExample myUserExample = new myUserExample();
 		QuestionDTO questionDTO = new QuestionDTO();
@@ -116,15 +119,33 @@ public class QuestionService {
 		return questionDTO;
 	}
 
+	// 增加浏览数
 	public void addViewCount(int id) {
 
 		myQuestion question = new myQuestion();
-		
+
 		question.setId(id);
 		question.setViewCount(1);
 
 		questionExtMapper.updateViewCount(question);
 
+	}
+
+	// 根据tag模糊匹配问题
+	public List<QuestionDTO> queryQuestionByTag(QuestionDTO queryDTO) {
+		myQuestion question = new myQuestion();
+		question.setId(queryDTO.getId());
+		// 处理tag
+		String tag = queryDTO.getTag().replaceAll("，", "|");
+		question.setTag(tag);
+		// 查询相关问题
+		List<myQuestion> questions = questionExtMapper.selectQuestionByTag(question);
+		List<QuestionDTO> questionDTOList = questions.stream().map(p -> {
+			QuestionDTO questionDTO = new QuestionDTO();
+			BeanUtils.copyProperties(p, questionDTO);
+			return questionDTO;
+		}).collect(Collectors.toList());
+		return questionDTOList;
 	}
 
 }

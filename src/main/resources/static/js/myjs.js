@@ -68,7 +68,7 @@ function commentSecond(data) {
 			// 显示名字
 			var userNameElement = $("<span/>", {
 				"class" : "media-heading comment-userName",
-				"html" : comment.user.name + '&nbsp; ：'
+				"html" : comment.user.name + '&nbsp; ： &nbsp;'
 			})
 			// 将名字与评论包起来
 			var nameAndContentElement = $("<div/>", {

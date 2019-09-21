@@ -14,6 +14,11 @@ body {
 	margin-bottom: 10px;
 }
 
+.question-crestor-name {
+	margin-top: 13px;
+	margin-left: 10px;
+}
+
 .question-text {
 	color: red;
 	margin-left: 10px;
@@ -98,6 +103,10 @@ body {
 	margin-bottom: 10px;
 	/* 	border-top: #00a1d6; */
 }
+
+.comment-count {
+	padding-top: 10px;
+}
 /* 二级回复  */
 .media-body .media {
 	margin-top: 0;
@@ -105,4 +114,8 @@ body {
 
 .second-commend-body {
 	margin-top: 5px;
+}
+/* 问题标签 */
+.question-tag {
+	margin-right: 5px;
 }

@@ -330,4 +330,13 @@ public class myQuestion {
     public void setTag(String tag) {
         this.tag = tag == null ? null : tag.trim();
     }
+
+	@Override
+	public String toString() {
+		return "myQuestion [id=" + id + ", title=" + title + ", description=" + description + ", gmtCreate=" + gmtCreate
+				+ ", gmtModified=" + gmtModified + ", creator=" + creator + ", viewCount=" + viewCount
+				+ ", commentCount=" + commentCount + ", likeCount=" + likeCount + ", tag=" + tag + "]";
+	}
+    
+    
 }

@@ -21,7 +21,7 @@ public class QuestionController {
 
 	@Autowired
 	private QuestionService questionService;
-	
+
 	@Autowired
 	private CommentService commentService;
 
@@ -30,11 +30,13 @@ public class QuestionController {
 
 		QuestionDTO questionDTO = questionService.queryQuestionById(id);
 
-		List<CommentDTO> comments = commentService.queryCommentByType(id,CommentTypeEnum.QUESTION);
+		List<CommentDTO> comments = commentService.queryCommentByType(id, CommentTypeEnum.QUESTION);
+
+		List<QuestionDTO> releventQuestions = questionService.queryQuestionByTag(questionDTO);
 		
-		//增加浏览数显示
+		// 增加浏览数显示
 		questionService.addViewCount(id);
-		
+		model.addAttribute("releventQuestions", releventQuestions);
 		model.addAttribute("comments", comments);
 		model.addAttribute("question", questionDTO);
 

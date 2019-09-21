@@ -32,14 +32,20 @@
 				<h4>
 					<span th:text="${question.title}"> </span>
 				</h4>
-				<span class="text-desc"> 标签：<span
-					th:text="${question.tag +' |'}"></span> 作者：<span
-					th:text="${question.user.name +' |'}"></span> 发布时间：<span
-					th:text="${#dates.format(question.gmtCreate,'yyyy-MM-dd') +' |'}"></span>
+				<span class="text-desc"> 
+					作者：<span th:text="${question.user.name +' |'}"></span> 
+					发布时间：<span th:text="${#dates.format(question.gmtCreate,'yyyy-MM-dd') +' |'}"></span>
 					阅读数：<span th:text="${question.viewCount}"></span>
 				</span>
 				<hr>
 				<span th:text="${question.description}"></span>
+				<hr>
+				<div>
+					<span class="label label-info question-tag"
+						th:each="tag : ${question.tag.split('，')}"> <span
+						class="glyphicon glyphicon-tags"></span> <span th:text="${tag}"></span>
+					</span>
+				</div>
 				<hr>
 				<a th:href="@{'/publish/'+${question.id}}" class="text-desc"
 					th:if="${session.user!=null && session.user.id==question.creator}">
@@ -48,7 +54,7 @@
 			</div>
 			<!-- 评论内容 -->
 			<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-				<h4>
+				<h4 class="comment-count">
 					<span th:text="${question.commentCount}"></span> 评论
 				</h4>
 				<hr class="comment-hr">
@@ -68,14 +74,13 @@
 								th:text="${#dates.format(comment.gmtCreate,'yyy-MM-dd HH:mm')}"></span>
 							<span class="glyphicon glyphicon-thumbs-up icon"></span> <span
 								class="glyphicon glyphicon-thumbs-down icon"></span> <span
-								class="icon comment-handle" th:data-id="${comment.id}" id="comment-reply" th:text="${'回复  '+comment.commentCount}">回复</span> <span
-								class="icon comment-handle">删除</span>
+								class="icon comment-handle" th:data-id="${comment.id}"
+								id="comment-reply" th:text="${'回复  '+comment.commentCount}">回复</span>
+							<span class="icon comment-handle">删除</span>
 						</div>
 						<hr class="comment-hr">
 						<!-- 二级回复 -->
-						<div th:id="${'comment-'+comment.id}">
-						
-						</div>
+						<div th:id="${'comment-'+comment.id}"></div>
 						<!-- <div class="media" th:each="comment:${comments}">
 							<div class="media-left">
 								<a href="#"> <img
@@ -101,8 +106,10 @@
 							</div>
 						</div> -->
 						<div>
-							<input type="text" class="form-control" placeholder="评论一下。。。" th:id="${'input-'+comment.id}">
-							<button type="button" class="btn btn-success btn-publish" onclick="commentSecond(this)" th:data-id="${comment.id}">评论</button>
+							<input type="text" class="form-control" placeholder="评论一下。。。"
+								th:id="${'input-'+comment.id}">
+							<button type="button" class="btn btn-success btn-publish"
+								onclick="commentSecond(this)" th:data-id="${comment.id}">评论</button>
 						</div>
 					</div>
 				</div>
@@ -137,14 +144,25 @@
 						</a>
 					</div>
 					<div class="media-body">
-						<h4 class="media-heading" th:text="${question.user.name}"></h4>
+						<h4 class="question-crestor-name" th:text="${question.user.name}"></h4>
 					</div>
 				</div>
 				<hr>
 			</div>
-
+			<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+				<h3>站长寄语</h3>
+				<br>
+				魔鬼总是会随心所欲地引用经文
+				<hr>
+			</div>
 			<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 				<h3>相关问题</h3>
+				<ul>
+					<li th:each="relevent:${releventQuestions}">
+						<a th:href="@{'/question/'+${relevent.id}}"
+							th:text="${relevent.title}"></a>
+					</li>
+				</ul>
 			</div>
 		</div>
 	</div>
