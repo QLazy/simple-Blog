@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.example.myBlog.cache.TagCache;
 import com.example.myBlog.dto.QuestionDTO;
 import com.example.myBlog.entity.myQuestion;
 import com.example.myBlog.entity.myUser;
@@ -30,12 +31,14 @@ public class PublishController {
 		model.addAttribute("tag", questionDTO.getTag());
 		model.addAttribute("description", questionDTO.getDescription());
 		model.addAttribute("id", questionDTO.getId());
+		model.addAttribute("tags", TagCache.getTag());
 		
 		return "publish";
 	}
 	
 	@GetMapping("/publish")
-	public String publish() {
+	public String publish(Model model) {
+		model.addAttribute("tags", TagCache.getTag());
 		return "publish";
 	}
 	
@@ -59,7 +62,9 @@ public class PublishController {
 		model.addAttribute("title", title);
 		model.addAttribute("description", description);
 		model.addAttribute("tag", tag);
+		model.addAttribute("tags", TagCache.getTag());
 
+		
 		if (title == null || title.equals("")) {
 			model.addAttribute("error", "* 标题不能为空");
 			return "publish";
@@ -73,11 +78,19 @@ public class PublishController {
 			return "publish";
 		}
 		
+		String invalid = TagCache.filterInvalid(tag);
+		if(!invalid.isBlank()) {
+			model.addAttribute("error", "* 输入了非法标签： "+invalid);
+			return "publish";
+		}
+		
 		question.setTitle(title);
 		question.setTag(tag);
 		question.setCreator(user.getId());
 		question.setDescription(description);
 		question.setId(id);
+		
+		
 		
 		questionService.addOrUpdate(question);
 

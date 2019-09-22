@@ -18,6 +18,19 @@ body {
 	margin-top: 10px;
 }
 
+.tab-content .tab-pane {
+	margin: 10px;
+}
+
+/* 标签集 */
+.tab-content .label-info {
+	font-size: 12px;
+	white-space: normal;
+	display: inline-block;
+	margin: 5px;
+	cursor: pointer;
+}
+
 .question-crestor-name {
 	margin-top: 13px;
 	margin-left: 10px;

@@ -46,24 +46,23 @@
 							type="text" class="form-control" id="tag" name="tag"
 							autocomplete="off" placeholder="输入标签，以逗号分隔" onclick="showSelectTag()">
 					</div>
-					<div id="select-tag" style="display: none;" class="publish-tag-showTab">
+					<div id="select-tag" style="display: none;"
+						class="publish-tag-showTab">
 						<ul class="nav nav-tabs" role="tablist">
-							<li role="presentation" class="active"><a href="#home"
-								aria-controls="home" role="tab" data-toggle="tab">语言</a></li>
-							<li role="presentation"><a href="#profile"
-								aria-controls="profile" role="tab" data-toggle="tab">框架</a></li>
+							<li role="presentation" th:each="tag,tagstat: ${tags}" th:class="${tagstat.first?'active':''}">
+								<a th:href="${'#'+tag.tagCacheName}" aria-controls="home" role="tab"
+								data-toggle="tab" th:text="${tag.tagCacheName}">语言</a>
+							</li>
 						</ul>
 						<div class="tab-content">
-							<div role="tabpanel" class="tab-pane active" id="home">
-								<span class="label label-info question-tag"> 
-									<span class="glyphicon glyphicon-tags"></span>
-									<span onclick="selectTag(this)" th:data-tag="Spring">Spring</span>
-								</span>
-							</div>
-							<div role="tabpanel" class="tab-pane" id="profile">
-								<span class="label label-info question-tag"> 
-									<span class="glyphicon glyphicon-tags"></span>
-									<span onclick="selectTag(this)" th:data-tag="Java">Java</span>
+							<div role="tabpanel" class="tab-pane" th:id="${tag.tagCacheName}"
+								th:each="tag,tagstat: ${tags}"
+								th:class="${tagstat.first?'tab-pane active':'tab-pane'}">
+								<span class="label label-info question-tag"
+									th:each="tagValue : ${tag.tagCacheValue}"
+									onclick="selectTag(this)" th:data-tag="${tagValue}"> <span
+									class="glyphicon glyphicon-tags"></span> <span
+									th:text="${'&nbsp;'+tagValue}"></span>
 								</span>
 							</div>
 						</div>
