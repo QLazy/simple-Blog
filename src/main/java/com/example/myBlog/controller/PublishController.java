@@ -12,8 +12,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.myBlog.cache.TagCache;
 import com.example.myBlog.dto.QuestionDTO;
-import com.example.myBlog.entity.myQuestion;
-import com.example.myBlog.entity.myUser;
+import com.example.myBlog.entity.MyQuestion;
+import com.example.myBlog.entity.MyUser;
 import com.example.myBlog.service.QuestionService;
 
 @Controller
@@ -52,8 +52,8 @@ public class PublishController {
 			HttpServletRequest request, 
 			Model model) {
 
-		myUser user = (myUser) request.getSession().getAttribute("user");
-		myQuestion question = new myQuestion();
+		MyUser user = (MyUser) request.getSession().getAttribute("user");
+		MyQuestion question = new MyQuestion();
 
 		if(user==null) {
 			return "redirect:/";

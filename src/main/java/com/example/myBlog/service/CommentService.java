@@ -14,17 +14,17 @@ import org.springframework.transaction.annotation.Transactional;
 import com.example.myBlog.dto.CommentDTO;
 import com.example.myBlog.entity.MyComment;
 import com.example.myBlog.entity.MyCommentExample;
-import com.example.myBlog.entity.myQuestion;
-import com.example.myBlog.entity.myUser;
-import com.example.myBlog.entity.myUserExample;
+import com.example.myBlog.entity.MyQuestion;
+import com.example.myBlog.entity.MyUser;
+import com.example.myBlog.entity.MyUserExample;
 import com.example.myBlog.enums.CommentTypeEnum;
 import com.example.myBlog.excuption.CustomizeErrorCode;
 import com.example.myBlog.excuption.CustomizeExcuption;
 import com.example.myBlog.mapper.MyCommentExtMapper;
 import com.example.myBlog.mapper.MyCommentMapper;
-import com.example.myBlog.mapper.myQuestionExtMapper;
-import com.example.myBlog.mapper.myQuestionMapper;
-import com.example.myBlog.mapper.myUserMapper;
+import com.example.myBlog.mapper.MyQuestionExtMapper;
+import com.example.myBlog.mapper.MyQuestionMapper;
+import com.example.myBlog.mapper.MyUserMapper;
 
 @Service
 public class CommentService {
@@ -36,13 +36,13 @@ public class CommentService {
 	private MyCommentExtMapper commentExtMapper;
 	
 	@Autowired
-	private myQuestionMapper questionMapper;
+	private MyQuestionMapper questionMapper;
 
 	@Autowired
-	private myQuestionExtMapper questionExtMapper;
+	private MyQuestionExtMapper questionExtMapper;
 
 	@Autowired
-	private myUserMapper userMapper;
+	private MyUserMapper userMapper;
 
 	@Transactional
 	public void insert(MyComment comment) {
@@ -73,7 +73,7 @@ public class CommentService {
 			commentExtMapper.updateCommentCount(dbComment);
 		} else {
 			// 回复问题
-			myQuestion dbQuestion = questionMapper.selectByPrimaryKey(comment.getParentId());
+			MyQuestion dbQuestion = questionMapper.selectByPrimaryKey(comment.getParentId());
 			if (dbQuestion == null) {
 				throw new CustomizeExcuption(CustomizeErrorCode.QUESTION_NOT_FOUND);
 			}
@@ -107,12 +107,12 @@ public class CommentService {
 		}
 		
 		//查询全部评论用户
-		myUserExample userExample = new myUserExample();
+		MyUserExample userExample = new MyUserExample();
 		userExample.createCriteria().andIdIn(userIds);
-		List<myUser> users = userMapper.selectByExample(userExample);
+		List<MyUser> users = userMapper.selectByExample(userExample);
 		
 		//将user对象转化成map
-		Map<Integer, myUser> userMap = users.stream().collect(Collectors.toMap(user -> user.getId(), user -> user));
+		Map<Integer, MyUser> userMap = users.stream().collect(Collectors.toMap(user -> user.getId(), user -> user));
 		
 		//对commentDTO赋值返回list对象
 		List<CommentDTO> commentDTOList = comments.stream().map(comment -> {

@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.myBlog.dto.PaginationDTO;
-import com.example.myBlog.entity.myUser;
+import com.example.myBlog.entity.MyUser;
 import com.example.myBlog.service.QuestionService;
 
 @Controller
@@ -27,10 +27,9 @@ public class PersonController {
 		if ("myQuestions".equals(action)) {
 			model.addAttribute("section", "myQuestions");
 			model.addAttribute("sectionName", "我的提问");
-			myUser myuser = (myUser) request.getSession().getAttribute("user");
+			MyUser myuser = (MyUser) request.getSession().getAttribute("user");
 			if(myuser==null) {
 				return "redirect:/";
-				
 			}
 			PaginationDTO pagination = questionService.queryAllQuestion(myuser, page, size);
 			model.addAttribute("pagination", pagination);

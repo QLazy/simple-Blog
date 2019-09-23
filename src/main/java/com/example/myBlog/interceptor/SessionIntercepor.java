@@ -11,16 +11,16 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.example.myBlog.entity.myUser;
-import com.example.myBlog.entity.myUserExample;
-import com.example.myBlog.mapper.myUserMapper;
+import com.example.myBlog.entity.MyUser;
+import com.example.myBlog.entity.MyUserExample;
+import com.example.myBlog.mapper.MyUserMapper;
 
 @Component
 public class SessionIntercepor implements HandlerInterceptor {
 
 	
 	@Autowired
-	private myUserMapper userMapper;
+	private MyUserMapper userMapper;
 	
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
@@ -33,9 +33,9 @@ public class SessionIntercepor implements HandlerInterceptor {
 				token = cookie.getValue();
 			}
 		}
-		myUserExample myUserExample = new myUserExample();
+		MyUserExample myUserExample = new MyUserExample();
 		myUserExample.createCriteria().andTokenEqualTo(token);
-		List<myUser> users = userMapper.selectByExample(myUserExample);
+		List<MyUser> users = userMapper.selectByExample(myUserExample);
 		if(users.size()==0) {
 			return false;
 		}

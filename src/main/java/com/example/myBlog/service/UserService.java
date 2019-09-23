@@ -8,38 +8,38 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.example.myBlog.entity.myUser;
-import com.example.myBlog.entity.myUserExample;
-import com.example.myBlog.mapper.myUserExtMapper;
-import com.example.myBlog.mapper.myUserMapper;
+import com.example.myBlog.entity.MyUser;
+import com.example.myBlog.entity.MyUserExample;
+import com.example.myBlog.mapper.MyUserExtMapper;
+import com.example.myBlog.mapper.MyUserMapper;
 
 @Service
 public class UserService {
 
 	@Autowired
-	private myUserMapper userMapper;
+	private MyUserMapper userMapper;
 	
 	@Autowired
-	private myUserExtMapper userExtMapper;
+	private MyUserExtMapper userExtMapper;
 
-	private myUserExample myUserExample = new myUserExample();
+	private MyUserExample myUserExample = new MyUserExample();
 
 	// 查询全部的用户
-	public List<myUser> queryAllUser() {
+	public List<MyUser> queryAllUser() {
 		myUserExample.createCriteria().andIdIsNotNull();
-		List<myUser> users = userMapper.selectByExample(myUserExample);
+		List<MyUser> users = userMapper.selectByExample(myUserExample);
 		return users;
 	}
 
 	// 通过ID查询单个用户
-	public myUser queryUserById(int id) {
+	public MyUser queryUserById(int id) {
 		myUserExample.createCriteria().andIdEqualTo(id);
-		List<myUser> myUser = userMapper.selectByExample(myUserExample);
+		List<MyUser> myUser = userMapper.selectByExample(myUserExample);
 		return myUser.get(0);
 	}
 
 	// 通过Token查询用户（用作校验）
-	public myUser queryUserByToken(HttpServletRequest request) {
+	public MyUser queryUserByToken(HttpServletRequest request) {
 		Cookie[] cookies = request.getCookies();
 		String token = "";
 		for (Cookie cookie : cookies) {
@@ -48,12 +48,12 @@ public class UserService {
 			}
 		}
 		myUserExample.createCriteria().andTokenEqualTo(token);
-		List<myUser> users = userMapper.selectByExample(myUserExample);
+		List<MyUser> users = userMapper.selectByExample(myUserExample);
 		return users.get(0);
 	}
 
 	// 增加用户
-	public boolean add(myUser myuser) {
+	public boolean add(MyUser myuser) {
 		if (queryUserById(myuser.getId()) != null) {
 			return false;
 		}
@@ -62,7 +62,7 @@ public class UserService {
 	}
 
 	// 更新用户
-	public boolean update(myUser myuser) {
+	public boolean update(MyUser myuser) {
 		if (queryUserById(myuser.getId()) == null) {
 			return false;
 		}

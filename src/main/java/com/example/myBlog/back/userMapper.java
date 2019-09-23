@@ -9,19 +9,19 @@ import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 
-import com.example.myBlog.entity.myUser;
+import com.example.myBlog.entity.MyUser;
 
 @Mapper
 public interface userMapper {
 	
 	@Select("select * from myuser ")
-	public List<myUser> findAllUser();
+	public List<MyUser> findAllUser();
 	
 	@Select("select * from myuser where id=#{id}")
-	public myUser findUserByID(@Param("id")int id);
+	public MyUser findUserByID(@Param("id")int id);
 	
 	@Select("select * from myuser where token=#{token}")	
-	public myUser findUserByToken(@Param("token")String token);
+	public MyUser findUserByToken(@Param("token")String token);
 	
 	@Select("select * from tab ")
 	public List<String> findAllTable();
@@ -35,7 +35,7 @@ public interface userMapper {
 			+ "#{myuser.token},"
 			+ "#{myuser.avatarUrl}"
 			+ ")")
-	public void insert(@Param("myuser")myUser myuser);
+	public void insert(@Param("myuser")MyUser myuser);
 	
 	@Delete("delete from myuser where id = #{id}")
 	public void delUserById(@Param("id")int id);
@@ -46,5 +46,5 @@ public interface userMapper {
 			+ "age=#{myuser.age},"
 			+ "avatarUrl=#{myuser.avatarUrl} "
 			+ "where id = #{myuser.id}")
-	public void updateUser(@Param("myuser")myUser myuser);
+	public void updateUser(@Param("myuser")MyUser myuser);
 }

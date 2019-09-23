@@ -32,12 +32,12 @@
       <property name="enableSubPackages" value="true"/>
     </javaClientGenerator>
 
-    <table tableName="myuser" domainObjectName="myUser">
+    <table tableName="myuser" domainObjectName="MyUser">
     	<columnOverride column="id" javaType="java.lang.Integer"></columnOverride>
     	<columnOverride column="age" javaType="java.lang.Integer"></columnOverride>
     </table>
     
-    <table tableName="user_question" domainObjectName="myQuestion" >
+    <table tableName="user_question" domainObjectName="MyQuestion" >
     	<columnOverride column="id" javaType="java.lang.Integer"></columnOverride>
     	<columnOverride column="creator" javaType="java.lang.Integer"></columnOverride>
     	<columnOverride column="gmt_Create" javaType="java.lang.Long"></columnOverride>
@@ -55,6 +55,15 @@
     	<columnOverride column="parent_type" javaType="java.lang.Integer"></columnOverride>
     	<columnOverride column="like_Count" javaType="java.lang.Integer"></columnOverride>
     	<columnOverride column="comment_Count" javaType="java.lang.Integer"></columnOverride>
+    </table>
+    <table tableName="notification" domainObjectName="Notification" >
+    	<columnOverride column="id" javaType="java.lang.Integer"></columnOverride>
+    	<columnOverride column="notifier" javaType="java.lang.Integer"></columnOverride>
+    	<columnOverride column="gmt_Create" javaType="java.lang.Long"></columnOverride>
+    	<columnOverride column="receiver" javaType="java.lang.Integer"></columnOverride>
+    	<columnOverride column="outerId" javaType="java.lang.Integer"></columnOverride>
+    	<columnOverride column="type" javaType="java.lang.Integer"></columnOverride>
+    	<columnOverride column="atatues" javaType="java.lang.Integer"></columnOverride>
     </table>
 
   </context>

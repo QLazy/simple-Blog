@@ -11,31 +11,31 @@ import org.springframework.stereotype.Service;
 
 import com.example.myBlog.dto.PaginationDTO;
 import com.example.myBlog.dto.QuestionDTO;
-import com.example.myBlog.entity.myQuestion;
-import com.example.myBlog.entity.myQuestionExample;
-import com.example.myBlog.entity.myUser;
-import com.example.myBlog.entity.myUserExample;
+import com.example.myBlog.entity.MyQuestion;
+import com.example.myBlog.entity.MyQuestionExample;
+import com.example.myBlog.entity.MyUser;
+import com.example.myBlog.entity.MyUserExample;
 import com.example.myBlog.excuption.CustomizeErrorCode;
 import com.example.myBlog.excuption.CustomizeExcuption;
-import com.example.myBlog.mapper.myQuestionExtMapper;
-import com.example.myBlog.mapper.myQuestionMapper;
-import com.example.myBlog.mapper.myUserMapper;
+import com.example.myBlog.mapper.MyQuestionMapper;
+import com.example.myBlog.mapper.MyUserMapper;
+import com.example.myBlog.mapper.MyQuestionExtMapper;
 
 @Service
 public class QuestionService {
 
 	@Autowired
-	private myQuestionMapper questionMapper;
+	private MyQuestionMapper questionMapper;
 
 	@Autowired
-	private myUserMapper userMapper;
+	private MyUserMapper userMapper;
 
 	@Autowired
-	private myQuestionExtMapper questionExtMapper;
+	private MyQuestionExtMapper questionExtMapper;
 
 	// 因为问题不存在重复
-	public void addOrUpdate(myQuestion question) {
-		myQuestionExample myQuestionExample = new myQuestionExample();
+	public void addOrUpdate(MyQuestion question) {
+		MyQuestionExample myQuestionExample = new MyQuestionExample();
 		if (question.getId() == 0) {
 			question.setGmtModified(System.currentTimeMillis());
 			question.setGmtCreate(System.currentTimeMillis());
@@ -54,12 +54,12 @@ public class QuestionService {
 	}
 
 	// 分页查询全部问题
-	public PaginationDTO queryAllQuestion(myUser myuser, int page, int size) {
-		myQuestionExample myQuestionExample = new myQuestionExample();
+	public PaginationDTO queryAllQuestion(MyUser myuser, int page, int size) {
+		MyQuestionExample myQuestionExample = new MyQuestionExample();
 		int totalCount = 0;
 
 		if (myuser == null) {
-			totalCount = (int) questionMapper.countByExample(new myQuestionExample());
+			totalCount = (int) questionMapper.countByExample(new MyQuestionExample());
 		} else {
 			myQuestionExample.createCriteria().andCreatorEqualTo(myuser.getId());
 			totalCount = (int) questionMapper.countByExample(myQuestionExample);
@@ -76,18 +76,18 @@ public class QuestionService {
 
 		//根据问题创建时间倒序显示
 		myQuestionExample.setOrderByClause("gmt_Create desc");
-		List<myQuestion> questions = questionMapper.selectByExampleWithRowbounds(myQuestionExample,
+		List<MyQuestion> questions = questionMapper.selectByExampleWithRowbounds(myQuestionExample,
 				new RowBounds(pageStartData, size));
 		List<QuestionDTO> questionDTOList = new ArrayList<>();
 		PaginationDTO paginationDTO = new PaginationDTO();
 
-		for (myQuestion question : questions) {
+		for (MyQuestion question : questions) {
 
 			QuestionDTO questionDTO = new QuestionDTO();
 
-			myUserExample userExample = new myUserExample();
+			MyUserExample userExample = new MyUserExample();
 			userExample.createCriteria().andIdEqualTo(question.getCreator());
-			List<myUser> users = userMapper.selectByExample(userExample);
+			List<MyUser> users = userMapper.selectByExample(userExample);
 
 			BeanUtils.copyProperties(question, questionDTO);
 			questionDTO.setUser(users.get(0));
@@ -101,10 +101,10 @@ public class QuestionService {
 
 	// 通过id查询相应的问题
 	public QuestionDTO queryQuestionById(int id) {
-		myUserExample myUserExample = new myUserExample();
+		MyUserExample myUserExample = new MyUserExample();
 		QuestionDTO questionDTO = new QuestionDTO();
 
-		myQuestion question = questionMapper.selectByPrimaryKey(id);
+		MyQuestion question = questionMapper.selectByPrimaryKey(id);
 
 		if (question == null) {
 			throw new CustomizeExcuption(CustomizeErrorCode.QUESTION_NOT_FOUND);
@@ -113,7 +113,7 @@ public class QuestionService {
 		BeanUtils.copyProperties(question, questionDTO);
 
 		myUserExample.createCriteria().andIdEqualTo(questionDTO.getCreator());
-		List<myUser> users = userMapper.selectByExample(myUserExample);
+		List<MyUser> users = userMapper.selectByExample(myUserExample);
 
 		questionDTO.setUser(users.get(0));
 
@@ -123,7 +123,7 @@ public class QuestionService {
 	// 增加浏览数
 	public void addViewCount(int id) {
 
-		myQuestion question = new myQuestion();
+		MyQuestion question = new MyQuestion();
 
 		question.setId(id);
 		question.setViewCount(1);
@@ -134,13 +134,13 @@ public class QuestionService {
 
 	// 根据tag模糊匹配问题
 	public List<QuestionDTO> queryQuestionByTag(QuestionDTO queryDTO) {
-		myQuestion question = new myQuestion();
+		MyQuestion question = new MyQuestion();
 		question.setId(queryDTO.getId());
 		// 处理tag
 		String tag = queryDTO.getTag().replaceAll("，", "|");
 		question.setTag(tag);
 		// 查询相关问题
-		List<myQuestion> questions = questionExtMapper.selectQuestionByTag(question);
+		List<MyQuestion> questions = questionExtMapper.selectQuestionByTag(question);
 		List<QuestionDTO> questionDTOList = questions.stream().map(p -> {
 			QuestionDTO questionDTO = new QuestionDTO();
 			BeanUtils.copyProperties(p, questionDTO);

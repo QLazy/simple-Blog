@@ -1,6 +1,6 @@
 package com.example.myBlog.dto;
 
-import com.example.myBlog.entity.myUser;
+import com.example.myBlog.entity.MyUser;
 
 import lombok.Data;
 
@@ -17,5 +17,5 @@ public class QuestionDTO {
 	private Integer viewCount;
 	private Integer commentCount;
 	private Integer likeCount;
-	private myUser user;
+	private MyUser user;
 }

@@ -16,7 +16,7 @@ import com.example.myBlog.dto.CommentCreatorDTO;
 import com.example.myBlog.dto.CommentDTO;
 import com.example.myBlog.dto.ResultDTO;
 import com.example.myBlog.entity.MyComment;
-import com.example.myBlog.entity.myUser;
+import com.example.myBlog.entity.MyUser;
 import com.example.myBlog.enums.CommentTypeEnum;
 import com.example.myBlog.excuption.CustomizeErrorCode;
 import com.example.myBlog.service.CommentService;
@@ -34,7 +34,7 @@ public class CommentController {
 
 		
 		MyComment myComment = new MyComment();
-		myUser user = (myUser) request.getSession().getAttribute("user");
+		MyUser user = (MyUser) request.getSession().getAttribute("user");
 
 		if(user==null) {
 			return ResultDTO.errorOf(CustomizeErrorCode.NO_LOGIN);

@@ -1,6 +1,6 @@
 package com.example.myBlog.dto;
 
-import com.example.myBlog.entity.myUser;
+import com.example.myBlog.entity.MyUser;
 
 import lombok.Data;
 
@@ -16,6 +16,6 @@ public class CommentDTO {
 	private String content;
 	private Long gmtCreate;
 	private Long gmtModified;
-	private myUser user;
+	private MyUser user;
 	
 }
