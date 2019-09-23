@@ -41,18 +41,23 @@
 						<span th:text="${question.description}"></span> <span
 							class="text-desc"> <span th:text="${question.commentCount}"></span>个回复
 							<span th:text="${question.viewCount}"></span>·次浏览 <span
-							th:text="${#dates.format(question.gmtCreate,'dd MMMM yyy')}"></span>
+							th:text="${#dates.format(question.gmtCreate,'yyy-MM-dd HH:mm')}"></span>
 						</span>
 					</div>
 				</div>
 			</div>
 			<div th:if="${section=='myReplies'}">
-				<!-- 个人问题显示 -->
+				<!-- 个人通知显示 -->
 				<div class="media" th:each="notification:${pagination.data}">
 					<div class="media-body">
-						<a th:href="@{'/notification/'+${notification.id}}" th:text="${notification.notifierName+' '+notifocation.type+' '+notification.outerTitle}" style="color:black;"></a>
+						<span th:text="${notification.notifierName+' '+notification.typeName+' '}"></span> 
+						<a th:href="@{'/notification/'+${notification.id}}"
+							th:text="${notification.outerTitle}">
+						</a> 
+						<span class="label label-danger" th:if="${notification.status==0}">未读</span>
+						<br>
 						<span class="text-desc"> 
-							<span th:text="${#dates.format(question.gmtCreate,'dd MMMM yyy')}"></span>
+							<span th:text="${#dates.format(notification.gmtCreate,'yyy-MM-dd HH:mm')}"></span>
 						</span>
 					</div>
 				</div>
@@ -85,7 +90,7 @@
 			<div class="list-group">
 				<a href="/person/myQuestions" th:class="${section=='myQuestions'}?'list-group-item active':'list-group-item'"> 我的提问 </a> 
 				<a href="/person/myReplies" th:class="${section=='myReplies'}?'list-group-item active':'list-group-item'"> 我的回复 
-				<span class="badge" th:text="${unreadCount}"></span>
+					<span class="badge" th:text="${unreadCount}"></span>
 				</a> 
 			</div>
 		</div>

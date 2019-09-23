@@ -38,7 +38,7 @@ public class CommentService {
 
 	@Autowired
 	private MyCommentExtMapper commentExtMapper;
-	
+
 	@Autowired
 	private MyQuestionMapper questionMapper;
 
@@ -47,7 +47,7 @@ public class CommentService {
 
 	@Autowired
 	private MyUserMapper userMapper;
-	
+
 	@Autowired
 	private NotificationExtMapper notificationExtMapper;
 
@@ -70,20 +70,21 @@ public class CommentService {
 		if (comment.getParentType() == CommentTypeEnum.COMMENT.getType()) {
 			// 回复评论
 			MyComment dbComment = commentMapper.selectByPrimaryKey(comment.getParentId());
-			//增加回复评论数量显示
+			// 增加回复评论数量显示
 			if (dbComment == null) {
 				throw new CustomizeExcuption(CustomizeErrorCode.COMMENT_NOT_FOUND);
 			}
 			dbComment.setCommentCount(1);
 			commentExtMapper.updateCommentCount(dbComment);
-			
-			MyQuestion dbQuestion = questionMapper.selectByPrimaryKey(comment.getParentId());
+
+			MyQuestion dbQuestion = questionMapper.selectByPrimaryKey(dbComment.getParentId());
 			if (dbQuestion == null) {
 				throw new CustomizeExcuption(CustomizeErrorCode.QUESTION_NOT_FOUND);
-			}			
-			//创建通知
-			createNotify(comment, dbComment.getCommentator(),dbQuestion.getTitle(),commentator.getName(),NotificationEnum.REPLY_COMMENT);
-			
+			}
+			// 创建通知
+			createNotify(comment, dbComment.getCommentator(), dbQuestion.getTitle(), commentator.getName(),
+					NotificationEnum.REPLY_COMMENT,dbQuestion.getId());
+
 		} else {
 			// 回复问题
 			MyQuestion dbQuestion = questionMapper.selectByPrimaryKey(comment.getParentId());
@@ -92,58 +93,60 @@ public class CommentService {
 			}
 			dbQuestion.setCommentCount(1);
 			questionExtMapper.updateCommentCount(dbQuestion);
-			//创建通知
-			createNotify(comment,dbQuestion.getCreator(),dbQuestion.getTitle(),commentator.getName(),NotificationEnum.REPLY_QUESTION);
+			// 创建通知
+			createNotify(comment, dbQuestion.getCreator(), dbQuestion.getTitle(), commentator.getName(),
+					NotificationEnum.REPLY_QUESTION,dbQuestion.getId());
 		}
 		commentMapper.insertSelective(comment);
-		
+
 	}
 
-	private void createNotify(MyComment comment, int receiver,String outerTitle, String notifierName, NotificationEnum notificationType) {
+	private void createNotify(MyComment comment, int receiver, String outerTitle, String notifierName,
+			NotificationEnum notificationType,int outerId) {
 		Notification notification = new Notification();
 		notification.setGmtCreate(System.currentTimeMillis());
 		notification.setType(notificationType.getType());
 		notification.setStatus(NotificationStatusEnum.UNREAD.getStatus());
-		notification.setOuterId(comment.getParentId());
+		notification.setOuterId(outerId);
 		notification.setNotifier(comment.getCommentator());
 		notification.setReceiver(receiver);
 		notification.setNotifierName(notifierName);
 		notification.setOuterTitle(outerTitle);
-		notificationExtMapper.insertSelective(notification );
+		notificationExtMapper.insert(notification);
 	}
 
-	public List<CommentDTO> queryCommentByType(int id ,CommentTypeEnum type) {
+	public List<CommentDTO> queryCommentByType(int id, CommentTypeEnum type) {
 		List<Integer> userIds = new ArrayList<>();
 
-		//根据问题id查询全部评论
+		// 根据问题id查询全部评论
 		MyCommentExample commentExample = new MyCommentExample();
 		commentExample.createCriteria().andParentIdEqualTo(id).andParentTypeEqualTo(type.getType());
-		if(type == CommentTypeEnum.QUESTION) {
+		if (type == CommentTypeEnum.QUESTION) {
 			commentExample.setOrderByClause("gmt_create desc");
-		}else if(type == CommentTypeEnum.COMMENT) {
+		} else if (type == CommentTypeEnum.COMMENT) {
 			commentExample.setOrderByClause("gmt_create asc");
 		}
 		List<MyComment> comments = commentMapper.selectByExample(commentExample);
 
-		//获取全部评论用户ID，去重
+		// 获取全部评论用户ID，去重
 		Set<Integer> commentator = comments.stream().map(comment -> comment.getCommentator())
 				.collect(Collectors.toSet());
 		userIds.addAll(commentator);
 
-		//判断是否有评论
-		if(userIds.size()==0) {
+		// 判断是否有评论
+		if (userIds.size() == 0) {
 			return new ArrayList<>();
 		}
-		
-		//查询全部评论用户
+
+		// 查询全部评论用户
 		MyUserExample userExample = new MyUserExample();
 		userExample.createCriteria().andIdIn(userIds);
 		List<MyUser> users = userMapper.selectByExample(userExample);
-		
-		//将user对象转化成map
+
+		// 将user对象转化成map
 		Map<Integer, MyUser> userMap = users.stream().collect(Collectors.toMap(user -> user.getId(), user -> user));
-		
-		//对commentDTO赋值返回list对象
+
+		// 对commentDTO赋值返回list对象
 		List<CommentDTO> commentDTOList = comments.stream().map(comment -> {
 			CommentDTO commentDTO = new CommentDTO();
 			BeanUtils.copyProperties(comment, commentDTO);

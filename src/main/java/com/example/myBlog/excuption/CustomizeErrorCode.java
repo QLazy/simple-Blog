@@ -10,7 +10,8 @@ public enum CustomizeErrorCode implements ICustomizeErrorCode {
 	COMMENT_NOT_FOUND(2006,"评论不存在或者已被删除"),
 	COMMENT_NOT_NULL(2007,"不写内容或者回复空格的话别人会看不懂的(｡•́︿•̀｡)"),
 	SERVICE_ERROR(2008,"服务器在烤壁虎了，等我吃吃完φ(>ω<*)"),
-	
+	NOTIFICATION_NOT_FOUND(2009,"对方好像还要斟酌一下(・ω<)"),
+	READ_NOTIFICATION_USER_ERROR(2009,"对方好像还要斟酌一下(・ω<)"),
 	;
 
 	@Override

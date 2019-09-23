@@ -14,6 +14,9 @@ import com.example.myBlog.entity.MyUser;
 import com.example.myBlog.entity.Notification;
 import com.example.myBlog.entity.NotificationExample;
 import com.example.myBlog.enums.NotificationEnum;
+import com.example.myBlog.enums.NotificationStatusEnum;
+import com.example.myBlog.excuption.CustomizeErrorCode;
+import com.example.myBlog.excuption.CustomizeExcuption;
 import com.example.myBlog.mapper.NotificationMapper;
 
 @Service
@@ -61,7 +64,7 @@ public class NotificationService {
 		for (Notification notification : notifications) {
 			NotificationDTO notificationDTO = new NotificationDTO();
 			BeanUtils.copyProperties(notification, notificationDTO);
-			notificationDTO.setType(NotificationEnum.nameOfType(notification.getType()));
+			notificationDTO.setTypeName(NotificationEnum.nameOfType(notification.getType()));
 			notificationDTOs.add(notificationDTO);
 		}
 
@@ -70,10 +73,34 @@ public class NotificationService {
 		return paginationDTO;
 	}
 
+	//统计未读通知数量
 	public int unreadCount(Integer id) {
 		NotificationExample notificationExample = new NotificationExample();
-		notificationExample.createCriteria().andReceiverEqualTo(id);
+		notificationExample.createCriteria().andReceiverEqualTo(id)
+				.andStatusEqualTo(NotificationStatusEnum.UNREAD.getStatus());
 		return (int) notificationMapper.countByExample(notificationExample);
+	}
+
+	public NotificationDTO read(int id, MyUser myUser) {
+
+		Notification notification = notificationMapper.selectByPrimaryKey(id);
+
+		if (notification == null) {
+			throw new CustomizeExcuption(CustomizeErrorCode.NOTIFICATION_NOT_FOUND);
+		}
+
+		if (myUser.getId() != notification.getReceiver()) {
+			throw new CustomizeExcuption(CustomizeErrorCode.READ_NOTIFICATION_USER_ERROR);
+		}
+
+		notification.setStatus(NotificationStatusEnum.READ.getStatus());
+		notificationMapper.updateByPrimaryKey(notification);
+
+		NotificationDTO notificationDTO = new NotificationDTO();
+		BeanUtils.copyProperties(notification, notificationDTO);
+		notificationDTO.setTypeName(NotificationEnum.nameOfType(notification.getType()));
+
+		return notificationDTO;
 	}
 
 }

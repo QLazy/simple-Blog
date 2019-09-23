@@ -15,7 +15,7 @@ CREATE TABLE NOTIFICATION
   )
   ENABLE 
 );
-//创建序列，使用方法Notification_Id_Seq .Nextval
+//创建序列，使用方法Notification_Id_Seq.Nextval
 CREATE SEQUENCE Notification_Id_Seq 
 start with 1 
 increment by 1;

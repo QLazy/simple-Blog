@@ -29,8 +29,6 @@ public class PersonController {
 			@RequestParam(name = "size", defaultValue = "5") int size) {
 
 		MyUser myUser = (MyUser) request.getSession().getAttribute("user");
-		@SuppressWarnings("rawtypes")
-		PaginationDTO pagination = null;
 		if (myUser == null) {
 			return "redirect:/";
 		}
@@ -38,15 +36,17 @@ public class PersonController {
 		if ("myQuestions".equals(action)) {
 			model.addAttribute("section", "myQuestions");
 			model.addAttribute("sectionName", "我的提问");
-			pagination = questionService.queryAllQuestion(myUser, page, size);
+			PaginationDTO pagination = questionService.queryAllQuestion(myUser, page, size);
+			model.addAttribute("pagination", pagination);
 		} else if ("myReplies".equals(action)) {
-			pagination = notificationService.queryAllNotification(myUser, page, size);
-			int unreadCount = notificationService.unreadCount(myUser.getId());
+			PaginationDTO pagination = notificationService.queryAllNotification(myUser, page, size);
 			model.addAttribute("section", "myReplies");
 			model.addAttribute("sectionName", "最新回复");
-			model.addAttribute("unreadCount", unreadCount);
+			model.addAttribute("pagination", pagination);
 		}
-		model.addAttribute("pagination", pagination);
+		int unreadCount = notificationService.unreadCount(myUser.getId());
+		model.addAttribute("unreadCount", unreadCount);
+		
 		return "person";
 	}
 
