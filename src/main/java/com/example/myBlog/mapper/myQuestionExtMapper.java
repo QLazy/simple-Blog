@@ -9,4 +9,6 @@ public interface myQuestionExtMapper {
 	int updateViewCount(myQuestion record);
 	int updateCommentCount(myQuestion record);
 	List<myQuestion> selectQuestionByTag(myQuestion record);
+	int insert(myQuestion record);
+    int insertSelective(myQuestion record);
 }

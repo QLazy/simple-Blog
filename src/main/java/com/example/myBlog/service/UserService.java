@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import com.example.myBlog.entity.myUser;
 import com.example.myBlog.entity.myUserExample;
+import com.example.myBlog.mapper.myUserExtMapper;
 import com.example.myBlog.mapper.myUserMapper;
 
 @Service
@@ -17,6 +18,9 @@ public class UserService {
 
 	@Autowired
 	private myUserMapper userMapper;
+	
+	@Autowired
+	private myUserExtMapper userExtMapper;
 
 	private myUserExample myUserExample = new myUserExample();
 
@@ -53,7 +57,7 @@ public class UserService {
 		if (queryUserById(myuser.getId()) != null) {
 			return false;
 		}
-		userMapper.insertSelective(myuser);
+		userExtMapper.insertSelective(myuser);
 		return true;
 	}
 

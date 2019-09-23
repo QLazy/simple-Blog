@@ -42,7 +42,7 @@ public class QuestionService {
 			question.setLikeCount(0);
 			question.setViewCount(0);
 			question.setCommentCount(0);
-			questionMapper.insert(question);
+			questionExtMapper.insert(question);
 		} else {
 			question.setGmtModified(System.currentTimeMillis());
 			myQuestionExample.createCriteria().andIdEqualTo(question.getId());
@@ -74,7 +74,8 @@ public class QuestionService {
 
 		int pageStartData = size * (page - 1);
 
-		// orcal需要传入的是分页开始的数据点到结束的数据位置，不是MySQL的第几页与每页数据量
+		//根据问题创建时间倒序显示
+		myQuestionExample.setOrderByClause("gmt_Create desc");
 		List<myQuestion> questions = questionMapper.selectByExampleWithRowbounds(myQuestionExample,
 				new RowBounds(pageStartData, size));
 		List<QuestionDTO> questionDTOList = new ArrayList<>();
