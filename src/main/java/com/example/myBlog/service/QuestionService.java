@@ -74,7 +74,7 @@ public class QuestionService {
 
 		int pageStartData = size * (page - 1);
 
-		//根据问题创建时间倒序显示
+		// 根据问题创建时间倒序显示
 		myQuestionExample.setOrderByClause("gmt_Create desc");
 		List<MyQuestion> questions = questionMapper.selectByExampleWithRowbounds(myQuestionExample,
 				new RowBounds(pageStartData, size));
@@ -93,7 +93,7 @@ public class QuestionService {
 			questionDTO.setUser(users.get(0));
 			questionDTOList.add(questionDTO);
 		}
-		paginationDTO.setQuestions(questionDTOList);
+		paginationDTO.setData(questionDTOList);
 		paginationDTO.pagination(totalPages, page);
 
 		return paginationDTO;

@@ -61,9 +61,9 @@
     	<columnOverride column="notifier" javaType="java.lang.Integer"></columnOverride>
     	<columnOverride column="gmt_Create" javaType="java.lang.Long"></columnOverride>
     	<columnOverride column="receiver" javaType="java.lang.Integer"></columnOverride>
-    	<columnOverride column="outerId" javaType="java.lang.Integer"></columnOverride>
+    	<columnOverride column="outer_id" javaType="java.lang.Integer"></columnOverride>
     	<columnOverride column="type" javaType="java.lang.Integer"></columnOverride>
-    	<columnOverride column="atatues" javaType="java.lang.Integer"></columnOverride>
+    	<columnOverride column="status" javaType="java.lang.Integer"></columnOverride>
     </table>
 
   </context>

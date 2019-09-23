@@ -26,22 +26,35 @@
 				<span class="glyphicon glyphicon-list" aria-hidden="true" th:text="${sectionName}"></span>
 			</h2>
 			<hr>
-			<!-- 个人问题显示 -->
-			<div class="media" th:each="question:${pagination.questions}">
-				<div class="media-left">
-					<a th:href="@{'/question/'+${question.id}}"> <img class="media-object avatorUrl"
-						th:src="${question.user.avatarUrl}" >
-					</a>
+			<div th:if="${section=='myQuestions'}">
+				<!-- 个人问题显示 -->
+				<div class="media" th:each="question:${pagination.data}">
+					<div class="media-left">
+						<a th:href="@{'/question/'+${question.id}}"> <img class="media-object avatorUrl"
+							th:src="${question.user.avatarUrl}" >
+						</a>
+					</div>
+					<div class="media-body">
+						<h4 class="media-heading">
+							<a th:href="@{'/question/'+${question.id}}" th:text="${question.title}" style="color:black;"></a>
+						</h4>
+						<span th:text="${question.description}"></span> <span
+							class="text-desc"> <span th:text="${question.commentCount}"></span>个回复
+							<span th:text="${question.viewCount}"></span>·次浏览 <span
+							th:text="${#dates.format(question.gmtCreate,'dd MMMM yyy')}"></span>
+						</span>
+					</div>
 				</div>
-				<div class="media-body">
-					<h4 class="media-heading">
-						<a th:href="@{'/question/'+${question.id}}" th:text="${question.title}" style="color:black;"></a>
-					</h4>
-					<span th:text="${question.description}"></span> <span
-						class="text-desc"> <span th:text="${question.commentCount}"></span>个回复
-						<span th:text="${question.viewCount}"></span>·次浏览 <span
-						th:text="${#dates.format(question.gmtCreate,'dd MMMM yyy')}"></span>
-					</span>
+			</div>
+			<div th:if="${section=='myReplies'}">
+				<!-- 个人问题显示 -->
+				<div class="media" th:each="notification:${pagination.data}">
+					<div class="media-body">
+						<a th:href="@{'/notification/'+${notification.id}}" th:text="${notification.notifierName+' '+notifocation.type+' '+notification.outerTitle}" style="color:black;"></a>
+						<span class="text-desc"> 
+							<span th:text="${#dates.format(question.gmtCreate,'dd MMMM yyy')}"></span>
+						</span>
+					</div>
 				</div>
 			</div>
 			<!-- 分页 -->
@@ -51,19 +64,19 @@
 						aria-label="frist"> <span aria-hidden="true">&lt;&lt;</span>
 					</a></li>
 					<li th:if="${pagination.showPrvious}"><a
-						th:href="@{'/person/myQuestions?page='+${pagination.page-1}}" aria-label="previous">
-							<span aria-hidden="true">&lt;</span>
+						th:href="@{'/person/myQuestions?page='+${pagination.page-1}}"
+						aria-label="previous"> <span aria-hidden="true">&lt;</span>
 					</a></li>
 					<li th:each="page:${pagination.pages}"
 						th:class="${pagination.page==page}?'active':''"><a
 						th:href="@{'/person/myQuestions?page='+${page}}" th:text="${page}"></a></li>
 					<li th:if="${pagination.showNext}"><a
-						th:href="@{'/person/myQuestions?page='+${pagination.page+1}}" aria-label="next">
-							<span aria-hidden="true">&gt;</span>
+						th:href="@{'/person/myQuestions?page='+${pagination.page+1}}"
+						aria-label="next"> <span aria-hidden="true">&gt;</span>
 					</a></li>
 					<li th:if="${pagination.showEndPage}"><a
-						th:href="@{'/person/myQuestions?page='+${pagination.totalPages}}" aria-label="end">
-							<span aria-hidden="true">&gt;&gt;</span>
+						th:href="@{'/person/myQuestions?page='+${pagination.totalPages}}"
+						aria-label="end"> <span aria-hidden="true">&gt;&gt;</span>
 					</a></li>
 				</ul>
 			</nav>
@@ -72,7 +85,7 @@
 			<div class="list-group">
 				<a href="/person/myQuestions" th:class="${section=='myQuestions'}?'list-group-item active':'list-group-item'"> 我的提问 </a> 
 				<a href="/person/myReplies" th:class="${section=='myReplies'}?'list-group-item active':'list-group-item'"> 我的回复 
-				<span class="badge">14</span>
+				<span class="badge" th:text="${unreadCount}"></span>
 				</a> 
 			</div>
 		</div>
