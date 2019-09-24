@@ -22,6 +22,7 @@
 - GitHub项目树状显示插件[Octotree](http://www.cnplugins.com/devtool/octotree/download.html)
 - SQL语句生成[MyBatis Generator](http://www.mybatis.org/generator/index.html)
 - 接口测试软件[Pastman](https://www.getpostman.com/downloads/)
+- 内嵌Markdown编译器 [eidtor.md](http://editor.md.ipandao.com/)
 
 ## 脚本语言
 ```

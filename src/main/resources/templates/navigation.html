@@ -32,7 +32,7 @@
 						<li>
 							<a href="/person/myReplies">
 								<span >通知</span>
-								<span class="badge" th:text="${unreadCount}"></span>
+								<span class="badge" th:text="${session.unreadCount}"></span>
 							</a>
 						</li>
 						<li th:if="${session.user == null}"><a href="/checkUser">登录</a></li>

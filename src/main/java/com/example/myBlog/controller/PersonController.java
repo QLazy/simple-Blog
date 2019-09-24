@@ -44,8 +44,6 @@ public class PersonController {
 			model.addAttribute("sectionName", "最新回复");
 			model.addAttribute("pagination", pagination);
 		}
-		int unreadCount = notificationService.unreadCount(myUser.getId());
-		model.addAttribute("unreadCount", unreadCount);
 		
 		return "person";
 	}

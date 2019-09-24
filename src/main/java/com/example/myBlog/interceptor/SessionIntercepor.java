@@ -14,32 +14,38 @@ import org.springframework.web.servlet.ModelAndView;
 import com.example.myBlog.entity.MyUser;
 import com.example.myBlog.entity.MyUserExample;
 import com.example.myBlog.mapper.MyUserMapper;
+import com.example.myBlog.service.NotificationService;
 
 @Component
 public class SessionIntercepor implements HandlerInterceptor {
 
-	
 	@Autowired
 	private MyUserMapper userMapper;
-	
+
+	@Autowired
+	private NotificationService notificationService;
+
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
-		
+
 		Cookie[] cookies = request.getCookies();
 		String token = "";
-		for(Cookie cookie:cookies) {
-			if("token".equals(cookie.getName())) {
+		for (Cookie cookie : cookies) {
+			if ("token".equals(cookie.getName())) {
 				token = cookie.getValue();
+				MyUserExample myUserExample = new MyUserExample();
+				myUserExample.createCriteria().andTokenEqualTo(token);
+				List<MyUser> users = userMapper.selectByExample(myUserExample);
+				if (users.size() == 0) {
+					return false;
+				} else {
+					request.getSession().setAttribute("user", users.get(0));
+					int unreadCount = notificationService.unreadCount(users.get(0).getId());
+					request.getSession().setAttribute("unreadCount", unreadCount);
+				}
 			}
 		}
-		MyUserExample myUserExample = new MyUserExample();
-		myUserExample.createCriteria().andTokenEqualTo(token);
-		List<MyUser> users = userMapper.selectByExample(myUserExample);
-		if(users.size()==0) {
-			return false;
-		}
-		request.getSession().setAttribute("user", users.get(0));
 		return true;
 	}
 
@@ -54,6 +60,5 @@ public class SessionIntercepor implements HandlerInterceptor {
 			throws Exception {
 		HandlerInterceptor.super.afterCompletion(request, response, handler, ex);
 	}
-	
-	
+
 }

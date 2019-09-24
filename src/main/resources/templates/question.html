@@ -20,6 +20,11 @@
 <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
 <script src="/js/bootstrap.min.js" type="text/javascript"></script>
 
+<!-- 引入Markdown显示 -->
+<link rel="stylesheet" href="/css/editormd.preview.min.css" />
+<script src="/js/editormd.js"></script>
+<script src="/js/lib/marked.min.js"></script>
+<script src="/js/lib/prettify.min.js"></script>
 </head>
 <body>
 	<div th:insert="~{navigation :: nav-top}"></div>
@@ -37,7 +42,10 @@
 					阅读数：<span th:text="${question.viewCount}"></span>
 				</span>
 				<hr>
-				<span th:text="${question.description}"></span>
+				<!-- Markdown显示问题描述 -->
+				<div id="question-description-view">
+					<textarea style="display: none;" th:text="${question.description}"></textarea>
+				</div>
 				<hr>
 				<!-- 标签 -->
 				<div>

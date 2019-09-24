@@ -69,18 +69,18 @@
 						aria-label="frist"> <span aria-hidden="true">&lt;&lt;</span>
 					</a></li>
 					<li th:if="${pagination.showPrvious}"><a
-						th:href="@{'/person/myQuestions?page='+${pagination.page-1}}"
+						th:href="@{'/person/'+${section}+'?page='+${pagination.page-1}}"
 						aria-label="previous"> <span aria-hidden="true">&lt;</span>
 					</a></li>
 					<li th:each="page:${pagination.pages}"
 						th:class="${pagination.page==page}?'active':''"><a
-						th:href="@{'/person/myQuestions?page='+${page}}" th:text="${page}"></a></li>
+						th:href="@{'/person/'+${section}+'?page='+${page}}" th:text="${page}"></a></li>
 					<li th:if="${pagination.showNext}"><a
-						th:href="@{'/person/myQuestions?page='+${pagination.page+1}}"
+						th:href="@{'/person/'+${section}+'?page='+${pagination.page+1}}"
 						aria-label="next"> <span aria-hidden="true">&gt;</span>
 					</a></li>
 					<li th:if="${pagination.showEndPage}"><a
-						th:href="@{'/person/myQuestions?page='+${pagination.totalPages}}"
+						th:href="@{'/person/'+${section}+'?page='+${pagination.totalPages}}"
 						aria-label="end"> <span aria-hidden="true">&gt;&gt;</span>
 					</a></li>
 				</ul>
@@ -90,7 +90,7 @@
 			<div class="list-group">
 				<a href="/person/myQuestions" th:class="${section=='myQuestions'}?'list-group-item active':'list-group-item'"> 我的提问 </a> 
 				<a href="/person/myReplies" th:class="${section=='myReplies'}?'list-group-item active':'list-group-item'"> 我的回复 
-					<span class="badge" th:text="${unreadCount}"></span>
+					<span class="badge" th:text="${session.unreadCount}"></span>
 				</a> 
 			</div>
 		</div>
