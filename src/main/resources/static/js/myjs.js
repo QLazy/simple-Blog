@@ -166,17 +166,4 @@ function selectTag(e) {
 function showSelectTag(data) {
 	$("#select-tag").show();
 }
-// 初始化Markdown编译器
-$(function() {
-	var editor = editormd("question-editor", {
-		width : "100%",
-		height : "350px",
-		watch : false,
-		path : "/js/lib/",
-		placeholder:"请输入问题描述"
-	});
-});
-// 在HTML上显示Markdown
-$(function() {
-	var testView = editormd.markdownToHTML("question-description-view", {});
-});
+

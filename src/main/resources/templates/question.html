@@ -46,6 +46,12 @@
 				<div id="question-description-view">
 					<textarea style="display: none;" th:text="${question.description}"></textarea>
 				</div>
+				<script type="text/javascript">
+					$(function() {
+						var testView = editormd.markdownToHTML(
+								"question-description-view", {});
+					});
+				</script>
 				<hr>
 				<!-- 标签 -->
 				<div>
