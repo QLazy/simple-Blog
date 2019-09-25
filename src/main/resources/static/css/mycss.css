@@ -137,3 +137,10 @@ body {
 .question-tag {
 	margin-right: 5px;
 }
+
+/* 登录与注册页面 */
+.from-sign {
+	margin-left: 30%;
+	margin-right: 40%;
+	margin-top: 100px;
+}

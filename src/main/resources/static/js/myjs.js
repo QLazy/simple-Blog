@@ -16,8 +16,10 @@ function commentSecond(data) {
 	commentBody(id, 2, content);
 }
 // 增加二级评论显示
-(function collapseComment() {
+function collapseComment() {
 	var id = $("#comment-reply").attr("data-id");
+//	$('#comment-reply').attr('id', 'comment-reply-阿萨德');
+//	document.getElementById('comment-reply').setAttribute('id','comment-reply-asd');
 	$.getJSON("/comment/" + id, function(data) {
 		var comments = $("#comment-" + id);
 		$.each(data.data.reverse(), function(index, comment) {
@@ -88,7 +90,7 @@ function commentSecond(data) {
 		});
 	});
 
-})();
+}
 
 // 向后端传递回复参数
 function commentBody(id, type, content) {
@@ -113,10 +115,10 @@ function commentBody(id, type, content) {
 			} else if (parm.code == 2003) {
 				var isAccepted = confirm(parm.message);
 				if (isAccepted) {
-					// window.localtion.replace("登录页面");
-					// window.localStorage.setItem("closeFlag",true);
+					 window.open("http://localhost:8080/checkUser");
+					 window.localStorage.setItem("closeFlag","true");
 				} else {
-					// alert(parm.message);
+					 alert(parm.message);
 				}
 			} else {
 				alert(parm.message);

@@ -17,9 +17,9 @@ import com.example.myBlog.entity.MyUser;
 import com.example.myBlog.entity.MyUserExample;
 import com.example.myBlog.excuption.CustomizeErrorCode;
 import com.example.myBlog.excuption.CustomizeExcuption;
+import com.example.myBlog.mapper.MyQuestionExtMapper;
 import com.example.myBlog.mapper.MyQuestionMapper;
 import com.example.myBlog.mapper.MyUserMapper;
-import com.example.myBlog.mapper.MyQuestionExtMapper;
 
 @Service
 public class QuestionService {
@@ -54,6 +54,7 @@ public class QuestionService {
 	}
 
 	// 分页查询全部问题
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public PaginationDTO queryAllQuestion(MyUser myuser, int page, int size) {
 		MyQuestionExample myQuestionExample = new MyQuestionExample();
 		int totalCount = 0;

@@ -13,6 +13,7 @@ public enum CustomizeErrorCode implements ICustomizeErrorCode {
 	NOTIFICATION_NOT_FOUND(2009,"对方好像还要斟酌一下(・ω<)"),
 	READ_NOTIFICATION_USER_ERROR(2010,"不要偷窥他人隐私哦(╬￣皿￣)=○"),
 	FILE_UPLOAD_FAIL(2011,"文件格式错误或者太大了ﾍ(;´Д｀ﾍ)"),
+	USER_PASSWORD_REPEAT(2012,"密码输错了呢，要不换个昵称重新注册一个（づ￣3￣）づ╭❤～"),
 	;
 
 	@Override
