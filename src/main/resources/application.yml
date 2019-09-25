@@ -1,7 +1,7 @@
 spring:
   datasource:
     driver-class-name: oracle.jdbc.OracleDriver
-    url: jdbc:oracle:thin:@localhost:1521:ORCLE
+    url: jdbc:oracle:thin:@localhost:1521:ORCL
     username: scott
     password: tiger
 mybatis: 
@@ -13,4 +13,7 @@ ucloud:
   ufile: 
     private-key: 60a7fa2b-0998-4ab7-9d21-62e41dfde1a3
     public-key: TOKEN_1bed9846-9d87-44b3-8494-fcef505ad329
-
+    bucket-name: qlazy
+    proxy-suffix: ufileos.com
+    region: cn-bj
+    expires-duration: 315360000

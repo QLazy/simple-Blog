@@ -16,13 +16,15 @@
 
 - 等全部写完再来添加
 
-## 辅助工具
+## 资料
 
 - 前端轮子库[Bootstrap](https://www.bootcss.com/)
 - GitHub项目树状显示插件[Octotree](http://www.cnplugins.com/devtool/octotree/download.html)
 - SQL语句生成[MyBatis Generator](http://www.mybatis.org/generator/index.html)
 - 接口测试软件[Pastman](https://www.getpostman.com/downloads/)
 - 内嵌Markdown编译器 [eidtor.md](http://editor.md.ipandao.com/)
+- [UCloud-sdk](https://github.com/ucloud/ufile-sdk-java)
+- 免费的icon[confont](https://www.iconfont.cn/)
 
 ## 脚本语言
 ```

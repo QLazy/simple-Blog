@@ -12,6 +12,7 @@ public enum CustomizeErrorCode implements ICustomizeErrorCode {
 	SERVICE_ERROR(2008,"服务器在烤壁虎了，等我吃吃完φ(>ω<*)"),
 	NOTIFICATION_NOT_FOUND(2009,"对方好像还要斟酌一下(・ω<)"),
 	READ_NOTIFICATION_USER_ERROR(2010,"不要偷窥他人隐私哦(╬￣皿￣)=○"),
+	FILE_UPLOAD_FAIL(2011,"文件格式错误或者太大了ﾍ(;´Д｀ﾍ)"),
 	;
 
 	@Override
