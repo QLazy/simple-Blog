@@ -32,11 +32,10 @@ public class CommentController {
 	@RequestMapping(path = "/comment", method = RequestMethod.POST)
 	public ResultDTO post(@RequestBody CommentCreatorDTO commentDTO, HttpServletRequest request) {
 
-		
 		MyComment myComment = new MyComment();
 		MyUser user = (MyUser) request.getSession().getAttribute("user");
 
-		if(user==null) {
+		if (user == null) {
 			return ResultDTO.errorOf(CustomizeErrorCode.NO_LOGIN);
 		}
 
@@ -46,12 +45,25 @@ public class CommentController {
 		myComment.setGmtCreate(System.currentTimeMillis());
 		myComment.setGmtModified(System.currentTimeMillis());
 		myComment.setCommentator(user.getId());
-		
-		commentService.insert(myComment,user);
 
-		return ResultDTO.succesOf();
+		commentService.insert(myComment, user);
+
+		return ResultDTO.succesOf("请求成功");
 	}
-	
+
+	@SuppressWarnings("rawtypes")
+	@ResponseBody
+	@RequestMapping(path = "/comment/delect", method = RequestMethod.POST)
+	public ResultDTO delect(@RequestBody CommentCreatorDTO commentDTO, HttpServletRequest request) {
+
+		MyUser user = (MyUser) request.getSession().getAttribute("user");
+		if (user == null) {
+			return ResultDTO.errorOf(CustomizeErrorCode.NO_LOGIN);
+		}
+		commentService.delect(commentDTO);
+		return ResultDTO.succesOf("评论已删除");
+	}
+
 	@SuppressWarnings("unchecked")
 	@ResponseBody
 	@RequestMapping(path = "/comment/{id}", method = RequestMethod.GET)

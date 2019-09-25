@@ -23,10 +23,10 @@ public class ResultDTO<T> {
 		return errorOf(noLogin.getCode(), noLogin.getMessage());
 	}
 
-	public static ResultDTO succesOf() {
+	public static ResultDTO succesOf(String message) {
 		ResultDTO resultDTO = new ResultDTO();
 		resultDTO.setCode(200);
-		resultDTO.setMessage("请求成功");
+		resultDTO.setMessage(message);
 		return resultDTO;
 	}
 

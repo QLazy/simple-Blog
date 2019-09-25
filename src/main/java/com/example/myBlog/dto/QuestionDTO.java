@@ -4,6 +4,7 @@ import com.example.myBlog.entity.MyUser;
 
 import lombok.Data;
 
+
 @Data
 public class QuestionDTO {
 	

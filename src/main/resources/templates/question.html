@@ -30,6 +30,10 @@
 <script src="/js/editormd.js"></script>
 <script src="/js/lib/marked.min.js"></script>
 <script src="/js/lib/prettify.min.js"></script>
+
+<!-- 自己写的js文件-->
+<script src="/js/myjs.js" type="text/javascript"></script>
+
 </head>
 <body>
 	<div th:insert="~{navigation :: nav-top}"></div>
@@ -95,11 +99,15 @@
 							<span class="glyphicon glyphicon-thumbs-up icon"></span> <span
 								class="glyphicon glyphicon-thumbs-down icon"></span> <span
 								class="icon comment-handle" th:data-id="${comment.id}"
-								id="comment-reply" th:text="${'回复  '+comment.commentCount}">回复</span>
-							<span class="icon comment-handle">删除</span>
+								id="comment-reply" th:text="${'回复  '+comment.commentCount}">回复</span> 
+								<span class="icon comment-handle" onclick="delect(this)" th:data-id="${comment.id}"
+								th:data-type="${comment.parentType}" th:data-parentId="${comment.parentId}">删除</span>
 						</div>
 						<hr class="comment-hr">
 						<!-- 二级回复 -->
+						<script type="text/javascript">
+							collapseComment();
+						</script>
 						<div th:id="${'comment-'+comment.id}"></div>
 						<!-- <div class="media" th:each="comment:${comments}">
 							<div class="media-left">
@@ -144,7 +152,7 @@
 						</a>
 					</div>
 					<div class="media-body" id="commentBody">
-						<textarea class="form-control comment" rows="1"
+						<textarea class="form-control comment" rows="1" autocomplete="off"
 							id="commentContent" style="height: 34PX;" placeholder="想对作者说点什么吗"></textarea>
 						<button type="button" class="btn btn-success btn-publish"
 							id="commentSubmit" style="display: none;">评论</button>

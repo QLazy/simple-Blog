@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.example.myBlog.dto.CommentCreatorDTO;
 import com.example.myBlog.dto.CommentDTO;
 import com.example.myBlog.entity.MyComment;
 import com.example.myBlog.entity.MyCommentExample;
@@ -29,8 +30,6 @@ import com.example.myBlog.mapper.MyQuestionExtMapper;
 import com.example.myBlog.mapper.MyQuestionMapper;
 import com.example.myBlog.mapper.MyUserMapper;
 import com.example.myBlog.mapper.NotificationExtMapper;
-
-
 
 @Service
 public class CommentService {
@@ -77,7 +76,7 @@ public class CommentService {
 				throw new CustomizeExcuption(CustomizeErrorCode.COMMENT_NOT_FOUND);
 			}
 			dbComment.setCommentCount(1);
-			commentExtMapper.updateCommentCount(dbComment);
+			commentExtMapper.updateAddCommentCount(dbComment);
 
 			MyQuestion dbQuestion = questionMapper.selectByPrimaryKey(dbComment.getParentId());
 			if (dbQuestion == null) {
@@ -85,7 +84,7 @@ public class CommentService {
 			}
 			// 创建通知
 			createNotify(comment, dbComment.getCommentator(), dbQuestion.getTitle(), commentator.getName(),
-					NotificationEnum.REPLY_COMMENT,dbQuestion.getId());
+					NotificationEnum.REPLY_COMMENT, dbQuestion.getId());
 
 		} else {
 			// 回复问题
@@ -94,17 +93,17 @@ public class CommentService {
 				throw new CustomizeExcuption(CustomizeErrorCode.QUESTION_NOT_FOUND);
 			}
 			dbQuestion.setCommentCount(1);
-			questionExtMapper.updateCommentCount(dbQuestion);
+			questionExtMapper.updateAddCommentCount(dbQuestion);
 			// 创建通知
 			createNotify(comment, dbQuestion.getCreator(), dbQuestion.getTitle(), commentator.getName(),
-					NotificationEnum.REPLY_QUESTION,dbQuestion.getId());
+					NotificationEnum.REPLY_QUESTION, dbQuestion.getId());
 		}
 		commentMapper.insertSelective(comment);
 
 	}
 
 	private void createNotify(MyComment comment, int receiver, String outerTitle, String notifierName,
-			NotificationEnum notificationType,int outerId) {
+			NotificationEnum notificationType, int outerId) {
 		Notification notification = new Notification();
 		notification.setGmtCreate(System.currentTimeMillis());
 		notification.setType(notificationType.getType());
@@ -157,6 +156,27 @@ public class CommentService {
 		}).collect(Collectors.toList());
 
 		return commentDTOList;
+	}
+
+	public void delect(CommentCreatorDTO commentDTO) {
+		int type = commentDTO.getParentType();
+		MyCommentExample commentExample = new MyCommentExample();
+		commentExample.createCriteria().andIdEqualTo(commentDTO.getId()).andParentTypeEqualTo(type);
+		commentMapper.deleteByExample(commentExample);
+		if (type == 1) {
+			MyCommentExample commentExample2 = new MyCommentExample();
+			commentExample2.createCriteria().andParentIdEqualTo(commentDTO.getId()).andParentTypeEqualTo(type+1);
+			commentMapper.deleteByExample(commentExample2);
+			MyQuestion question = new MyQuestion();
+			question.setCommentCount(1);
+			question.setId(commentDTO.getParentId());
+			questionExtMapper.updateDownCommentCount(question);
+			return;
+		}
+		MyComment comment = new MyComment();
+		comment.setCommentCount(1);
+		comment.setId(commentDTO.getParentId());
+		commentExtMapper.updateDownCommentCount(comment);
 	}
 
 }

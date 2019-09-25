@@ -3,5 +3,6 @@ package com.example.myBlog.mapper;
 import com.example.myBlog.entity.MyComment;
 
 public interface MyCommentExtMapper {
-	int updateCommentCount(MyComment record);
+	int updateAddCommentCount(MyComment record);
+	int updateDownCommentCount(MyComment record);
 }

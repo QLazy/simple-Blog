@@ -7,6 +7,7 @@ $(function() {
 		var content = $("#commentContent").val();
 		commentBody(id, 1, content);
 		// clearTimeout(timer);
+		location.reload();
 	});
 });
 // 增加二级回复
@@ -14,12 +15,14 @@ function commentSecond(data) {
 	var id = data.getAttribute("data-id");
 	var content = $("#input-" + id).val();
 	commentBody(id, 2, content);
+	$("#input-" + id).val("");
+	location.reload();
 }
 // 增加二级评论显示
 function collapseComment() {
 	var id = $("#comment-reply").attr("data-id");
-//	$('#comment-reply').attr('id', 'comment-reply-阿萨德');
-//	document.getElementById('comment-reply').setAttribute('id','comment-reply-asd');
+	document.getElementById('comment-reply').setAttribute('id',
+			'comment-reply-' + id);
 	$.getJSON("/comment/" + id, function(data) {
 		var comments = $("#comment-" + id);
 		$.each(data.data.reverse(), function(index, comment) {
@@ -51,7 +54,11 @@ function collapseComment() {
 			})
 			var deleteElement = $("<span/>", {
 				"class" : "icon comment-handle", // 删除按钮
-				"text" : "删除"
+				"text" : "删除",
+				"data-type" : comment.parentType,
+				"data-id" : comment.id,
+				"data-parentId" : comment.parentId,
+				"onclick" : "delect(this)"
 			})
 			// 显示评论时间
 			var commentTimeElement = $("<span/>", {
@@ -115,10 +122,10 @@ function commentBody(id, type, content) {
 			} else if (parm.code == 2003) {
 				var isAccepted = confirm(parm.message);
 				if (isAccepted) {
-					 window.open("http://localhost:8080/checkUser");
-					 window.localStorage.setItem("closeFlag","true");
+					window.open("http://localhost:8080/checkUser");
+					window.localStorage.setItem("closeFlag", "true");
 				} else {
-					 alert(parm.message);
+					alert(parm.message);
 				}
 			} else {
 				alert(parm.message);
@@ -143,8 +150,8 @@ $(function() {
 			if (comment.val() == "" || !isNull.test(comment.val())) {
 				comment.attr("rows", "1");
 				comment.attr("style", "height:34px;");
-				comment.val("");
 				$("#commentSubmit").attr("style", "display:none;");
+				comment.val("");
 			}
 		}, 200)
 	});
@@ -169,3 +176,27 @@ function showSelectTag(data) {
 	$("#select-tag").show();
 }
 
+// 删除相应的评论
+function delect(target) {
+	var id = target.getAttribute("data-id");
+	var type = target.getAttribute("data-type");
+	var parentId = target.getAttribute("data-parentId");
+	var jsonData = {
+		"id" : id,
+		"parentId" : parentId,
+		"parentType" : type,
+		"content" : ""
+	};
+	$.ajax({
+		type : "POST",
+		contentType : "application/json",
+		url : "/comment/delect",
+		data : JSON.stringify(jsonData),
+		dataType : "json",
+		processData : false,
+		success : function(parm) {
+			alert(parm.message);
+		},
+	});
+//	location.reload();
+}

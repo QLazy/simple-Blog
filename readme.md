@@ -37,6 +37,11 @@ mvn install:install-file -Dfile=D:\ojdbc6.jar
 -DartifactId=ojdbc6
 -Dversion=11.2.0.4.0
 -Dpackaging=jar
+
+//lombok安装完后还是无法使用注解，需要将lombok的jar包放入当软件目录下同时在软件目录下的.ini 文件中加入
+-Xbootclasspath/a:lombok.jar
+-javaagent:lombok.jar
+
 ```
 
 ---
