@@ -31,6 +31,9 @@ public class SessionIntercepor implements HandlerInterceptor {
 
 		Cookie[] cookies = request.getCookies();
 		String token = "";
+		if(cookies==null) {
+			return true;
+		}
 		for (Cookie cookie : cookies) {
 			if ("token".equals(cookie.getName())) {
 				token = cookie.getValue();
@@ -38,7 +41,7 @@ public class SessionIntercepor implements HandlerInterceptor {
 				myUserExample.createCriteria().andTokenEqualTo(token);
 				List<MyUser> users = userMapper.selectByExample(myUserExample);
 				if (users.size() == 0) {
-					return false;
+					break;
 				} else {
 					request.getSession().setAttribute("user", users.get(0));
 					int unreadCount = notificationService.unreadCount(users.get(0).getId());
