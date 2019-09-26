@@ -83,8 +83,10 @@ public class CommentService {
 				throw new CustomizeExcuption(CustomizeErrorCode.QUESTION_NOT_FOUND);
 			}
 			// 创建通知
-			createNotify(comment, dbComment.getCommentator(), dbQuestion.getTitle(), commentator.getName(),
-					NotificationEnum.REPLY_COMMENT, dbQuestion.getId());
+			if (dbComment.getCommentator() != commentator.getId()) {
+				createNotify(comment, dbComment.getCommentator(), dbQuestion.getTitle(), commentator.getName(),
+						NotificationEnum.REPLY_COMMENT, dbQuestion.getId());
+			}
 
 		} else {
 			// 回复问题
@@ -95,8 +97,10 @@ public class CommentService {
 			dbQuestion.setCommentCount(1);
 			questionExtMapper.updateAddCommentCount(dbQuestion);
 			// 创建通知
-			createNotify(comment, dbQuestion.getCreator(), dbQuestion.getTitle(), commentator.getName(),
-					NotificationEnum.REPLY_QUESTION, dbQuestion.getId());
+			if (dbQuestion.getCreator() != commentator.getId()) {
+				createNotify(comment, dbQuestion.getCreator(), dbQuestion.getTitle(), commentator.getName(),
+						NotificationEnum.REPLY_QUESTION, dbQuestion.getId());
+			}
 		}
 		commentMapper.insertSelective(comment);
 
@@ -160,23 +164,44 @@ public class CommentService {
 
 	public void delect(CommentCreatorDTO commentDTO) {
 		int type = commentDTO.getParentType();
-		MyCommentExample commentExample = new MyCommentExample();
-		commentExample.createCriteria().andIdEqualTo(commentDTO.getId()).andParentTypeEqualTo(type);
-		commentMapper.deleteByExample(commentExample);
-		if (type == 1) {
-			MyCommentExample commentExample2 = new MyCommentExample();
-			commentExample2.createCriteria().andParentIdEqualTo(commentDTO.getId()).andParentTypeEqualTo(type+1);
-			commentMapper.deleteByExample(commentExample2);
-			MyQuestion question = new MyQuestion();
-			question.setCommentCount(1);
-			question.setId(commentDTO.getParentId());
-			questionExtMapper.updateDownCommentCount(question);
-			return;
+		// 判断需要删除的是评论还是问题
+		if (type != 0) {
+			// 删除评论
+			MyCommentExample commentExample = new MyCommentExample();
+			commentExample.createCriteria().andIdEqualTo(commentDTO.getId()).andParentTypeEqualTo(type);
+			commentMapper.deleteByExample(commentExample);
+			// 如果删除的是一级评论，则同时删除其下的全部二级评论
+			if (type == 1) {
+				MyCommentExample commentExample2 = new MyCommentExample();
+				commentExample2.createCriteria().andParentIdEqualTo(commentDTO.getId()).andParentTypeEqualTo(type + 1);
+				commentMapper.deleteByExample(commentExample2);
+				MyQuestion question = new MyQuestion();
+				question.setCommentCount(1);
+				question.setId(commentDTO.getParentId());
+				questionExtMapper.updateDownCommentCount(question);
+				return;
+			}
+			MyComment comment = new MyComment();
+			comment.setCommentCount(1);
+			comment.setId(commentDTO.getParentId());
+			commentExtMapper.updateDownCommentCount(comment);
+		} else {
+			//删除问题
+			questionMapper.deleteByPrimaryKey(commentDTO.getId());
 		}
+	}
+
+	public MyComment like(CommentCreatorDTO commentDTO) {
+		//增加点赞数
 		MyComment comment = new MyComment();
-		comment.setCommentCount(1);
-		comment.setId(commentDTO.getParentId());
-		commentExtMapper.updateDownCommentCount(comment);
+		comment.setId(commentDTO.getId());
+		comment.setLikeCount(1);
+		commentExtMapper.updateAddLikeCount(comment);
+		
+		//查询点赞数
+		MyComment myComment = commentMapper.selectByPrimaryKey(commentDTO.getId());
+		
+		return myComment;
 	}
 
 }

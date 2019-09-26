@@ -47,6 +47,9 @@ public class NotificationService {
 			page = 1;
 		}
 
+		page = page == 0 ? 1 : page;
+		totalPages = totalPages == 0 ? 1 : totalPages;
+		
 		int pageStartData = size * (page - 1);
 
 		paginationDTO.pagination(totalPages, page);

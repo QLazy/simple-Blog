@@ -94,14 +94,18 @@
 						</div>
 						<div class="comment-content" th:text="${comment.content}">评论内容</div>
 						<div class="comment-menu">
-							<span
-								th:text="${#dates.format(comment.gmtCreate,'yyy-MM-dd HH:mm')}"></span>
-							<span class="glyphicon glyphicon-thumbs-up icon"></span> <span
-								class="glyphicon glyphicon-thumbs-down icon"></span> <span
-								class="icon comment-handle" th:data-id="${comment.id}"
-								id="comment-reply" th:text="${'回复  '+comment.commentCount}">回复</span> 
-								<span class="icon comment-handle" onclick="delect(this)" th:data-id="${comment.id}"
-								th:data-type="${comment.parentType}" th:data-parentId="${comment.parentId}">删除</span>
+							<span th:text="${#dates.format(comment.gmtCreate,'yyy-MM-dd HH:mm')}"></span>
+							<span class="glyphicon glyphicon-thumbs-up icon" th:data-id="${comment.id}"
+								onclick="like(this)" th:text="${comment.likeCount}">
+								喜欢</span>
+<!-- 							<span class="glyphicon glyphicon-thumbs-down icon">厌恶</span> -->
+							<span class="icon comment-handle" th:data-id="${comment.id}" th:data-creator="${comment.commentator}"
+								id="comment-reply" th:data-aa="${session.user.id}" th:text="${'回复  '+comment.commentCount}">
+								回复</span> 
+							<span class="icon comment-handle" onclick="delect(this)" th:data-id="${comment.id}" 
+								th:data-type="${comment.parentType}" th:data-parentId="${comment.parentId}" 
+								th:if="${session.user.id==comment.user.id}">
+								删除</span>
 						</div>
 						<hr class="comment-hr">
 						<!-- 二级回复 -->
@@ -153,16 +157,16 @@
 					</div>
 					<div class="media-body" id="commentBody">
 						<textarea class="form-control comment" rows="1" autocomplete="off"
-							id="commentContent" style="height: 34PX;" placeholder="想对作者说点什么吗"></textarea>
+							id="commentContent" style="height: 34PX;" placeholder="想对作者说点什么吗" onclick="showText()" onblur="closeText()"></textarea>
 						<button type="button" class="btn btn-success btn-publish"
-							id="commentSubmit" style="display: none;">评论</button>
+							id="commentSubmit" style="display: none;" onclick="comment()">评论</button>
 					</div>
 				</div>
 				<input type="hidden" th:value="${question.id}" id="question_id">
 			</div>
 		</div>
 		<!-- 右侧显示栏 -->
-		<div class="col-lg-3 col-md-12 col-sm-12 col-xs-12">
+		<div class="col-lg-3 col-md-12 col-sm-12 col-xs-12 shell-size">
 			<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 				<h3>发起人</h3>
 				<div class="media">
@@ -192,7 +196,5 @@
 			</div>
 		</div>
 	</div>
-	<!-- 自己写的js文件-->
-	<script src="/js/myjs.js" type="text/javascript"></script>
 </body>
 </html>

@@ -33,4 +33,9 @@
 		set COMMENT_COUNT = COMMENT_COUNT-#{commentCount,jdbcType=DECIMAL}
 		where ID = #{id,jdbcType=DECIMAL}
 	</update>
+	<update id="updateAddLikeCount" parameterType="com.example.myBlog.entity.MyComment">
+		update MYCOMMENT
+		set LIKE_COUNT = LIKE_COUNT+#{likeCount,jdbcType=DECIMAL}
+		where ID = #{id,jdbcType=DECIMAL}
+	</update>
 </mapper>

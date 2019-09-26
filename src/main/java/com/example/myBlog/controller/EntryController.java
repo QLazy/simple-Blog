@@ -37,7 +37,6 @@ public class EntryController {
 		user.setName(name);
 		user.setPassword(password);
 		user.setToken(token);
-		user.setAvatarUrl("/images/1.jpg");
 		userService.insert(user);
 		return "redirect:/";
 	}

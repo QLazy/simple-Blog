@@ -51,6 +51,8 @@ public class CommentController {
 		return ResultDTO.succesOf("请求成功");
 	}
 
+	
+	//删除评论
 	@SuppressWarnings("rawtypes")
 	@ResponseBody
 	@RequestMapping(path = "/comment/delect", method = RequestMethod.POST)
@@ -64,6 +66,20 @@ public class CommentController {
 		return ResultDTO.succesOf("评论已删除");
 	}
 
+	//点赞评论
+	@SuppressWarnings("rawtypes")
+	@ResponseBody
+	@RequestMapping(path = "/comment/like", method = RequestMethod.POST)
+	public ResultDTO like(@RequestBody CommentCreatorDTO commentDTO, HttpServletRequest request) {
+
+		MyUser user = (MyUser) request.getSession().getAttribute("user");
+		if (user == null) {
+			return ResultDTO.errorOf(CustomizeErrorCode.NO_LOGIN);
+		}
+		MyComment comment = commentService.like(commentDTO);
+		return ResultDTO.succesOf(comment);
+	}
+	
 	@SuppressWarnings("unchecked")
 	@ResponseBody
 	@RequestMapping(path = "/comment/{id}", method = RequestMethod.GET)

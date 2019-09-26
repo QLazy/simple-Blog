@@ -26,7 +26,7 @@ public class PersonController {
 	@GetMapping("/person/{action}")
 	public String person(@PathVariable("action") String action, Model model, HttpServletRequest request,
 			@RequestParam(name = "page", defaultValue = "1") int page,
-			@RequestParam(name = "size", defaultValue = "5") int size) {
+			@RequestParam(name = "size", defaultValue = "10") int size) {
 
 		MyUser myUser = (MyUser) request.getSession().getAttribute("user");
 		if (myUser == null) {

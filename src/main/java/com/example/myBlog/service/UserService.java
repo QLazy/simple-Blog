@@ -28,6 +28,7 @@ public class UserService {
 		List<MyUser> users = userMapper.selectByExample(userExample);
 		if (users.size()==0) {
 			userExtMapper.insert(user);
+			user.setAvatarUrl("/images/1.jpg");
 		} else if (users.get(0).getPassword().equals(user.getPassword())) {
 			user.setId(users.get(0).getId());
 			userMapper.updateByPrimaryKeySelective(user);
