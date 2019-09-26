@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.ibatis.session.RowBounds;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import com.example.myBlog.dto.PaginationDTO;
 import com.example.myBlog.dto.QuestionDTO;
+import com.example.myBlog.dto.QuestionQueryDTO;
 import com.example.myBlog.entity.MyQuestion;
 import com.example.myBlog.entity.MyQuestionExample;
 import com.example.myBlog.entity.MyUser;
@@ -55,10 +57,15 @@ public class QuestionService {
 
 	// 分页查询全部问题
 	@SuppressWarnings({ "rawtypes", "unchecked" })
-	public PaginationDTO queryAllQuestion(MyUser myuser, int page, int size) {
-		MyQuestionExample myQuestionExample = new MyQuestionExample();
+	public PaginationDTO queryAllQuestion(MyUser myuser,QuestionQueryDTO queryDTO) {
+		int page = queryDTO.getPage();
+		int size = queryDTO.getSize();
+		String search = queryDTO.getSearch();
 		int totalCount = 0;
-
+		if(StringUtils.isNotBlank(search)) {
+			search = search.replaceAll(" ", "|");
+		}
+		MyQuestionExample myQuestionExample = new MyQuestionExample();
 		if (myuser == null) {
 			totalCount = (int) questionMapper.countByExample(new MyQuestionExample());
 		} else {
@@ -79,9 +86,15 @@ public class QuestionService {
 		int pageStartData = size * (page - 1);
 
 		// 根据问题创建时间倒序显示
-		myQuestionExample.setOrderByClause("gmt_Create desc");
-		List<MyQuestion> questions = questionMapper.selectByExampleWithRowbounds(myQuestionExample,
-				new RowBounds(pageStartData, size));
+		List<MyQuestion> questions = null;
+		if(queryDTO.getSearch()!=null) {
+			questions = questionExtMapper.selectBySearch(queryDTO,
+					new RowBounds(pageStartData, size));
+		}else {
+			myQuestionExample.setOrderByClause("gmt_Create desc");
+			questions = questionMapper.selectByExampleWithRowbounds(myQuestionExample,
+					new RowBounds(pageStartData, size));
+		}
 		List<QuestionDTO> questionDTOList = new ArrayList<>();
 		PaginationDTO paginationDTO = new PaginationDTO();
 

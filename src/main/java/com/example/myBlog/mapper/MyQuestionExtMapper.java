@@ -2,6 +2,9 @@ package com.example.myBlog.mapper;
 
 import java.util.List;
 
+import org.apache.ibatis.session.RowBounds;
+
+import com.example.myBlog.dto.QuestionQueryDTO;
 import com.example.myBlog.entity.MyQuestion;
 
 public interface MyQuestionExtMapper {
@@ -10,6 +13,8 @@ public interface MyQuestionExtMapper {
 	int updateAddCommentCount(MyQuestion record);
 	int updateDownCommentCount(MyQuestion record);
 	List<MyQuestion> selectQuestionByTag(MyQuestion record);
+	int selectQuestionBySearch(QuestionQueryDTO record);
+	List<MyQuestion> selectBySearch(QuestionQueryDTO example, RowBounds rowBounds);
 	int insert(MyQuestion record);
     int insertSelective(MyQuestion record);
 }

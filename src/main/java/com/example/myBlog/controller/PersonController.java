@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.myBlog.dto.PaginationDTO;
+import com.example.myBlog.dto.QuestionQueryDTO;
 import com.example.myBlog.entity.MyUser;
 import com.example.myBlog.service.NotificationService;
 import com.example.myBlog.service.QuestionService;
@@ -23,12 +24,23 @@ public class PersonController {
 	@Autowired
 	private NotificationService notificationService;
 
+	/**
+	 * @param action
+	 * @param model
+	 * @param request
+	 * @param page
+	 * @param size
+	 * @return
+	 */
 	@GetMapping("/person/{action}")
 	public String person(@PathVariable("action") String action, Model model, HttpServletRequest request,
 			@RequestParam(name = "page", defaultValue = "1") int page,
 			@RequestParam(name = "size", defaultValue = "10") int size) {
 
 		MyUser myUser = (MyUser) request.getSession().getAttribute("user");
+		QuestionQueryDTO queryDTO = new QuestionQueryDTO();
+		queryDTO.setPage(page);
+		queryDTO.setSize(size);
 		if (myUser == null) {
 			return "redirect:/";
 		}
@@ -36,7 +48,7 @@ public class PersonController {
 		if ("myQuestions".equals(action)) {
 			model.addAttribute("section", "myQuestions");
 			model.addAttribute("sectionName", "我的提问");
-			PaginationDTO pagination = questionService.queryAllQuestion(myUser, page, size);
+			PaginationDTO pagination = questionService.queryAllQuestion(myUser, queryDTO);
 			model.addAttribute("pagination", pagination);
 		} else if ("myReplies".equals(action)) {
 			PaginationDTO pagination = notificationService.queryAllNotification(myUser, page, size);
@@ -44,7 +56,7 @@ public class PersonController {
 			model.addAttribute("sectionName", "最新回复");
 			model.addAttribute("pagination", pagination);
 		}
-		
+
 		return "person";
 	}
 

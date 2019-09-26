@@ -2,6 +2,7 @@
 
 body {
 	background-color: #efefef;
+	background-image: url(/images/background.jpg);
 }
 
 .main {
@@ -9,6 +10,8 @@ body {
 	width: 1170px;
 	margin: auto;
 	border-radius: 10px;
+	margin-top: 39px;
+	margin-bottom: 40px;
 }
 
 .btn-publish {
@@ -176,4 +179,24 @@ body {
 	border-left: 1px solid #efefef;
 	margin-top: 10px;
 	margin-bottom: 10px;
+}
+
+/* 登陆页面样式 */
+.entry-bg {
+	background-color: white;
+	margin: 100px;
+	width: 500px;
+	margin: 3% 30%;
+	border-radius: 30px;
+}
+
+.entry-bg .form-control {
+	width: 60%;
+}
+
+.entry-input {
+	width: 100%;
+	margin-top: 55px;
+	margin-bottom: 40px;
+	margin-left: 47px;
 }

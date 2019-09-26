@@ -43,22 +43,25 @@
 			</h2>
 			<hr>
 			<!-- 问题列表 -->
-			<div class="media" th:each="question:${pagination.data}">
-				<div class="media-left">
-					<a th:href="@{'/question/'+${question.id}}"> <img class="media-object img-rounded avatorUrl"
-						th:src="${question.user.avatarUrl}">
-					</a>
-				</div>
-				<div class="media-body">
-					<h4 class="media-heading" >
-						<a th:href="@{'/question/'+${question.id}}" th:text="${question.title}" style="color:black;"></a>
-					</h4>
-<!-- 					<span th:text="${question.tag}"></span>  -->
-					<span class="text-desc"> 
-						<span th:text="${question.commentCount}"></span>个回复
-						<span th:text="${question.viewCount}"></span>·次浏览 
-						<span th:text="${#dates.format(question.gmtCreate,'yyy-MM-dd')}"></span>
-					</span>
+			<div style="margin-left: 20px;">
+				<div class="media" th:each="question:${pagination.data}">
+					<div class="media-left">
+						<a th:href="@{'/question/'+${question.id}}"> <img class="media-object img-rounded avatorUrl"
+							th:src="${question.user.avatarUrl}">
+						</a>
+					</div>
+					<div class="media-body">
+						<h4 class="media-heading" >
+							<a th:href="@{'/question/'+${question.id}}" th:text="${question.title}" style="color:black;"></a>
+						</h4>
+	<!-- 					<span th:text="${question.tag}"></span>-->
+						<span class="text-desc"> 
+							<span th:text="${question.user.name}"></span> • 
+							<span th:text="${question.commentCount}"></span>个回复 • 
+							<span th:text="${question.viewCount}"></span>次浏览  • 
+							<span th:text="${#dates.format(question.gmtCreate,'yyy-MM-dd')}"></span>
+						</span>
+					</div>
 				</div>
 			</div>
 			<!-- 分页   -->
