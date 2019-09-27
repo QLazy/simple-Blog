@@ -5,9 +5,10 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<div th:fragment="footer">
-		<div>
+	<div th:fragment="footer-time">
+		<div class="footer col-lg-12 col-md-12 col-sm-12 col-xs-12">
 			<b> 
+				本站已存活：
 				<span id="year"></span>年 
 				<span id="day"></span>日
 				<span id="hour"></span>时 
@@ -43,6 +44,11 @@
 				document.getElementById("year").innerHTML = year;
 			}
 		</script>
+	</div>
+	<div th:fragment="footer-body">
+		<div class="footer footer-body col-lg-12 col-md-12 col-sm-12 col-xs-12">
+		Copyright © 2019 浙ICP备18020649号-2 · 服务器赞助: UCloud · All Rights Reserved Powered By QLazy社区
+		</div>
 	</div>
 </body>
 </html>

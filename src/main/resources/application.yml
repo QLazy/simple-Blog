@@ -1,7 +1,7 @@
 spring:
   datasource:
     driver-class-name: oracle.jdbc.OracleDriver
-    url: jdbc:oracle:thin:@localhost:1521:ORCL
+    url: jdbc:oracle:thin:@localhost:1521:ORCLE
     username: scott
     password: tiger
 mybatis: 
@@ -17,3 +17,9 @@ ucloud:
     proxy-suffix: ufileos.com
     region: cn-bj
     expires-duration: 315360000
+logging:
+  file: logs/community.log
+  file.max-history: 30
+  file.max-size: 200MB
+  level:
+    root: info

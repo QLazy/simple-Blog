@@ -12,6 +12,9 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.example.myBlog.excuption.CustomizeErrorCode;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 @Controller
 @RequestMapping("${server.error.path:${error.path:/error}}")
 public class CustomizeErrorController implements ErrorController {
@@ -27,9 +30,11 @@ public class CustomizeErrorController implements ErrorController {
 		HttpStatus status = getStatus(request);
 		
 		if (status.is4xxClientError()) {
+			log.error("CustomizeErrorController -> 4XX error,CLIENT_ERROR");
 			model.addAttribute("message", CustomizeErrorCode.CLIENT_ERROR.getMessage());
 		}
 		if (status.is5xxServerError()) {
+			log.error("CustomizeErrorController -> 5XX error,SERVICE_ERROR");
 			model.addAttribute("message", CustomizeErrorCode.SERVICE_ERROR.getMessage());
 		}
 
@@ -39,6 +44,7 @@ public class CustomizeErrorController implements ErrorController {
 	protected HttpStatus getStatus(HttpServletRequest request) {
 		Integer statusCode = (Integer) request.getAttribute("javax.servlet.error.status_code");
 		if (statusCode == null) {
+			
 			return HttpStatus.INTERNAL_SERVER_ERROR;
 		}
 		try {

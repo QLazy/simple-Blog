@@ -23,6 +23,9 @@ import com.example.myBlog.mapper.MyQuestionExtMapper;
 import com.example.myBlog.mapper.MyQuestionMapper;
 import com.example.myBlog.mapper.MyUserMapper;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 @Service
 public class QuestionService {
 
@@ -50,6 +53,9 @@ public class QuestionService {
 			myQuestionExample.createCriteria().andIdEqualTo(question.getId());
 			int update = questionMapper.updateByExampleSelective(question, myQuestionExample);
 			if (update != 1) {
+				log.error(
+						"QuestionService -> addOrUpdate -> questionMapper.updateByExampleSelective(question, myQuestionExample) error,{}",
+						question);
 				throw new CustomizeExcuption(CustomizeErrorCode.QUESTION_NOT_FOUND);
 			}
 		}
@@ -128,6 +134,7 @@ public class QuestionService {
 		MyQuestion question = questionMapper.selectByPrimaryKey(id);
 
 		if (question == null) {
+			log.error("QuestionService -> queryQuestionById -> questionMapper.selectByPrimaryKey(id) is error,{}", id);
 			throw new CustomizeExcuption(CustomizeErrorCode.QUESTION_NOT_FOUND);
 		}
 

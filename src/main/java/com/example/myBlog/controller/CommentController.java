@@ -21,7 +21,10 @@ import com.example.myBlog.enums.CommentTypeEnum;
 import com.example.myBlog.excuption.CustomizeErrorCode;
 import com.example.myBlog.service.CommentService;
 
+import lombok.extern.slf4j.Slf4j;
+
 @Controller
+@Slf4j
 public class CommentController {
 
 	@Autowired
@@ -36,6 +39,7 @@ public class CommentController {
 		MyUser user = (MyUser) request.getSession().getAttribute("user");
 
 		if (user == null) {
+			log.error("CommentController->post->user is null ,{}",user );
 			return ResultDTO.errorOf(CustomizeErrorCode.NO_LOGIN);
 		}
 

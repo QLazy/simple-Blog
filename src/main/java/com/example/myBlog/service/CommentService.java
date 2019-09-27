@@ -31,7 +31,10 @@ import com.example.myBlog.mapper.MyQuestionMapper;
 import com.example.myBlog.mapper.MyUserMapper;
 import com.example.myBlog.mapper.NotificationExtMapper;
 
+import lombok.extern.slf4j.Slf4j;
+
 @Service
+@Slf4j
 public class CommentService {
 
 	@Autowired
@@ -57,14 +60,17 @@ public class CommentService {
 
 		// 判断id是否为空
 		if (comment.getParentId() == null || comment.getParentId() == 0) {
+			log.error("CommentService -> insert is error ,{}", comment);
 			throw new CustomizeExcuption(CustomizeErrorCode.TARGET_PARAM_NOT_FOUND);
 		}
 		// 判断评论类型是否错误
 		if (comment.getParentType() == null || !CommentTypeEnum.isExist(comment.getParentType())) {
+			log.error("CommentService -> insert is error ,{}", comment);
 			throw new CustomizeExcuption(CustomizeErrorCode.TYPE_PARAM_ERROR);
 		}
 		// 判断评论内容是否为空或全为空格
 		if (comment.getContent().length() == 0) {
+			log.error("CommentService -> insert is error ,{}", comment);
 			throw new CustomizeExcuption(CustomizeErrorCode.COMMENT_NOT_NULL);
 		}
 
@@ -73,6 +79,9 @@ public class CommentService {
 			MyComment dbComment = commentMapper.selectByPrimaryKey(comment.getParentId());
 			// 增加回复评论数量显示
 			if (dbComment == null) {
+				log.error(
+						"CommentService -> insert -> commentMapper.selectByPrimaryKey(comment.getParentId()) is error ,{}",
+						comment);
 				throw new CustomizeExcuption(CustomizeErrorCode.COMMENT_NOT_FOUND);
 			}
 			dbComment.setCommentCount(1);
@@ -80,6 +89,9 @@ public class CommentService {
 
 			MyQuestion dbQuestion = questionMapper.selectByPrimaryKey(dbComment.getParentId());
 			if (dbQuestion == null) {
+				log.error(
+						"CommentService -> insert -> questionMapper.selectByPrimaryKey(dbComment.getParentId()) is error ,{}",
+						dbComment);
 				throw new CustomizeExcuption(CustomizeErrorCode.QUESTION_NOT_FOUND);
 			}
 			// 创建通知
@@ -92,6 +104,9 @@ public class CommentService {
 			// 回复问题
 			MyQuestion dbQuestion = questionMapper.selectByPrimaryKey(comment.getParentId());
 			if (dbQuestion == null) {
+				log.error(
+						"CommentService -> insert -> questionMapper.selectByPrimaryKey(comment.getParentId()) is error ,{}",
+						comment);
 				throw new CustomizeExcuption(CustomizeErrorCode.QUESTION_NOT_FOUND);
 			}
 			dbQuestion.setCommentCount(1);
@@ -186,21 +201,21 @@ public class CommentService {
 			comment.setId(commentDTO.getParentId());
 			commentExtMapper.updateDownCommentCount(comment);
 		} else {
-			//删除问题
+			// 删除问题
 			questionMapper.deleteByPrimaryKey(commentDTO.getId());
 		}
 	}
 
 	public MyComment like(CommentCreatorDTO commentDTO) {
-		//增加点赞数
+		// 增加点赞数
 		MyComment comment = new MyComment();
 		comment.setId(commentDTO.getId());
 		comment.setLikeCount(1);
 		commentExtMapper.updateAddLikeCount(comment);
-		
-		//查询点赞数
+
+		// 查询点赞数
 		MyComment myComment = commentMapper.selectByPrimaryKey(commentDTO.getId());
-		
+
 		return myComment;
 	}
 

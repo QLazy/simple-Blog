@@ -12,6 +12,9 @@ import com.example.myBlog.excuption.CustomizeExcuption;
 import com.example.myBlog.mapper.MyUserExtMapper;
 import com.example.myBlog.mapper.MyUserMapper;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 @Service
 public class UserService {
 
@@ -33,6 +36,7 @@ public class UserService {
 			user.setId(users.get(0).getId());
 			userMapper.updateByPrimaryKeySelective(user);
 		} else {
+			log.error("UserService -> insert -> user.password is fail,{}",user);
 			throw new CustomizeExcuption(CustomizeErrorCode.USER_PASSWORD_REPEAT);
 		}
 
