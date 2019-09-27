@@ -27,6 +27,8 @@ public class IndexController {
 		queryDTO.setPage(page);
 		queryDTO.setSize(size);
 		queryDTO.setSearch(search);
+		request.getSession().setAttribute("search", search);
+		@SuppressWarnings("rawtypes")
 		PaginationDTO pagination = questionService.queryAllQuestion(null,queryDTO);
 		model.addAttribute("pagination", pagination);
 

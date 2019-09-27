@@ -57,17 +57,21 @@ public class QuestionService {
 
 	// 分页查询全部问题
 	@SuppressWarnings({ "rawtypes", "unchecked" })
-	public PaginationDTO queryAllQuestion(MyUser myuser,QuestionQueryDTO queryDTO) {
+	public PaginationDTO queryAllQuestion(MyUser myuser, QuestionQueryDTO queryDTO) {
 		int page = queryDTO.getPage();
 		int size = queryDTO.getSize();
 		String search = queryDTO.getSearch();
 		int totalCount = 0;
-		if(StringUtils.isNotBlank(search)) {
+		if (StringUtils.isNotBlank(search)) {
 			search = search.replaceAll(" ", "|");
 		}
 		MyQuestionExample myQuestionExample = new MyQuestionExample();
 		if (myuser == null) {
-			totalCount = (int) questionMapper.countByExample(new MyQuestionExample());
+			if (StringUtils.isNotBlank(search)) {
+				totalCount = questionExtMapper.countQuestionBySearch(queryDTO);
+			} else {
+				totalCount = (int) questionMapper.countByExample(new MyQuestionExample());
+			}
 		} else {
 			myQuestionExample.createCriteria().andCreatorEqualTo(myuser.getId());
 			totalCount = (int) questionMapper.countByExample(myQuestionExample);
@@ -79,7 +83,7 @@ public class QuestionService {
 		} else if (page < 1) {
 			page = 1;
 		}
-		
+
 		page = page == 0 ? 1 : page;
 		totalPages = totalPages == 0 ? 1 : totalPages;
 
@@ -87,10 +91,10 @@ public class QuestionService {
 
 		// 根据问题创建时间倒序显示
 		List<MyQuestion> questions = null;
-		if(queryDTO.getSearch()!=null) {
-			questions = questionExtMapper.selectBySearch(queryDTO,
-					new RowBounds(pageStartData, size));
-		}else {
+		if (StringUtils.isNotBlank(queryDTO.getSearch())) {
+			queryDTO.setSearch(search);
+			questions = questionExtMapper.selectBySearch(queryDTO);
+		} else {
 			myQuestionExample.setOrderByClause("gmt_Create desc");
 			questions = questionMapper.selectByExampleWithRowbounds(myQuestionExample,
 					new RowBounds(pageStartData, size));

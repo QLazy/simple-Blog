@@ -79,7 +79,7 @@
   <select id="selectQuestionByTag" parameterType="com.example.myBlog.entity.MyQuestion" resultMap="BaseResultMap">
     select * from USER_QUESTION WHERE REGEXP_LIKE(tag,#{tag}) AND ID != #{id}
   </select>
-  <select id="selectQuestionBySearch" parameterType="com.example.myBlog.dto.QuestionQueryDTO" resultType="java.lang.Integer">
+  <select id="countQuestionBySearch" parameterType="com.example.myBlog.dto.QuestionQueryDTO" resultType="java.lang.Integer">
     select count(*) from USER_QUESTION 
     <where>
     	<if test="search != null">
@@ -88,12 +88,7 @@
     </where>
   </select>
   <select id="selectBySearch" parameterType="com.example.myBlog.dto.QuestionQueryDTO" resultMap="BaseResultMap">
-    select
-    <if test="distinct">
-      distinct
-    </if>
-    <include refid="Base_Column_List" />
-    from USER_QUESTION
+    select * from USER_QUESTION
     <where>
     	<if test="search != null">
     		REGEXP_LIKE(title,#{search})

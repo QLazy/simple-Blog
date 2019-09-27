@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<div th:fragment="footer">
+		<div>
+			<b> 
+				<span id="year"></span>年 
+				<span id="day"></span>日
+				<span id="hour"></span>时 
+				<span id="minute"></span>分
+				<span id="second"></span>秒
+			</b>
+		</div>
+		<script>
+			var StarTime = new Date().getTime();
+
+			setInterval(function() {
+				NotRetain();
+			}, 500)
+			function NotRetain() {
+				//不保留小数点
+				var NowTime = parseInt(new Date().getTime() );
+				//秒
+				var time = parseInt((NowTime - StarTime) / 1000)
+				var second = parseInt(time%60);
+				var minute = parseInt((time/60)%60);
+				var hour = parseInt((time/(60*60))%24);
+				var day = parseInt((time/(60*60*24))%365);
+				var year = parseInt(day/365);
+				
+				document.getElementById("second").innerHTML = second;
+				//分
+				document.getElementById("minute").innerHTML = minute;
+				//时
+				document.getElementById("hour").innerHTML = hour;
+				//天
+				document.getElementById("day").innerHTML = day;
+				//年
+				document.getElementById("year").innerHTML = year;
+			}
+		</script>
+	</div>
+</body>
+</html>

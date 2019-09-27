@@ -33,7 +33,7 @@
 	}
 </script>
 
-<body>
+<body class="body-bkackground">
 	<div th:insert="~{navigation :: nav-top}"></div>
 	
 	<div class="row main">
@@ -43,7 +43,7 @@
 			</h2>
 			<hr>
 			<!-- 问题列表 -->
-			<div style="margin-left: 20px;">
+			<div>
 				<div class="media" th:each="question:${pagination.data}">
 					<div class="media-left">
 						<a th:href="@{'/question/'+${question.id}}"> <img class="media-object img-rounded avatorUrl"
@@ -62,27 +62,28 @@
 							<span th:text="${#dates.format(question.gmtCreate,'yyy-MM-dd')}"></span>
 						</span>
 					</div>
+					<hr class="comment-hr">
 				</div>
 			</div>
 			<!-- 分页   -->
 			<nav aria-label="Page navigation pagination">
 				<ul class="pagination">
-					<li th:if="${pagination.showFirstPage}"><a href="/?page=1"
+					<li th:if="${pagination.showFirstPage}"><a th:href="@{/(page=1,search=${session.search})}"
 						aria-label="frist"> <span aria-hidden="true">&lt;&lt;</span>
 					</a></li>
 					<li th:if="${pagination.showPrvious}"><a
-						th:href="@{'/?page='+${pagination.page-1}}" aria-label="Previous">
+						th:href="@{/(page=${pagination.page-1},search=${session.search})}" aria-label="Previous">
 							<span aria-hidden="true">&lt;</span>
 					</a></li>
 					<li th:each="page:${pagination.pages}"
 						th:class="${pagination.page==page}?'active':''"><a
-						th:href="@{'/?page='+${page}}" th:text="${page}"></a></li>
+						th:href="@{/(page=${page},search=${session.search})}" th:text="${page}"></a></li>
 					<li th:if="${pagination.showNext}"><a
-						th:href="@{'/?page='+${pagination.page+1}}" aria-label="Next">
+						th:href="@{/(page=${pagination.page+1},search=${session.search})}" aria-label="Next">
 							<span aria-hidden="true">&gt;</span>
 					</a></li>
 					<li th:if="${pagination.showEndPage}"><a
-						th:href="@{'/?page='+${pagination.totalPages}}" aria-label="end">
+						th:href="@{/(page=${pagination.totalPages},search=${session.search})}" aria-label="end">
 							<span aria-hidden="true">&gt;&gt;</span>
 					</a></li>
 				</ul>
@@ -90,8 +91,9 @@
 		</div>
 		<div class="col-lg-3 col-md-12 col-sm-12 col-xs-12 shell-size">
 			<h3>热门话题</h3>
+			<hr>
 		</div>
 	</div>
-
+	<div th:insert="~{footer :: footer}"></div>
 </body>
 </html>

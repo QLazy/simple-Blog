@@ -13,8 +13,8 @@ public interface MyQuestionExtMapper {
 	int updateAddCommentCount(MyQuestion record);
 	int updateDownCommentCount(MyQuestion record);
 	List<MyQuestion> selectQuestionByTag(MyQuestion record);
-	int selectQuestionBySearch(QuestionQueryDTO record);
-	List<MyQuestion> selectBySearch(QuestionQueryDTO example, RowBounds rowBounds);
+	int countQuestionBySearch(QuestionQueryDTO record);
+	List<MyQuestion> selectBySearch(QuestionQueryDTO example);
 	int insert(MyQuestion record);
     int insertSelective(MyQuestion record);
 }

@@ -2,12 +2,15 @@
 
 body {
 	background-color: #efefef;
+}
+
+.body-bkackground {
 	background-image: url(/images/background.jpg);
 }
 
 .main {
 	background-color: white;
-	width: 1170px;
+	width: 80%;
 	margin: auto;
 	border-radius: 10px;
 	margin-top: 39px;
@@ -34,7 +37,7 @@ body {
 
 /* 页面宽度 */
 .web-size {
-	width: 1170px;
+	width: 80%;
 }
 
 /* 标签集 */
@@ -100,6 +103,11 @@ body {
 	color: #00a1d6;
 }
 
+.media {
+	margin-left: 15px;
+	margin-top: 0;
+}
+
 .comment-handle:hover {
 	color: #00a1d6;
 	background: #e5e9ef;
@@ -150,8 +158,12 @@ body {
 /* 问题标签 */
 .question-tag {
 	margin-right: 5px;
+	background-color: #99cfff;
 }
 
+.question-tag:hover {
+	background-color: deepskyblue;
+}
 /* 登录与注册页面 */
 .from-sign {
 	margin-left: 30%;
@@ -163,7 +175,7 @@ body {
 	text-align: center;
 }
 
-.person-avatar .img-rounded {
+.person-avatar .img-thumbnail {
 	height: 200px;
 	margin-top: 15px;
 }
@@ -199,4 +211,12 @@ body {
 	margin-top: 55px;
 	margin-bottom: 40px;
 	margin-left: 47px;
+}
+
+/* error页面样式 */
+.error-desc {
+	text-align: center;
+	line-height: 50px;
+	margin-top: 100px;
+	padding-right: 25%;
 }
