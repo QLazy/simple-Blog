@@ -47,7 +47,8 @@ public class QuestionService {
 			question.setLikeCount(0);
 			question.setViewCount(0);
 			question.setCommentCount(0);
-			questionExtMapper.insert(question);
+			question.setId(null);
+			questionMapper.insertSelective(question);
 		} else {
 			question.setGmtModified(System.currentTimeMillis());
 			myQuestionExample.createCriteria().andIdEqualTo(question.getId());
@@ -70,6 +71,8 @@ public class QuestionService {
 		int totalCount = 0;
 		if (StringUtils.isNotBlank(search)) {
 			search = search.replaceAll(" ", "|");
+			queryDTO.setSearch(search);
+			
 		}
 		MyQuestionExample myQuestionExample = new MyQuestionExample();
 		if (myuser == null) {
@@ -98,7 +101,7 @@ public class QuestionService {
 		// 根据问题创建时间倒序显示
 		List<MyQuestion> questions = null;
 		if (StringUtils.isNotBlank(queryDTO.getSearch())) {
-			queryDTO.setSearch(search);
+			queryDTO.setPage(pageStartData);
 			questions = questionExtMapper.selectBySearch(queryDTO);
 		} else {
 			myQuestionExample.setOrderByClause("gmt_Create desc");

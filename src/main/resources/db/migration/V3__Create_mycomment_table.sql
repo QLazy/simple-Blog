@@ -1,21 +1,12 @@
-CREATE TABLE MYCOMMENT 
-(
-  ID INT NOT NULL 
-, PARENT_ID INT NOT NULL 
-, PARENT_TYPE INT NOT NULL 
-, COMMENTATOR INT NOT NULL 
-, GMT_CREATE INT NOT NULL 
-, GMT_MODIFIED INT NOT NULL 
-, LIKE_COUNT INT DEFAULT 0 
-, COMMENT_COUNT INT DEFAULT 0 
-, CONTENT VARCHAR2(1024)
-, CONSTRAINT TABLE2_PK PRIMARY KEY 
-  (
-    ID 
-  )
-  ENABLE 
+CREATE TABLE `blog`.`comment`  (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `parent_id` int(11) NOT NULL,
+  `parent_type` int(11) NOT NULL,
+  `commentator` int(11) NOT NULL,
+  `gmt_create` bigint(15) NOT NULL,
+  `gmt_modified` bigint(15) NOT NULL,
+  `like_count` int(11) NOT NULL DEFAULT 0,
+  `comment_count` int(11) NOT NULL DEFAULT 0,
+  `content` varchar(1024) NOT NULL,
+  PRIMARY KEY (`id`)
 );
-//创建序列，使用方法MyComment_Id_Seq.Nextval
-CREATE SEQUENCE MyComment_Id_Seq 
-start with 1 
-increment by 1;

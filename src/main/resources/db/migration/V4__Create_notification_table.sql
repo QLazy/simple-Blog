@@ -1,21 +1,12 @@
-CREATE TABLE NOTIFICATION 
-(
-  ID INT NOT NULL 
-, NOTIFIER INT NOT NULL 
-, RECEIVER INT NOT NULL 
-, OUTER_ID INT NOT NULL 
-, TYPE INT NOT NULL 
-, GMT_CREATE INT NOT NULL 
-, STATUS INT DEFAULT 0 NOT NULL 
-, NOTIFIER_NAME VARCHAR2(20) NOT NULL 
-, OUTER_TITLE VARCHAR2(50) NOT NULL 
-, CONSTRAINT NOTIFICATION_PK PRIMARY KEY 
-  (
-    ID 
-  )
-  ENABLE 
+CREATE TABLE `blog`.`notification`  (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `notifier` int(11) NOT NULL,
+  `receiver` int(11) NOT NULL,
+  `outer_id` int(11) NOT NULL,
+  `type` int(11) NOT NULL,
+  `gmt_create` bigint(15) NOT NULL,
+  `status` int(11) NOT NULL,
+  `notifier_name` varchar(20) NOT NULL,
+  `outer_title` varchar(50) NOT NULL,
+  PRIMARY KEY (`id`)
 );
-//创建序列，使用方法Notification_Id_Seq.Nextval
-CREATE SEQUENCE Notification_Id_Seq 
-start with 1 
-increment by 1;

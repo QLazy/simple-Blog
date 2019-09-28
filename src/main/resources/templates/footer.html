@@ -17,8 +17,24 @@
 			</b>
 		</div>
 		<script>
-			var StarTime = new Date().getTime();
-
+			
+			var StarTime = 0;
+			function getTime(){
+				$.ajax({
+					type : "POST",
+					contentType : "application/json",
+					url : "/time",
+					data : ,
+					dataType : "json",
+					processData : false,
+					success : function(parm) {
+						$(data).text(parm.data.likeCount);
+					},
+				});
+			}
+			
+			StarTime = StarTime==0?new Date().getTime():StarTime;
+			
 			setInterval(function() {
 				NotRetain();
 			}, 500)

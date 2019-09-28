@@ -9,10 +9,10 @@
   
   	<plugin type="org.mybatis.generator.plugins.RowBoundsPlugin"></plugin>
   	
-    <jdbcConnection driverClass="oracle.jdbc.OracleDriver"
-        connectionURL="jdbc:oracle:thin:@localhost:1521:ORCLE"
-        userId="scott"
-        password="tiger">
+    <jdbcConnection driverClass="com.mysql.cj.jdbc.Driver"
+        connectionURL="jdbc:mysql://127.0.0.1:3306/blog?serverTimezone=UTC"
+        userId="root"
+        password="zhouqi">
     </jdbcConnection>
 
     <javaTypeResolver >
@@ -37,33 +37,33 @@
     	<columnOverride column="age" javaType="java.lang.Integer"></columnOverride>
     </table>
     
-    <table tableName="user_question" domainObjectName="MyQuestion" >
-    	<columnOverride column="id" javaType="java.lang.Integer"></columnOverride>
-    	<columnOverride column="creator" javaType="java.lang.Integer"></columnOverride>
-    	<columnOverride column="gmt_Create" javaType="java.lang.Long"></columnOverride>
-    	<columnOverride column="gmt_Modified" javaType="java.lang.Long"></columnOverride>
-    	<columnOverride column="view_Count" javaType="java.lang.Integer"></columnOverride>
-    	<columnOverride column="comment_Count" javaType="java.lang.Integer"></columnOverride>
-    	<columnOverride column="like_Count" javaType="java.lang.Integer"></columnOverride>
+    <table tableName="question" domainObjectName="MyQuestion" >
+<!--     	<columnOverride column="id" javaType="java.lang.Integer"></columnOverride> -->
+<!--     	<columnOverride column="creator" javaType="java.lang.Integer"></columnOverride> -->
+<!--     	<columnOverride column="gmt_Create" javaType="java.lang.Long"></columnOverride> -->
+<!--     	<columnOverride column="gmt_Modified" javaType="java.lang.Long"></columnOverride> -->
+<!--     	<columnOverride column="view_Count" javaType="java.lang.Integer"></columnOverride> -->
+<!--     	<columnOverride column="comment_Count" javaType="java.lang.Integer"></columnOverride> -->
+<!--     	<columnOverride column="like_Count" javaType="java.lang.Integer"></columnOverride> -->
     </table>
-    <table tableName="MyComment" domainObjectName="MyComment" >
-    	<columnOverride column="id" javaType="java.lang.Integer"></columnOverride>
-    	<columnOverride column="parent_Id" javaType="java.lang.Integer"></columnOverride>
-    	<columnOverride column="gmt_Create" javaType="java.lang.Long"></columnOverride>
-    	<columnOverride column="gmt_Modified" javaType="java.lang.Long"></columnOverride>
-    	<columnOverride column="commentator" javaType="java.lang.Integer"></columnOverride>
-    	<columnOverride column="parent_type" javaType="java.lang.Integer"></columnOverride>
-    	<columnOverride column="like_Count" javaType="java.lang.Integer"></columnOverride>
-    	<columnOverride column="comment_Count" javaType="java.lang.Integer"></columnOverride>
+    <table tableName="comment" domainObjectName="MyComment" >
+<!--     	<columnOverride column="id" javaType="java.lang.Integer"></columnOverride> -->
+<!--     	<columnOverride column="parent_Id" javaType="java.lang.Integer"></columnOverride> -->
+<!--     	<columnOverride column="gmt_Create" javaType="java.lang.Long"></columnOverride> -->
+<!--     	<columnOverride column="gmt_Modified" javaType="java.lang.Long"></columnOverride> -->
+<!--     	<columnOverride column="commentator" javaType="java.lang.Integer"></columnOverride> -->
+<!--     	<columnOverride column="parent_type" javaType="java.lang.Integer"></columnOverride> -->
+<!--     	<columnOverride column="like_Count" javaType="java.lang.Integer"></columnOverride> -->
+<!--     	<columnOverride column="comment_Count" javaType="java.lang.Integer"></columnOverride> -->
     </table>
     <table tableName="notification" domainObjectName="Notification" >
-    	<columnOverride column="id" javaType="java.lang.Integer"></columnOverride>
-    	<columnOverride column="notifier" javaType="java.lang.Integer"></columnOverride>
-    	<columnOverride column="gmt_Create" javaType="java.lang.Long"></columnOverride>
-    	<columnOverride column="receiver" javaType="java.lang.Integer"></columnOverride>
-    	<columnOverride column="outer_id" javaType="java.lang.Integer"></columnOverride>
-    	<columnOverride column="type" javaType="java.lang.Integer"></columnOverride>
-    	<columnOverride column="status" javaType="java.lang.Integer"></columnOverride>
+<!--     	<columnOverride column="id" javaType="java.lang.Integer"></columnOverride> -->
+<!--     	<columnOverride column="notifier" javaType="java.lang.Integer"></columnOverride> -->
+<!--     	<columnOverride column="gmt_Create" javaType="java.lang.Long"></columnOverride> -->
+<!--     	<columnOverride column="receiver" javaType="java.lang.Integer"></columnOverride> -->
+<!--     	<columnOverride column="outer_id" javaType="java.lang.Integer"></columnOverride> -->
+<!--     	<columnOverride column="type" javaType="java.lang.Integer"></columnOverride> -->
+<!--     	<columnOverride column="status" javaType="java.lang.Integer"></columnOverride> -->
     </table>
 
   </context>

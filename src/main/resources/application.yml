@@ -1,9 +1,13 @@
 spring:
   datasource:
-    driver-class-name: oracle.jdbc.OracleDriver
-    url: jdbc:oracle:thin:@localhost:1521:ORCLE
-    username: scott
-    password: tiger
+    url: jdbc:mysql://127.0.0.1:3306/blog?serverTimezone=UTC
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: root
+    password: zhouqi
+#    driver-class-name: oracle.jdbc.OracleDriver
+#    url: jdbc:oracle:thin:@localhost:1521:ORCLE
+#    username: scott
+#    password: tiger
 mybatis: 
   configuration:
     map-underscore-to-camel-case: true
@@ -23,3 +27,4 @@ logging:
   file.max-size: 200MB
   level:
     root: info
+    

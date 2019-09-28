@@ -30,12 +30,21 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
-		<!-- 引入Oracle数据库驱动 -->
+
+		<!-- 引入flyway -->
 		<dependency>
-			<groupId>com.oracle</groupId>
-			<artifactId>ojdbc6</artifactId>
-			<version>11.2.0.4.0</version>
+			<groupId>org.flywaydb</groupId>
+			<artifactId>flyway-core</artifactId>
 		</dependency>
+		<!-- 引入MySQL数据库驱动 -->
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+			<version>8.0.17</version>
+		</dependency>
+		<!-- 引入Oracle数据库驱动 -->
+		<!-- <dependency> <groupId>com.oracle</groupId> <artifactId>ojdbc6</artifactId> 
+			<version>11.2.0.4.0</version> </dependency> -->
 		<!-- 引入Thymeleaf -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -150,6 +159,24 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
+			<!-- 引入flyway插件 -->
+			<!-- <plugin> -->
+			<!-- <groupId>org.flywaydb</groupId> -->
+			<!-- <artifactId>flyway-maven-plugin</artifactId> -->
+			<!-- </plugin> -->
+			<plugin>
+				<groupId>org.flywaydb</groupId>
+				<artifactId>flyway-maven-plugin</artifactId>
+				<configuration>
+					<user>root</user>
+					<password>zhouqi</password>
+					<driver>com.mysql.cj.jdbc.Driver</driver>
+					<url>jdbc:mysql://127.0.0.1:3306/blog?serverTimezone=UTC</url>
+					<baselineOnMigrate>true</baselineOnMigrate>
+					<!-- //sql脚本位置，flyway会自动去找到这个目录并且执行里面的sql脚本 -->
+					<locations>classpath:db/migration/</locations>
+				</configuration>
+			</plugin>
 			<plugin>
 				<groupId>org.mybatis.generator</groupId>
 				<artifactId>mybatis-generator-maven-plugin</artifactId>
@@ -165,10 +192,15 @@
 
 				<dependencies>
 					<dependency>
+						<groupId>mysql</groupId>
+						<artifactId>mysql-connector-java</artifactId>
+						<version>8.0.17</version>
+					</dependency>
+					<!-- <dependency>
 						<groupId>com.oracle</groupId>
 						<artifactId>ojdbc6</artifactId>
 						<version>11.2.0.4.0</version>
-					</dependency>
+					</dependency> -->
 					<dependency>
 						<groupId>org.mybatis.generator</groupId>
 						<artifactId>mybatis-generator-core</artifactId>

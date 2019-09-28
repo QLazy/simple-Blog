@@ -25,7 +25,7 @@
 - 内嵌Markdown编译器 [eidtor.md](http://editor.md.ipandao.com/)
 - [UCloud-sdk](https://github.com/ucloud/ufile-sdk-java)
 - 免费的icon[confont](https://www.iconfont.cn/)
-
+- 数据库管理工具[flyway](https://flywaydb.org/)
 ## 脚本语言
 ```
 //配置完MyBatis Generator后的运行语句,右击pom.xml->Run As->Maven Build

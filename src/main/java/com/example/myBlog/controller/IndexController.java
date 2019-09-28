@@ -21,7 +21,7 @@ public class IndexController {
 	@RequestMapping("/")
 	public String index(HttpServletRequest request, Model model,
 			@RequestParam(name = "page", defaultValue = "1") int page,
-			@RequestParam(name = "size", defaultValue = "10") int size,
+			@RequestParam(name = "size", defaultValue = "8") int size,
 			@RequestParam(name = "search", required = false) String search) {
 		QuestionQueryDTO queryDTO = new QuestionQueryDTO();
 		queryDTO.setPage(page);

@@ -29,7 +29,7 @@ import com.example.myBlog.mapper.MyCommentMapper;
 import com.example.myBlog.mapper.MyQuestionExtMapper;
 import com.example.myBlog.mapper.MyQuestionMapper;
 import com.example.myBlog.mapper.MyUserMapper;
-import com.example.myBlog.mapper.NotificationExtMapper;
+import com.example.myBlog.mapper.NotificationMapper;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -53,7 +53,7 @@ public class CommentService {
 	private MyUserMapper userMapper;
 
 	@Autowired
-	private NotificationExtMapper notificationExtMapper;
+	private NotificationMapper notificationMapper;
 
 	@Transactional
 	public void insert(MyComment comment, MyUser commentator) {
@@ -132,7 +132,7 @@ public class CommentService {
 		notification.setReceiver(receiver);
 		notification.setNotifierName(notifierName);
 		notification.setOuterTitle(outerTitle);
-		notificationExtMapper.insert(notification);
+		notificationMapper.insert(notification);
 	}
 
 	public List<CommentDTO> queryCommentByType(int id, CommentTypeEnum type) {
