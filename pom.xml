@@ -173,8 +173,6 @@
 					<driver>com.mysql.cj.jdbc.Driver</driver>
 					<url>jdbc:mysql://10.9.148.16:3306/blog</url>
 					<baselineOnMigrate>true</baselineOnMigrate>
-					<!-- //sql脚本位置，flyway会自动去找到这个目录并且执行里面的sql脚本 -->
-					<locations>classpath:db/migration/</locations>
 				</configuration>
 			</plugin>
 			<plugin>
