@@ -44,6 +44,7 @@ mvn install:install-file -Dfile=D:\ojdbc6.jar
 
 ```
 部署到服务器
+- mvn clean compile flyway:migrate
 - java -jar -Dspring.profiles.active=production target/mall-0.0.1-SNAPSHOT.jar
 
 
