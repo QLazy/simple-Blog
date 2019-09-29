@@ -147,7 +147,7 @@ function commentBody(id, type, content) {
 			} else if (parm.code == 2003) {
 				var isAccepted = confirm(parm.message);
 				if (isAccepted) {
-					window.open("http://localhost:8080/checkUser");
+					window.open("http://"+GetUrlRelativePath()+"/checkUser");
 					window.localStorage.setItem("closeFlag", "true");
 				} else {
 					alert(parm.message);
@@ -157,6 +157,14 @@ function commentBody(id, type, content) {
 			}
 		},
 	});
+}
+
+function GetUrlRelativePath(){
+　　var url = document.location.toString();
+　　var arrUrl = url.split("//");
+
+　　var start = arrUrl[1].split("/");
+　　return start[0];
 }
 
 function showText() {
