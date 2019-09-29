@@ -32,7 +32,7 @@
       <property name="enableSubPackages" value="true"/>
     </javaClientGenerator>
 
-    <table tableName="myuser" domainObjectName="MyUser">
+    <table tableName="myUser" domainObjectName="MyUser">
     	<columnOverride column="id" javaType="java.lang.Integer"></columnOverride>
     	<columnOverride column="age" javaType="java.lang.Integer"></columnOverride>
     </table>
