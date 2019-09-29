@@ -1,4 +1,4 @@
-CREATE TABLE `blog`.`myUser`  (
+CREATE TABLE `blog`.`myuser`  (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(20) NOT NULL,
   `token` varchar(100) NOT NULL,
