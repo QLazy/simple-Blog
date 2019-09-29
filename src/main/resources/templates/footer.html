@@ -16,25 +16,26 @@
 				<span id="second"></span>秒
 			</b>
 		</div>
-		<script>
+		<script type="text/javascript">
 			
 			var StarTime = 0;
 			function getTime(){
+				var jsonData = {
+						"id" : 1
+					};
 				$.ajax({
 					type : "POST",
 					contentType : "application/json",
 					url : "/time",
-					data : ,
+					data : JSON.stringify(jsonData),
 					dataType : "json",
 					processData : false,
 					success : function(parm) {
-						$(data).text(parm.data.likeCount);
+						StarTime = parm.message;
 					},
 				});
 			}
-			
-			StarTime = StarTime==0?new Date().getTime():StarTime;
-			
+			getTime();
 			setInterval(function() {
 				NotRetain();
 			}, 500)
@@ -63,7 +64,7 @@
 	</div>
 	<div th:fragment="footer-body">
 		<div class="footer footer-body col-lg-12 col-md-12 col-sm-12 col-xs-12">
-		Copyright © 2019 浙ICP备18020649号-2 · 服务器赞助: UCloud · All Rights Reserved Powered By QLazy社区
+		Copyright © 2019 浙ICP备000000000000号 · 服务器赞助: UCloud · All Rights Reserved Powered By QLazy社区
 		</div>
 	</div>
 </body>
