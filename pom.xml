@@ -169,9 +169,9 @@
 				<artifactId>flyway-maven-plugin</artifactId>
 				<configuration>
 					<user>root</user>
-					<password>zhouqi</password>
+					<password>QLazy_311228</password>
 					<driver>com.mysql.cj.jdbc.Driver</driver>
-					<url>jdbc:mysql://127.0.0.1:3306/blog?serverTimezone=UTC</url>
+					<url>jdbc:mysql://10.9.148.16:3306/blog</url>
 					<baselineOnMigrate>true</baselineOnMigrate>
 					<!-- //sql脚本位置，flyway会自动去找到这个目录并且执行里面的sql脚本 -->
 					<locations>classpath:db/migration/</locations>
