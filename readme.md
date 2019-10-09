@@ -1,20 +1,6 @@
 ## 简介
 
-这是一个根据Spring Boot制作的简单博客
-
-## 前端技术
-
-- Thymeleaf
-- JQuery
-
-## 后端技术
-
-- Spring Boot
-- Mybatis
-
-## 功能
-
-- 等全部写完再来添加
+这是一个根据Spring Boot制作的简单论坛，基本功能完备，增强功能有待添加
 
 ## 资料
 
@@ -132,3 +118,6 @@ mvn install:install-file -Dfile=D:\ojdbc6.jar
 **2019-9-18更新**
 
 - 增加前端一级评论显示
+
+---
+**将更新内容写到commit中了**

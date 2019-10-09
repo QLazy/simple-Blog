@@ -71,7 +71,6 @@ function collapseComment() {
 			}).append(commentTimeElement).append(likeElement).append(
 					replyElement);
 			// 判断当前用户是否具有删除权限
-			debugger;
 			if (userId == comment.user.id || userId == commentator) {
 				commentMenuElement.append(deleteElement)
 			}
@@ -149,8 +148,6 @@ function commentBody(id, type, content) {
 				if (isAccepted) {
 					window.open("http://"+GetUrlRelativePath()+"/checkUser");
 					window.localStorage.setItem("closeFlag", "true");
-				} else {
-					alert(parm.message);
 				}
 			} else {
 				alert(parm.message);

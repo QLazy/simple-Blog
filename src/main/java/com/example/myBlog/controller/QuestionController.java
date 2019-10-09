@@ -16,6 +16,8 @@ import com.example.myBlog.enums.CommentTypeEnum;
 import com.example.myBlog.service.CommentService;
 import com.example.myBlog.service.QuestionService;
 
+import lombok.extern.slf4j.Slf4j;
+@Slf4j
 @Controller
 public class QuestionController {
 
@@ -27,13 +29,13 @@ public class QuestionController {
 
 	@GetMapping("/question/{id}")
 	public String question(@PathVariable(name = "id") int id, Model model, HttpServletRequest request) {
-
+		log.error("1");
 		QuestionDTO questionDTO = questionService.queryQuestionById(id);
 
 		List<CommentDTO> comments = commentService.queryCommentByType(id, CommentTypeEnum.QUESTION);
 
 		List<QuestionDTO> releventQuestions = questionService.queryQuestionByTag(questionDTO);
-		
+		log.error("2");
 		// 增加浏览数显示
 		questionService.addViewCount(id);
 		model.addAttribute("releventQuestions", releventQuestions);

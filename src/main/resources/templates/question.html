@@ -100,11 +100,11 @@
 								喜欢</span>
 <!-- 							<span class="glyphicon glyphicon-thumbs-down icon">厌恶</span> -->
 							<span class="icon comment-handle" th:data-id="${comment.id}" th:data-creator="${comment.commentator}"
-								id="comment-reply" th:data-aa="${session.user.id}" th:text="${'回复  '+comment.commentCount}">
+								id="comment-reply" th:text="${'回复  '+comment.commentCount}">
 								回复</span> 
 							<span class="icon comment-handle" onclick="delect(this)" th:data-id="${comment.id}" 
 								th:data-type="${comment.parentType}" th:data-parentId="${comment.parentId}" 
-								th:if="${session.user.id==comment.user.id}">
+								th:if="${session.user!=null && session.user.id==comment.user.id}">
 								删除</span>
 						</div>
 						<hr class="comment-hr">
